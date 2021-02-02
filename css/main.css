@@ -1194,7 +1194,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #ff3e5d;
+  background: #1bb1ff;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2834,4 +2834,8 @@ div.headband {
   font-size: 15px;
   box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.35);
   background-image: linear-gradient(90deg, #a166ab 0%, #ef4e7b 25%, #f37055 50%, #ef4e7b 75%, #a166ab 100%);
+}
+a,
+span.exturl {
+  border-bottom: none;
 }
