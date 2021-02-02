@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: skyblue; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<script>
+    (function () {
+        if (``) {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://cn.yangkaiwen.tk"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"cn.yangkaiwen.tk","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":300,"display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":5},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Jquery基本使用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习jquery">
+<meta property="og:url" content="https://cn.yangkaiwen.tk/2020/11/02/%E5%AD%A6%E4%B9%A0jquery/index.html">
+<meta property="og:site_name" content="kevinのBlog">
+<meta property="og:description" content="Jquery基本使用">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-11-02T12:44:05.000Z">
+<meta property="article:modified_time" content="2021-02-02T13:47:19.943Z">
+<meta property="article:author" content="kevin">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="jQuery">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://cn.yangkaiwen.tk/2020/11/02/%E5%AD%A6%E4%B9%A0jquery/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>学习jquery | kevinのBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kevinのBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录生活中的点点滴滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">10</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线<span class="badge">12</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cn.yangkaiwen.tk/2020/11/02/%E5%AD%A6%E4%B9%A0jquery/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="kevin">
+      <meta itemprop="description" content="纵有疾风起，人生不言弃">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kevinのBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          学习jquery
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-02 20:44:05" itemprop="dateCreated datePublished" datetime="2020-11-02T20:44:05+08:00">2020-11-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-02 21:47:19" itemprop="dateModified" datetime="2021-02-02T21:47:19+08:00">2021-02-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/Jquery/" itemprop="url" rel="index"><span itemprop="name">Jquery</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/11/02/%E5%AD%A6%E4%B9%A0jquery/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/11/02/学习jquery/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+            <div class="post-description">Jquery基本使用</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h2><a id="more"></a>
+<blockquote>
+<p>学习目标：</p>
+<p>能够说出4种常见的注册事件<br>能够说出 on 绑定事件的优势<br>能够说出 jQuery 事件委派的优点以及方式<br>能够说出绑定事件与解绑事件<br>能够说出 jQuery 对象的拷贝方法<br>能够说出 jQuery 多库共存的2种方法<br>能够使用 jQuery 插件</p>
+</blockquote>
+<h2 id="1-1-jQuery-事件注册"><a href="#1-1-jQuery-事件注册" class="headerlink" title="1.1. jQuery 事件注册"></a>1.1. jQuery 事件注册</h2><p>​    jQuery 为我们提供了方便的事件注册机制，是开发人员抑郁操作优缺点如下：</p>
+<ul>
+<li>优点: 操作简单，且不用担心事件覆盖等问题。</li>
+<li>缺点: 普通的事件注册不能做事件委托，且无法实现事件解绑，需要借助其他方法。</li>
+</ul>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-tcZGZd2N-1606456063532)(images/register.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 1. 单个事件注册</span></span><br><span class="line">            $(<span class="string">&quot;div&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                $(<span class="built_in">this</span>).css(<span class="string">&quot;background&quot;</span>, <span class="string">&quot;purple&quot;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">            $(<span class="string">&quot;div&quot;</span>).mouseenter(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                $(<span class="built_in">this</span>).css(<span class="string">&quot;background&quot;</span>, <span class="string">&quot;skyblue&quot;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-jQuery-事件处理"><a href="#1-2-jQuery-事件处理" class="headerlink" title="1.2. jQuery 事件处理"></a>1.2. jQuery 事件处理</h2><p>​    因为普通注册事件方法的不足，jQuery又开发了多个处理方法，重点讲解如下：</p>
+<ul>
+<li>on(): 用于事件绑定，目前最好用的事件绑定方法</li>
+<li>off(): 事件解绑</li>
+<li>trigger() / triggerHandler(): 事件触发</li>
+</ul>
+<h3 id="1-2-1-事件处理-on-绑定事件"><a href="#1-2-1-事件处理-on-绑定事件" class="headerlink" title="1.2.1 事件处理 on() 绑定事件"></a>1.2.1 事件处理 on() 绑定事件</h3><p>​    因为普通注册事件方法的不足，jQuery又创建了多个新的事件绑定方法bind() / live() / delegate() / on()等，其中最好用的是: on()</p>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-2SBC8geC-1606456063536)(images/on1.png)]</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-4KbS4VyL-1606456063538)(images/on2.png)]</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-8SjncUKB-1606456063540)(images/on3.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;&lt;/div&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">        &lt;li&gt;我们都是好孩子&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;我们都是好孩子&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;我们都是好孩子&lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">    &lt;ol&gt;&lt;/ol&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">// (1) on可以绑定1个或者多个事件处理程序</span></span><br><span class="line">            <span class="comment">// $(&quot;div&quot;).on(&#123;</span></span><br><span class="line">            <span class="comment">//     mouseenter: function() &#123;</span></span><br><span class="line">            <span class="comment">//         $(this).css(&quot;background&quot;, &quot;skyblue&quot;);</span></span><br><span class="line">            <span class="comment">//     &#125;,</span></span><br><span class="line">            <span class="comment">//     click: function() &#123;</span></span><br><span class="line">            <span class="comment">//         $(this).css(&quot;background&quot;, &quot;purple&quot;);</span></span><br><span class="line">            <span class="comment">//     &#125;</span></span><br><span class="line">            <span class="comment">// &#125;);</span></span><br><span class="line">            $(<span class="string">&quot;div&quot;</span>).on(<span class="string">&quot;mouseenter mouseleave&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                $(<span class="built_in">this</span>).toggleClass(<span class="string">&quot;current&quot;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">  </span><br><span class="line">            <span class="comment">// (2) on可以实现事件委托（委派）</span></span><br><span class="line">            <span class="comment">// click 是绑定在ul 身上的，但是 触发的对象是 ul 里面的小li</span></span><br><span class="line">            <span class="comment">// $(&quot;ul li&quot;).click();</span></span><br><span class="line">            $(<span class="string">&quot;ul&quot;</span>).on(<span class="string">&quot;click&quot;</span>, <span class="string">&quot;li&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="number">11</span>);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// (3) on可以给未来动态创建的元素绑定事件</span></span><br><span class="line">            $(<span class="string">&quot;ol&quot;</span>).on(<span class="string">&quot;click&quot;</span>, <span class="string">&quot;li&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="number">11</span>);</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="keyword">var</span> li = $(<span class="string">&quot;&lt;li&gt;我是后来创建的&lt;/li&gt;&quot;</span>);</span><br><span class="line">            $(<span class="string">&quot;ol&quot;</span>).append(li);</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="1-2-2-案例：发布微博案例"><a href="#1-2-2-案例：发布微博案例" class="headerlink" title="1.2.2. 案例：发布微博案例"></a>1.2.2. 案例：发布微博案例</h3><blockquote>
+<p>1.点击发布按钮， 动态创建一个小li，放入文本框的内容和删除按钮， 并且添加到ul 中。<br>2.点击的删除按钮，可以删除当前的微博留言。</p>
+</blockquote>
+<p>​    代码实现略。(详情参考源代码)</p>
+<h3 id="1-2-3-事件处理-off-解绑事件"><a href="#1-2-3-事件处理-off-解绑事件" class="headerlink" title="1.2.3. 事件处理 off() 解绑事件"></a>1.2.3. 事件处理 off() 解绑事件</h3><p>​    当某个事件上面的逻辑，在特定需求下不需要的时候，可以把该事件上的逻辑移除，这个过程我们称为事件解绑。jQuery 为我们提供 了多种事件解绑方法：die() / undelegate() / off() 等，甚至还有只触发一次的事件绑定方法 one()，在这里我们重点讲解一下 off() ;</p>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-3aPDi837-1606456063542)(images/off.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;&lt;/div&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">        &lt;li&gt;我们都是好孩子&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;我们都是好孩子&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;我们都是好孩子&lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">    &lt;p&gt;我是一个P标签&lt;/p&gt;</span><br><span class="line">	&lt;script&gt;</span><br><span class="line">        $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  			<span class="comment">// 事件绑定</span></span><br><span class="line">            $(<span class="string">&quot;div&quot;</span>).on(&#123;</span><br><span class="line">                click: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">&quot;我点击了&quot;</span>);</span><br><span class="line">                &#125;,</span><br><span class="line">                mouseover: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">&#x27;我鼠标经过了&#x27;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            $(<span class="string">&quot;ul&quot;</span>).on(<span class="string">&quot;click&quot;</span>, <span class="string">&quot;li&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="number">11</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">  </span><br><span class="line">            <span class="comment">// 1. 事件解绑 off </span></span><br><span class="line">            <span class="comment">// $(&quot;div&quot;).off();  // 这个是解除了div身上的所有事件</span></span><br><span class="line">            $(<span class="string">&quot;div&quot;</span>).off(<span class="string">&quot;click&quot;</span>); <span class="comment">// 这个是解除了div身上的点击事件</span></span><br><span class="line">            $(<span class="string">&quot;ul&quot;</span>).off(<span class="string">&quot;click&quot;</span>, <span class="string">&quot;li&quot;</span>);</span><br><span class="line">  </span><br><span class="line">            <span class="comment">// 2. one() 但是它只能触发事件一次</span></span><br><span class="line">            $(<span class="string">&quot;p&quot;</span>).one(<span class="string">&quot;click&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="number">11</span>);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-4-事件处理-trigger-自动触发事件"><a href="#1-2-4-事件处理-trigger-自动触发事件" class="headerlink" title="1.2.4. 事件处理 trigger() 自动触发事件"></a>1.2.4. 事件处理 trigger() 自动触发事件</h3><p>​    有些时候，在某些特定的条件下，我们希望某些事件能够自动触发, 比如轮播图自动播放功能跟点击右侧按钮一致。可以利用定时器自动触发右侧按钮点击事件，不必鼠标点击触发。由此 jQuery 为我们提供了两个自动触发事件 trigger() 和 triggerHandler() ; </p>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-9Kx61ehw-1606456063544)(images/t1.png)]</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-PWWckLvN-1606456063545)(images/t2.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;&lt;/div&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;text&quot;</span>&gt;</span><br><span class="line">      </span><br><span class="line">    &lt;script&gt;</span><br><span class="line">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 绑定事件</span></span><br><span class="line">      $(<span class="string">&quot;div&quot;</span>).on(<span class="string">&quot;click&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        alert(<span class="number">11</span>);</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 自动触发事件</span></span><br><span class="line">      <span class="comment">// 1. 元素.事件()</span></span><br><span class="line">      <span class="comment">// $(&quot;div&quot;).click();会触发元素的默认行为</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">// 2. 元素.trigger(&quot;事件&quot;)</span></span><br><span class="line">      <span class="comment">// $(&quot;div&quot;).trigger(&quot;click&quot;);会触发元素的默认行为</span></span><br><span class="line">      $(<span class="string">&quot;input&quot;</span>).trigger(<span class="string">&quot;focus&quot;</span>);</span><br><span class="line">      </span><br><span class="line">      <span class="comment">// 3. 元素.triggerHandler(&quot;事件&quot;) 就是不会触发元素的默认行为</span></span><br><span class="line">      $(<span class="string">&quot;input&quot;</span>).on(<span class="string">&quot;focus&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        $(<span class="built_in">this</span>).val(<span class="string">&quot;你好吗&quot;</span>);</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="comment">// 一个会获取焦点，一个不会</span></span><br><span class="line">      $(<span class="string">&quot;div&quot;</span>).triggerHandler(<span class="string">&quot;click&quot;</span>);</span><br><span class="line">      <span class="comment">// $(&quot;input&quot;).triggerHandler(&quot;focus&quot;);</span></span><br><span class="line">    &#125;);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="1-3-jQuery-事件对象"><a href="#1-3-jQuery-事件对象" class="headerlink" title="1.3. jQuery 事件对象"></a>1.3. jQuery 事件对象</h2><p>​    jQuery 对DOM中的事件对象 event 进行了封装，兼容性更好，获取更方便，使用变化不大。事件被触发，就会有事件对象的产生。</p>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-DbU9qNS5-1606456063546)(images/event.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">	&lt;script&gt;</span><br><span class="line">        $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            $(<span class="built_in">document</span>).on(<span class="string">&quot;click&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">&quot;点击了document&quot;</span>);</span><br><span class="line">            &#125;)</span><br><span class="line">            $(<span class="string">&quot;div&quot;</span>).on(<span class="string">&quot;click&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">                <span class="comment">// console.log(event);</span></span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">&quot;点击了div&quot;</span>);</span><br><span class="line">                event.stopPropagation();</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<p>注意：jQuery中的 event 对象使用，可以借鉴 API 和 DOM 中的 event 。</p>
+<h2 id="1-4-jQuery-拷贝对象"><a href="#1-4-jQuery-拷贝对象" class="headerlink" title="1.4.  jQuery 拷贝对象"></a>1.4.  jQuery 拷贝对象</h2><p>​    jQuery中分别为我们提供了两套快速获取和设置元素尺寸和位置的API，方便易用，内容如下。</p>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-6yRG47pM-1606456063547)(images/extend.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">       $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  			<span class="comment">// 1.合并数据</span></span><br><span class="line">           <span class="keyword">var</span> targetObj = &#123;&#125;;</span><br><span class="line">           <span class="keyword">var</span> obj = &#123;</span><br><span class="line">               id: <span class="number">1</span>,</span><br><span class="line">               name: <span class="string">&quot;andy&quot;</span></span><br><span class="line">           &#125;;</span><br><span class="line">           <span class="comment">// $.extend(target, obj);</span></span><br><span class="line">           $.extend(targetObj, obj);</span><br><span class="line">           <span class="built_in">console</span>.log(targetObj);</span><br><span class="line">  </span><br><span class="line">  			<span class="comment">// 2. 会覆盖 targetObj 里面原来的数据</span></span><br><span class="line">           <span class="keyword">var</span> targetObj = &#123;</span><br><span class="line">               id: <span class="number">0</span></span><br><span class="line">           &#125;;</span><br><span class="line">           <span class="keyword">var</span> obj = &#123;</span><br><span class="line">               id: <span class="number">1</span>,</span><br><span class="line">               name: <span class="string">&quot;andy&quot;</span></span><br><span class="line">           &#125;;</span><br><span class="line">           <span class="comment">// $.extend(target, obj);</span></span><br><span class="line">           $.extend(targetObj, obj);</span><br><span class="line">           <span class="built_in">console</span>.log(targetObj); </span><br><span class="line">       &#125;)</span><br><span class="line">   &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="1-5-jQuery-多库共存"><a href="#1-5-jQuery-多库共存" class="headerlink" title="1.5.  jQuery 多库共存"></a>1.5.  jQuery 多库共存</h2><p>​    实际开发中，很多项目连续开发十多年，jQuery版本不断更新，最初的 jQuery 版本无法满足需求，这时就需要保证在旧有版本正常运行的情况下，新的功能使用新的jQuery版本实现，这种情况被称为，jQuery 多库共存。</p>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-mVXQEj6H-1606456063548)(images/noconfig.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  		<span class="comment">// 让jquery 释放对$ 控制权 让用自己决定</span></span><br><span class="line">  		<span class="keyword">var</span> suibian = jQuery.noConflict();</span><br><span class="line">  		<span class="built_in">console</span>.log(suibian(<span class="string">&quot;span&quot;</span>));</span><br><span class="line">	&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="1-6-jQuery-插件"><a href="#1-6-jQuery-插件" class="headerlink" title="1.6.  jQuery 插件"></a>1.6.  jQuery 插件</h2><p>​    jQuery 功能比较有限，想要更复杂的特效效果，可以借助于 jQuery 插件完成。 这些插件也是依赖于jQuery来完成的，所以必须要先引入</p>
+<p>jQuery文件，因此也称为 jQuery 插件。</p>
+<p>​    jQuery 插件常用的网站：</p>
+<ol>
+<li><p> jQuery 插件库  <a target="_blank" rel="noopener" href="http://www.jq22.com/">http://www.jq22.com/</a>     </p>
+</li>
+<li><p>jQuery 之家   <a target="_blank" rel="noopener" href="http://www.htmleaf.com/">http://www.htmleaf.com/</a> </p>
+<p>jQuery 插件使用步骤：</p>
+</li>
+<li><p> 引入相关文件。（jQuery 文件 和 插件文件）    </p>
+</li>
+<li><p> 复制相关html、css、js (调用插件)。</p>
+</li>
+</ol>
+<h3 id="1-4-1-瀑布流插件（重点讲解）"><a href="#1-4-1-瀑布流插件（重点讲解）" class="headerlink" title="1.4.1.  瀑布流插件（重点讲解）"></a>1.4.1.  瀑布流插件（重点讲解）</h3><p>​    我们学习的第一个插件是jQuery之家的开源插件，瀑布流。我们将重点详细讲解，从找到插件所在网页，然后点击下载代码，到插件的使用等，后面的插件使用可参考瀑布流插件的使用。</p>
+<p><strong>下载位置</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-8VJp4nYj-1606456063549)(images/water.png)]</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-cnmpgHVa-1606456063550)(images/download.png)]</p>
+<p><strong>代码演示</strong></p>
+<p>​    插件的使用三点：   1. 引入css.           2.引入JS            3.引入html。 （有的简单插件只需引入html和js，甚至有的只需引入js）</p>
+<ul>
+<li>1.引入css.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;css/normalize.css&quot;</span>&gt;</span><br><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> type=<span class="string">&quot;text/css&quot;</span> href=<span class="string">&quot;css/default.css&quot;</span>&gt;</span><br><span class="line">  </span><br><span class="line">&lt;!-- 下面的样式代码为页面布局，可以引入，也可以自己写，自己设计页面样式，一般为直接引入，方便 --&gt;</span><br><span class="line">&lt;style type=<span class="string">&quot;text/css&quot;</span>&gt;</span><br><span class="line">  #gallery-wrapper &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">    max-width: <span class="number">75</span>%;</span><br><span class="line">    width: <span class="number">75</span>%;</span><br><span class="line">    margin: 50px auto;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  img.thumb &#123;</span><br><span class="line">    width: <span class="number">100</span>%;</span><br><span class="line">    max-width: <span class="number">100</span>%;</span><br><span class="line">    height: auto;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .white-panel &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    background: white;</span><br><span class="line">    border-radius: 5px;</span><br><span class="line">    box-shadow: 0px 1px 2px rgba(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.3</span>);</span><br><span class="line">    padding: 10px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .white-panel h1 &#123;</span><br><span class="line">    font-size: 1em;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .white-panel h1 a &#123;</span><br><span class="line">    color: #A92733;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .white-panel:hover &#123;</span><br><span class="line">    box-shadow: 1px 1px 10px rgba(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.5</span>);</span><br><span class="line">    margin-top: -5px;</span><br><span class="line">    -webkit-transition: all <span class="number">0.</span>3s ease-<span class="keyword">in</span>-out;</span><br><span class="line">    -moz-transition: all <span class="number">0.</span>3s ease-<span class="keyword">in</span>-out;</span><br><span class="line">    -o-transition: all <span class="number">0.</span>3s ease-<span class="keyword">in</span>-out;</span><br><span class="line">    transition: all <span class="number">0.</span>3s ease-<span class="keyword">in</span>-out;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>2.引入js.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 前两个必须引入 --&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;js/jquery-1.11.0.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;js/pinterest_grid.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;!-- 下面的为启动瀑布流代码，参数可调节属性，具体功能可参考readme.html --&gt;</span><br><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">	$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      $(<span class="string">&quot;#gallery-wrapper&quot;</span>).pinterest_grid(&#123;</span><br><span class="line">          no_columns: <span class="number">5</span>,</span><br><span class="line">          padding_x: <span class="number">15</span>,</span><br><span class="line">          padding_y: <span class="number">10</span>,</span><br><span class="line">          margin_bottom: <span class="number">50</span>,</span><br><span class="line">          single_column_breakpoint: <span class="number">700</span></span><br><span class="line">      &#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>3.引入html.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- html结构一般为事先写好，很难修改结构，但可以修改内容及图片的多少（article标签） --&gt;</span><br><span class="line">&lt;section id=<span class="string">&quot;gallery-wrapper&quot;</span>&gt;</span><br><span class="line">       &lt;article <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;white-panel&quot;</span>&gt;</span><br><span class="line">           &lt;img src=<span class="string">&quot;images/P_000.jpg&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;thumb&quot;</span>&gt;</span><br><span class="line">           &lt;h1&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>我是轮播图片1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/h1&gt;</span><br><span class="line">           &lt;p&gt;里面很精彩哦&lt;/p&gt;</span><br><span class="line">       &lt;/article&gt;</span><br><span class="line">       &lt;article <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;white-panel&quot;</span>&gt;</span><br><span class="line">           &lt;img src=<span class="string">&quot;images/P_005.jpg&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;thumb&quot;</span>&gt;</span><br><span class="line">           &lt;h1&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>我是轮播图片1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/h1&gt;</span><br><span class="line">           &lt;p&gt;里面很精彩哦&lt;/p&gt;</span><br><span class="line">       &lt;/article&gt;</span><br><span class="line">       &lt;article <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;white-panel&quot;</span>&gt;</span><br><span class="line">           &lt;img src=<span class="string">&quot;images/P_006.jpg&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;thumb&quot;</span>&gt;</span><br><span class="line">           &lt;h1&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>我是轮播图片1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/h1&gt;</span><br><span class="line">           &lt;p&gt;里面很精彩哦&lt;/p&gt;</span><br><span class="line">       &lt;/article&gt;</span><br><span class="line">       &lt;article <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;white-panel&quot;</span>&gt;</span><br><span class="line">           &lt;img src=<span class="string">&quot;images/P_007.jpg&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;thumb&quot;</span>&gt;</span><br><span class="line">           &lt;h1&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>我是轮播图片1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/h1&gt;</span><br><span class="line">           &lt;p&gt;里面很精彩哦&lt;/p&gt;</span><br><span class="line">       &lt;/article&gt;</span><br><span class="line">   &lt;/section&gt;</span><br></pre></td></tr></table></figure>
+<p>总结：jQuery插件就是引入别人写好的：html 、css、js  （有时也可以只引入一部分，读懂后也可以修改部分内容）</p>
+<h3 id="1-4-2-图片懒加载插件"><a href="#1-4-2-图片懒加载插件" class="headerlink" title="1.4.2. 图片懒加载插件"></a>1.4.2. 图片懒加载插件</h3><p>​    图片的懒加载就是：当页面滑动到有图片的位置，图片才进行加载，用以提升页面打开的速度及用户体验。（下载略）</p>
+<p><strong>代码演示</strong></p>
+<p>​    懒加载只需引入html 和 js操作 即可，此插件不涉及css。</p>
+<ul>
+<li>1.引入js</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;js/EasyLazyload.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">   	lazyLoadInit(&#123;</span><br><span class="line">   		showTime: <span class="number">1100</span>,</span><br><span class="line">   		onLoadBackEnd: <span class="function"><span class="keyword">function</span>(<span class="params">i, e</span>) </span>&#123;</span><br><span class="line">     		<span class="built_in">console</span>.log(<span class="string">&quot;onLoadBackEnd:&quot;</span> + i);</span><br><span class="line">   		&#125;,</span><br><span class="line">   		onLoadBackStart: <span class="function"><span class="keyword">function</span>(<span class="params">i, e</span>) </span>&#123;</span><br><span class="line">     		<span class="built_in">console</span>.log(<span class="string">&quot;onLoadBackStart:&quot;</span> + i);</span><br><span class="line">   		&#125;</span><br><span class="line"> 	&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>2.引入html</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img data-lazy-src=<span class="string">&quot;upload/floor-1-3.png&quot;</span> alt=<span class="string">&quot;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-3-全屏滚动插件"><a href="#1-4-3-全屏滚动插件" class="headerlink" title="1.4.3. 全屏滚动插件"></a>1.4.3. 全屏滚动插件</h3><p>​    全屏滚动插件比较大，所以，一般大型插件都会有帮助文档，或者网站。全屏滚动插件介绍比较详细的网站为：</p>
+<p><a target="_blank" rel="noopener" href="http://www.dowebok.com/demo/2014/77/">http://www.dowebok.com/demo/2014/77/</a></p>
+<p><strong>代码演示</strong></p>
+<p>​    全屏滚动因为有多重形式，所以不一样的风格html和css也不一样，但是 js 变化不大。所以下面只演示js的引入，html和css引入根据自己实际</p>
+<p>项目需要使用哪种风格引入对应的HTML和CSS。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;js/jquery.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;js/fullpage.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  	$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  		$(<span class="string">&#x27;#dowebok&#x27;</span>).fullpage(&#123;</span><br><span class="line">    		sectionsColor: [<span class="string">&#x27;pink&#x27;</span>, <span class="string">&#x27;#4BBFC3&#x27;</span>, <span class="string">&#x27;#7BAABE&#x27;</span>, <span class="string">&#x27;#f90&#x27;</span>],</span><br><span class="line">    		navigation: <span class="literal">true</span></span><br><span class="line">  		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>注意：实际开发，一般复制文件，然后在文件中进行修改和添加功能。</p>
+<h3 id="1-4-4-bootstrap组件"><a href="#1-4-4-bootstrap组件" class="headerlink" title="1.4.4. bootstrap组件"></a>1.4.4. bootstrap组件</h3><p>​    Bootstrap是 Twitter 公司设计的基于HTML、CSS、JavaScript开发的简洁、直观、强悍的前端开发框架，他依靠jQuery实现，且支持响应式</p>
+<p>布局，使得 Web 开发更加方便快捷。</p>
+<p>​    <strong>凡是在软件开发中用到了软件的复用，被复用的部分都可以称为组件，凡是在应用程序中已经预留接口的组件就是插件</strong>。Bootstrap组件使</p>
+<p>用非常方便:  1.引入bootstrap相关css和js        2.去官网复制html</p>
+<p><strong>代码演示</strong></p>
+<ol>
+<li>引入bootstrap相关css和js</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;bootstrap/css/bootstrap.min.css&quot;</span>&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;bootstrap/js/jquery.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;bootstrap/js/bootstrap.min.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>去官网复制html的功能模块</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">   &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;container&quot;</span>&gt;</span><br><span class="line">       &lt;!-- Single button --&gt;</span><br><span class="line">       &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn-group&quot;</span>&gt;</span><br><span class="line">           &lt;button type=<span class="string">&quot;button&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn btn-default dropdown-toggle&quot;</span> data-toggle=<span class="string">&quot;dropdown&quot;</span> aria-haspopup=<span class="string">&quot;true&quot;</span> aria-expanded=<span class="string">&quot;false&quot;</span>&gt;</span><br><span class="line">     		Action &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;caret&quot;</span>&gt;&lt;/span&gt;</span><br><span class="line">   		&lt;/button&gt;</span><br><span class="line">           &lt;ul <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;dropdown-menu&quot;</span>&gt;</span><br><span class="line">               &lt;li&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Action<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/li&gt;</span><br><span class="line">               &lt;li&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Another action<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/li&gt;</span><br><span class="line">               &lt;li&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Something else here<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/li&gt;</span><br><span class="line">               &lt;li role=<span class="string">&quot;separator&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;divider&quot;</span>&gt;&lt;/li&gt;</span><br><span class="line">               &lt;li&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Separated link<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/li&gt;</span><br><span class="line">           &lt;/ul&gt;</span><br><span class="line">    	&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-5-bootstrap插件（JS）"><a href="#1-4-5-bootstrap插件（JS）" class="headerlink" title="1.4.5. bootstrap插件（JS）"></a>1.4.5. bootstrap插件（JS）</h3><p>​    bootstrap中的js插件其实也是组件的一部分，只不过是需要js调用功能的组件，所以一般bootstrap的js插件一般会伴随着js代码（有的也可以</p>
+<p>省略js，用属性实现）。</p>
+<p>​    步骤： 1.引入bootstrap相关css和js        2.去官网复制html        3.复制js代码，启动js插件。</p>
+<p><strong>代码演示</strong></p>
+<ol>
+<li>引入bootstrap相关css和js</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;bootstrap/css/bootstrap.min.css&quot;</span>&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;bootstrap/js/jquery.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;bootstrap/js/bootstrap.min.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>去官网复制html的功能模块</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 模态框 --&gt;</span><br><span class="line">&lt;!-- Large modal --&gt;</span><br><span class="line">&lt;button type=<span class="string">&quot;button&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn btn-primary&quot;</span> data-toggle=<span class="string">&quot;modal&quot;</span> data-target=<span class="string">&quot;.bs-example-modal-lg&quot;</span>&gt;Large modal&lt;/button&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;modal fade bs-example-modal-lg&quot;</span> tabindex=<span class="string">&quot;-1&quot;</span> role=<span class="string">&quot;dialog&quot;</span> aria-labelledby=<span class="string">&quot;myLargeModalLabel&quot;</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;modal-dialog modal-lg&quot;</span> role=<span class="string">&quot;document&quot;</span>&gt;</span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;modal-content&quot;</span>&gt;</span><br><span class="line">            里面就是模态框</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>复制js代码，启动js插件。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	<span class="comment">// 当我们点击了自己定义的按钮，就弹出模态框</span></span><br><span class="line">	$(<span class="string">&quot;.myBtn&quot;</span>).on(<span class="string">&quot;click&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="comment">// alert(11);</span></span><br><span class="line">		$(<span class="string">&#x27;#btn&#x27;</span>).modal()</span><br><span class="line">	&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="1-4-6-bootstrap案例-阿里百秀"><a href="#1-4-6-bootstrap案例-阿里百秀" class="headerlink" title="1.4.6. bootstrap案例-阿里百秀"></a>1.4.6. bootstrap案例-阿里百秀</h3><blockquote>
+<p>1.通过调用组件实现导航栏<br>2.通过调用插件实现登录<br>3.通过调用插件标签页实现 tab 栏</p>
+</blockquote>
+<p>​    代码实现略。(详情参考源代码)</p>
+<h2 id="1-7-综合案例-toDoList案例分析（代码略）"><a href="#1-7-综合案例-toDoList案例分析（代码略）" class="headerlink" title="1.7. 综合案例: toDoList案例分析（代码略）"></a>1.7. 综合案例: toDoList案例分析（代码略）</h2><h3 id="1-7-1-案例：案例介绍"><a href="#1-7-1-案例：案例介绍" class="headerlink" title="1.7.1 案例：案例介绍"></a>1.7.1 案例：案例介绍</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 文本框里面输入内容，按下回车，就可以生成待办事项。</span></span><br><span class="line"><span class="comment">// 2. 点击待办事项复选框，就可以把当前数据添加到已完成事项里面。</span></span><br><span class="line"><span class="comment">// 3. 点击已完成事项复选框，就可以把当前数据添加到待办事项里面。</span></span><br><span class="line"><span class="comment">// 4. 但是本页面内容刷新页面不会丢失。</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-7-2-案例：toDoList-分析"><a href="#1-7-2-案例：toDoList-分析" class="headerlink" title="1.7.2 案例：toDoList 分析"></a>1.7.2 案例：toDoList 分析</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 刷新页面不会丢失数据，因此需要用到本地存储 localStorage</span></span><br><span class="line"><span class="comment">// 2. 核心思路： 不管按下回车，还是点击复选框，都是把本地存储的数据加载到页面中，这样保证刷新关闭页面不会丢失数据</span></span><br><span class="line"><span class="comment">// 3. 存储的数据格式：var todolist =  [&#123; title : ‘xxx’, done: false&#125;]</span></span><br><span class="line"><span class="comment">// 4. 注意点1： 本地存储 localStorage 里面只能存储字符串格式 ，因此需要把对象转换为字符串 JSON.stringify(data)。</span></span><br><span class="line"><span class="comment">// 5. 注意点2： 获取本地存储数据，需要把里面的字符串转换为对象格式JSON.parse() 我们才能使用里面的数据。</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-7-3-案例：toDoList-按下回车把新数据添加到本地存储里面"><a href="#1-7-3-案例：toDoList-按下回车把新数据添加到本地存储里面" class="headerlink" title="1.7.3 案例：toDoList 按下回车把新数据添加到本地存储里面"></a>1.7.3 案例：toDoList 按下回车把新数据添加到本地存储里面</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.切记： 页面中的数据，都要从本地存储里面获取，这样刷新页面不会丢失数据，所以先要把数据保存到本地存储里面。</span></span><br><span class="line"><span class="comment">// 2.利用事件对象.keyCode判断用户按下回车键（13）。</span></span><br><span class="line"><span class="comment">// 3.声明一个数组，保存数据。</span></span><br><span class="line"><span class="comment">// 4.先要读取本地存储原来的数据（声明函数 getData()），放到这个数组里面。</span></span><br><span class="line"><span class="comment">// 5.之后把最新从表单获取过来的数据，追加到数组里面。</span></span><br><span class="line"><span class="comment">// 6.最后把数组存储给本地存储 (声明函数 savaDate())</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-7-4-案例：toDoList-本地存储数据渲染加载到页面"><a href="#1-7-4-案例：toDoList-本地存储数据渲染加载到页面" class="headerlink" title="1.7.4 案例：toDoList 本地存储数据渲染加载到页面"></a>1.7.4 案例：toDoList 本地存储数据渲染加载到页面</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.因为后面也会经常渲染加载操作，所以声明一个函数 load，方便后面调用</span></span><br><span class="line"><span class="comment">// 2.先要读取本地存储数据。（数据不要忘记转换为对象格式）</span></span><br><span class="line"><span class="comment">// 3.之后遍历这个数据（$.each()），有几条数据，就生成几个小li 添加到 ol 里面。</span></span><br><span class="line"><span class="comment">// 4.每次渲染之前，先把原先里面 ol 的内容清空，然后渲染加载最新的数据。</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-7-5-案例：toDoList-删除操作"><a href="#1-7-5-案例：toDoList-删除操作" class="headerlink" title="1.7.5 案例：toDoList 删除操作"></a>1.7.5 案例：toDoList 删除操作</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.点击里面的a链接，不是删除的li，而是删除本地存储对应的数据。</span></span><br><span class="line"><span class="comment">// 2.核心原理：先获取本地存储数据，删除对应的数据，保存给本地存储，重新渲染列表li</span></span><br><span class="line"><span class="comment">// 3.我们可以给链接自定义属性记录当前的索引号</span></span><br><span class="line"><span class="comment">// 4.根据这个索引号删除相关的数据----数组的splice(i, 1)方法</span></span><br><span class="line"><span class="comment">// 5.存储修改后的数据，然后存储给本地存储</span></span><br><span class="line"><span class="comment">// 6.重新渲染加载数据列表</span></span><br><span class="line"><span class="comment">// 7.因为a是动态创建的，我们使用on方法绑定事件</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-7-6-案例：toDoList-正在进行和已完成选项操作"><a href="#1-7-6-案例：toDoList-正在进行和已完成选项操作" class="headerlink" title="1.7.6 案例：toDoList  正在进行和已完成选项操作"></a>1.7.6 案例：toDoList  正在进行和已完成选项操作</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.当我们点击了小的复选框，修改本地存储数据，再重新渲染数据列表。</span></span><br><span class="line"><span class="comment">// 2.点击之后，获取本地存储数据。</span></span><br><span class="line"><span class="comment">// 3.修改对应数据属性 done 为当前复选框的checked状态。</span></span><br><span class="line"><span class="comment">// 4.之后保存数据到本地存储</span></span><br><span class="line"><span class="comment">// 5.重新渲染加载数据列表</span></span><br><span class="line"><span class="comment">// 6.load 加载函数里面，新增一个条件,如果当前数据的done为true 就是已经完成的，就把列表渲染加载到 ul 里面</span></span><br><span class="line"><span class="comment">// 7.如果当前数据的done 为false， 则是待办事项，就把列表渲染加载到 ol 里面</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-7-7-案例：toDoList-统计正在进行个数和已经完成个数"><a href="#1-7-7-案例：toDoList-统计正在进行个数和已经完成个数" class="headerlink" title="1.7.7 案例：toDoList 统计正在进行个数和已经完成个数"></a>1.7.7 案例：toDoList 统计正在进行个数和已经完成个数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1.在我们load 函数里面操作</span></span><br><span class="line"><span class="comment">// 2.声明2个变量 ：todoCount 待办个数  doneCount 已完成个数   </span></span><br><span class="line"><span class="comment">// 3.当进行遍历本地存储数据的时候， 如果 数据done为 false， 则 todoCount++, 否则 doneCount++</span></span><br><span class="line"><span class="comment">// 4.最后修改相应的元素 text() </span></span><br></pre></td></tr></table></figure>
+
+<h2 id="1-8-今日总结"><a href="#1-8-今日总结" class="headerlink" title="1.8. 今日总结"></a>1.8. 今日总结</h2>
+    </div>
+
+    
+    
+    
+
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2021\01\01\javascript中的深拷贝的方式总结\" rel="bookmark">javascript中的深拷贝的方式总结</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2021\02\02\关于javascript中的组合，寄生，寄生组合继承的理解\" rel="bookmark">关于javascript中的组合，寄生，寄生组合继承的理解</a></div>
+    </li>
+  </ul>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/username">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+               <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"><i class="fa fa-tags"></i> 前端</a>
+               <a href="/tags/jQuery/" rel="tag"><i class="fa fa-tags"></i> jQuery</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/02/%E7%8E%8B%E6%8C%BAMOOC%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AE%9E%E9%AA%8C1/" rel="prev" title="王挺MOOC编译原理实验1">
+      <i class="fa fa-chevron-left"></i> 王挺MOOC编译原理实验1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/12/02/%E8%B0%A2%E5%AE%BE%E6%96%AF%E5%9F%BA%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E7%BB%98%E5%88%B6%EF%BC%88%E9%80%92%E5%BD%92%EF%BC%89/" rel="next" title="谢宾斯基三角形的绘制（递归）">
+      谢宾斯基三角形的绘制（递归） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+ 
+	  <!--/网易云音乐-->
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jQuery"><span class="nav-number">1.</span> <span class="nav-text">jQuery</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-jQuery-%E4%BA%8B%E4%BB%B6%E6%B3%A8%E5%86%8C"><span class="nav-number">2.</span> <span class="nav-text">1.1. jQuery 事件注册</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-jQuery-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">1.2. jQuery 事件处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86-on-%E7%BB%91%E5%AE%9A%E4%BA%8B%E4%BB%B6"><span class="nav-number">3.1.</span> <span class="nav-text">1.2.1 事件处理 on() 绑定事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-2-%E6%A1%88%E4%BE%8B%EF%BC%9A%E5%8F%91%E5%B8%83%E5%BE%AE%E5%8D%9A%E6%A1%88%E4%BE%8B"><span class="nav-number">3.2.</span> <span class="nav-text">1.2.2. 案例：发布微博案例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-3-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86-off-%E8%A7%A3%E7%BB%91%E4%BA%8B%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">1.2.3. 事件处理 off() 解绑事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-4-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86-trigger-%E8%87%AA%E5%8A%A8%E8%A7%A6%E5%8F%91%E4%BA%8B%E4%BB%B6"><span class="nav-number">3.4.</span> <span class="nav-text">1.2.4. 事件处理 trigger() 自动触发事件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-jQuery-%E4%BA%8B%E4%BB%B6%E5%AF%B9%E8%B1%A1"><span class="nav-number">4.</span> <span class="nav-text">1.3. jQuery 事件对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-jQuery-%E6%8B%B7%E8%B4%9D%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.</span> <span class="nav-text">1.4.  jQuery 拷贝对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-jQuery-%E5%A4%9A%E5%BA%93%E5%85%B1%E5%AD%98"><span class="nav-number">6.</span> <span class="nav-text">1.5.  jQuery 多库共存</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-jQuery-%E6%8F%92%E4%BB%B6"><span class="nav-number">7.</span> <span class="nav-text">1.6.  jQuery 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-%E7%80%91%E5%B8%83%E6%B5%81%E6%8F%92%E4%BB%B6%EF%BC%88%E9%87%8D%E7%82%B9%E8%AE%B2%E8%A7%A3%EF%BC%89"><span class="nav-number">7.1.</span> <span class="nav-text">1.4.1.  瀑布流插件（重点讲解）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-%E5%9B%BE%E7%89%87%E6%87%92%E5%8A%A0%E8%BD%BD%E6%8F%92%E4%BB%B6"><span class="nav-number">7.2.</span> <span class="nav-text">1.4.2. 图片懒加载插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-3-%E5%85%A8%E5%B1%8F%E6%BB%9A%E5%8A%A8%E6%8F%92%E4%BB%B6"><span class="nav-number">7.3.</span> <span class="nav-text">1.4.3. 全屏滚动插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-4-bootstrap%E7%BB%84%E4%BB%B6"><span class="nav-number">7.4.</span> <span class="nav-text">1.4.4. bootstrap组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-5-bootstrap%E6%8F%92%E4%BB%B6%EF%BC%88JS%EF%BC%89"><span class="nav-number">7.5.</span> <span class="nav-text">1.4.5. bootstrap插件（JS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-6-bootstrap%E6%A1%88%E4%BE%8B-%E9%98%BF%E9%87%8C%E7%99%BE%E7%A7%80"><span class="nav-number">7.6.</span> <span class="nav-text">1.4.6. bootstrap案例-阿里百秀</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B-toDoList%E6%A1%88%E4%BE%8B%E5%88%86%E6%9E%90%EF%BC%88%E4%BB%A3%E7%A0%81%E7%95%A5%EF%BC%89"><span class="nav-number">8.</span> <span class="nav-text">1.7. 综合案例: toDoList案例分析（代码略）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-1-%E6%A1%88%E4%BE%8B%EF%BC%9A%E6%A1%88%E4%BE%8B%E4%BB%8B%E7%BB%8D"><span class="nav-number">8.1.</span> <span class="nav-text">1.7.1 案例：案例介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-2-%E6%A1%88%E4%BE%8B%EF%BC%9AtoDoList-%E5%88%86%E6%9E%90"><span class="nav-number">8.2.</span> <span class="nav-text">1.7.2 案例：toDoList 分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-3-%E6%A1%88%E4%BE%8B%EF%BC%9AtoDoList-%E6%8C%89%E4%B8%8B%E5%9B%9E%E8%BD%A6%E6%8A%8A%E6%96%B0%E6%95%B0%E6%8D%AE%E6%B7%BB%E5%8A%A0%E5%88%B0%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8%E9%87%8C%E9%9D%A2"><span class="nav-number">8.3.</span> <span class="nav-text">1.7.3 案例：toDoList 按下回车把新数据添加到本地存储里面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-4-%E6%A1%88%E4%BE%8B%EF%BC%9AtoDoList-%E6%9C%AC%E5%9C%B0%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE%E6%B8%B2%E6%9F%93%E5%8A%A0%E8%BD%BD%E5%88%B0%E9%A1%B5%E9%9D%A2"><span class="nav-number">8.4.</span> <span class="nav-text">1.7.4 案例：toDoList 本地存储数据渲染加载到页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-5-%E6%A1%88%E4%BE%8B%EF%BC%9AtoDoList-%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="nav-number">8.5.</span> <span class="nav-text">1.7.5 案例：toDoList 删除操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-6-%E6%A1%88%E4%BE%8B%EF%BC%9AtoDoList-%E6%AD%A3%E5%9C%A8%E8%BF%9B%E8%A1%8C%E5%92%8C%E5%B7%B2%E5%AE%8C%E6%88%90%E9%80%89%E9%A1%B9%E6%93%8D%E4%BD%9C"><span class="nav-number">8.6.</span> <span class="nav-text">1.7.6 案例：toDoList  正在进行和已完成选项操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-7-7-%E6%A1%88%E4%BE%8B%EF%BC%9AtoDoList-%E7%BB%9F%E8%AE%A1%E6%AD%A3%E5%9C%A8%E8%BF%9B%E8%A1%8C%E4%B8%AA%E6%95%B0%E5%92%8C%E5%B7%B2%E7%BB%8F%E5%AE%8C%E6%88%90%E4%B8%AA%E6%95%B0"><span class="nav-number">8.7.</span> <span class="nav-text">1.7.7 案例：toDoList 统计正在进行个数和已经完成个数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-8-%E4%BB%8A%E6%97%A5%E6%80%BB%E7%BB%93"><span class="nav-number">9.</span> <span class="nav-text">1.8. 今日总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kevin"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">kevin</p>
+  <div class="site-description" itemprop="description">纵有疾风起，人生不言弃</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kevin-deepbule" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kevin-deepbule" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/2313809283@qq.com" title="E-Mail → 2313809283@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/2313809283" title="QQ → 2313809283"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.google.com/2313809283@qq.com" title="Google → https:&#x2F;&#x2F;www.google.com&#x2F;2313809283@qq.com" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.bilibili.com/video/BV1aE411o7qd" title="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1aE411o7qd" rel="noopener" target="_blank">机器学习之白板推导</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.bilibili.com/video/BV1dJ411B7gh" title="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1dJ411B7gh" rel="noopener" target="_blank">浙大机器学习课程</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.bilibili.com/video/BV164411b7dx" title="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV164411b7dx" rel="noopener" target="_blank">吴恩达机器学习</a>
+        </li>
+    </ul>
+  </div>
+
+       
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+<!--网易云音乐-->
+        <div id="music163player" style="position:fixed; bottom: 200px;left: 20px  width:255px height:110px">
+            <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=255 height=300 src="//music.163.com/outchain/player?type=0&id=2857550594&auto=0">
+            </iframe>
+        </div>
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kevin</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">44k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">40 分钟</span>
+</div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+<!--网易云音乐-->
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cn-yangkaiwen-tk-2.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://cn.yangkaiwen.tk/2020/11/02/%E5%AD%A6%E4%B9%A0jquery/";
+    this.page.identifier = "2020/11/02/学习jquery/";
+    this.page.title = "学习jquery";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cn-yangkaiwen-tk-2.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+  
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+<script type="text/javascript" src="/js/src/firework.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

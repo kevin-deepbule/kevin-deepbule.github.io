@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: skyblue; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<script>
+    (function () {
+        if (``) {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://cn.yangkaiwen.tk"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"cn.yangkaiwen.tk","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":300,"display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":5},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="基于C语言的学生信息管理系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于C语言的学生成绩管理系统">
+<meta property="og:url" content="https://cn.yangkaiwen.tk/2019/02/02/C-student-info-manage/index.html">
+<meta property="og:site_name" content="kevinのBlog">
+<meta property="og:description" content="基于C语言的学生信息管理系统">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-02-02T10:56:01.000Z">
+<meta property="article:modified_time" content="2021-02-02T13:49:41.184Z">
+<meta property="article:author" content="kevin">
+<meta property="article:tag" content="C">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://cn.yangkaiwen.tk/2019/02/02/C-student-info-manage/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>基于C语言的学生成绩管理系统 | kevinのBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kevinのBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录生活中的点点滴滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">10</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">10</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线<span class="badge">12</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cn.yangkaiwen.tk/2019/02/02/C-student-info-manage/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="kevin">
+      <meta itemprop="description" content="纵有疾风起，人生不言弃">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kevinのBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于C语言的学生成绩管理系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-02-02 18:56:01" itemprop="dateCreated datePublished" datetime="2019-02-02T18:56:01+08:00">2019-02-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-02-02 21:49:41" itemprop="dateModified" datetime="2021-02-02T21:49:41+08:00">2021-02-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2019/02/02/C-student-info-manage/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/02/02/C-student-info-manage/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="基于C语言的学生信息管理系统"><a href="#基于C语言的学生信息管理系统" class="headerlink" title="基于C语言的学生信息管理系统"></a>基于C语言的学生信息管理系统</h2><a id="more"></a>
+<h2 id="一、系统需求与功能分析"><a href="#一、系统需求与功能分析" class="headerlink" title="一、系统需求与功能分析"></a>一、系统需求与功能分析</h2><p>1.1 系统需求分析<br>(1) 能完成学生信息的录入，插入、修改、删除、输出、查询等功能；<br>(2)采用单链表存储结构实现；<br>(3) 所有数据以外部文件方式保存。<br>1.2系统功能分析<br>(1)要设计一个学生信息管理系统，其功能包括：<br>①录入函数Add()：将学生信息按尾插法插入到链表中；<br>②插入函数Insert()：根据所给学号作为插入位置，在其后插入信息；<br>③修改函数Modify()：修改指定的学生信息；<br>④删除函数Delete()：当需要删除的学号和姓名一致时则删除对应的学生记录；<br>⑤输出函数Show()：显示全部学生信息；<br>⑥查询函数Search()：分别可以按学号和按姓名进行学生信息查询；<br>⑦菜单函数Menu()：为程序的菜单函数为实现各种功能提供便捷；<br>⑧读取数据函数Read()：从外部文件读取学生信息信息；<br>⑨保存数据函数Save()：将数据保存到外部文件中。<br>(2)线性表的链接存储结构称为单链表，单链表使用一组任意的存储单元存放线性表的元素，这组存储单元可以连续也可以不连续，甚至可以零散分布在内存中的任意位置。为了正确表示元素之间逻辑关系，每个存储单元在存储数据元素的同时，还必须存储其后继元素所在地址信息，这个地址信息称为指针，这两部分组成了数据元素的存储映像，称为结点，结点结构如图1.1所示。</p>
+<p>图1.1单链表的结点构造<br> 设p是一个指针变量，则p的值是一个指针。设指针p指向某个结点，则该结点用*p表示，在单链表中，结点p由两个域组成：存放数据元素的部分和存放后继结点地址的指针部分，分别用p-&gt;data和p-&gt;next来标识，p-&gt;next指向结点ai+1，其指针与结点之间关系如图1.2所示。</p>
+<p>图1.2指针与结点之间关系的示意图<br>1.3系统性能分析<br>1．硬件环境<br>处理器：CPU主频在500MHz以上<br>内存：128MB以上<br>硬盘空间：10MB。<br>2．软件环境<br>操作系统: Windows 98/Me/NT/2000/XP(推荐使用Windows 2000/XP)。<br>调试环境: Visual C++及以上版本。</p>
+<h2 id="二、总体结构设计"><a href="#二、总体结构设计" class="headerlink" title="二、总体结构设计"></a>二、总体结构设计</h2><p>2.1系统的结构设计<br>通过对学生信息管理系统的功能分析，可以定义出系统的总体结构模块图，如图2.1所示。</p>
+<p>图2.1学生信息管理系统总体结构设计<br>2.2系统管理流程图<br>  前面的分析中已经定义了系统各个模块，属于静态建模的范围。在系统运行时刻的动态模型应该由系统的流程决定。当用户运行该系统后可以来进行学生信息信息（录入）插入管理、学生信息修改管理、学生信息删除管理、学生信息显示管理及学生信息显示等操作，具体的流程如图2.2所示。</p>
+<p>图2.2系统流程图<br>主模块应负责应用程序的主界面，由它调用其他模块.因此主模块应具有操作性好、界面清晰的特点，使用户能够很方便地找到所需功能。<br>根据功能需求的结果分析，主界面应该由学生信息录入管理，学生信息插入管理，学生信息修改管理、学生信息删除管理、学生信息显示管理和学生信息信息查询管理组成，可以通过输入相应的数字进入相应的功能模块。</p>
+<p>三、 系统详细设计和系统实现<br>系统总体设计完成后，就可以根据需求对各个模块来进行实现了。在本系统中需要编码实现的主要有学生信息信息插入、学生信息信息查询、学生信息信息修改、学生信息信息删除和学生信息信息输出等5个模块。<br>(1)学生信息录入模块<br>添加的信息包括姓名(允许重复)、学号(不允许重复)、年龄、性别、宿舍地址、计算机成绩、数学成绩和英语成绩。流程图如下图3.1所示。</p>
+<p>图3.1录入模块流程图<br>本程序采用的是尾插法，就是每次将新申请的结点插在终端结点的后面，其执行过程如图3.12所示。</p>
+<p>图3.12尾插法建立单链表操作示意图<br>(2)学生信息插入模块<br>输入一个存在的学号作为插入位置，在其后插入的信息包括姓名、学号、年龄、性别、宿舍地址、计算机成绩、数学成绩和英语成绩。流程图如下图3.2所示。</p>
+<p>图3.2插入模块流程图<br>本程序采用的是尾插法，就是每次将新申请的结点插在终端结点的后面，其执行过程如图3.22所示。</p>
+<p>图3.22 尾插法插入操作示意图</p>
+<p>(3)学生信息修改模块<br>首先要查找与要修改数据相匹配的信息，若没有则返回失败。否则把相应的信息输出，然后再重新输入新的数据并保存到单链表。</p>
+<p>(4)学生信息删除模块<br>当选择删除功能时，首先输入要删除的同学的姓名，然后输入要删除的同学的学号，如果该同学存在并且姓名与学号匹配的上，则进行删除操作，否则返回失败。其流程图3.4如下：</p>
+<p>图3.4删除学生信息模块流程图<br>删除操作定义为将单链表的第i个结点删去。因为在单链表中结点ai存储地址在其前驱结点ai-1的指针域，所以必须首先找到ai-1的存储地址p，然后令p的next域指向ai 的后继结点，即把结点ai 从链上摘下来，最后释放结点ai的存储空间，如图3.42所示。 </p>
+<p>图3.42在单链表中删除结点指针的变化情况</p>
+<p>(5)学生信息显示模块<br>从单链表表头遍历整个单链表，将所有数据输出。其部分代码如下：</p>
+<pre><code> void Function::Show()        
+&#123;    
+    Student *temp;
+    system(&quot;cls&quot;);
+    temp=Student_First-&gt;Next;         
+    if(!temp)                  
+    &#123;    cout&lt;&lt;&quot;文件无数据\n\n &quot;&lt;&lt;endl;
+        cout&lt;&lt;&quot;按任意键返回主菜单&quot;&lt;&lt;endl;
+        getch();
+         
+        Menu();           
+    &#125;
+    else
+    &#123;cout&lt;&lt;&quot;姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+        while(temp!=NULL)
+        &#123;     temp-&gt;Out();
+            temp=temp-&gt;Next;                     
+        &#125;
+    &#125;
+    cout&lt;&lt;endl&lt;&lt;&quot;按任意键返回主菜单&quot;&lt;&lt;endl;
+    getch();
+    
+    Menu();                      
+&#125; 
+</code></pre>
+<p>(6)学生信息查询模块<br>按姓名和学号查找学生信息的流程图分别如下图3.6所示。</p>
+<p>图3.6按姓名或学号查找学生信息信息流程图<br>在单链表中，即使知道被访问结点的位置i，也不能像顺序表那样直接按序号访问，而只能从头指针出发，设置一个工作指针p，顺next域逐个结点往下搜索。当p指向某个结点时判断是否为第i个结点，若是则查找成功；否则，将工作指针p后移，即将p指向原来所指结点的后继结点。直到p为NULL时查找失败。单链表查找过程如图3.62所示。</p>
+<p>图3.62单链表查找过程的示意图</p>
+<p>四、 系统测试<br>在完成了系统各方面的设计后，并不是可以运行就完成的，为了保证系统性能的稳定性跟安全性等，就要对系统做测试。<br>测试环境如下：<br>    硬件:联想ThinkPad 2.4GHz，500GB硬盘，4G内存；<br>    软件:Windows 7 Personal SP1，分辨率1366*768，Microsoft Visual C++ 6.0。</p>
+<p>在对系统功能进行逐一测试的时候，遇到了一些问题，例如，因为把学号定义为整形（int），在输入以0为开头的学号时，系统会自动把0去掉，这样学号的信息就丢失了第一位。为了解决这个问题，将学号改成了 字符型(char)，这样在构造函数里也需要把学号的初始化用 字符串拷贝（strcpy）来实现。<br>遇到的问题还有很多，例如数据出错，内存溢出等，经过反复测试，调试和努力修正，程序得以完善。<br>下面为源码：</p>
+<pre><code>// 程序名称：Student.cpp 
+// 程序功能：采用链表与文件实现一个简单的学生成绩管理系统。
+
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include&lt;cstring&gt;
+#include&lt;conio.h&gt;
+#include&lt;windows.h&gt;
+#include &lt;ctime&gt;
+using namespace std;
+struct Class
+&#123;   int Computer;
+    int Math;
+    int English;
+&#125;;
+class Student&#123;
+public:
+    Student();
+    void Ofile(ofstream &amp;of);                 
+    void Infile(ifstream &amp;f);                
+    void Out();                                                 
+    void Set(char *name,char *no,int age,char *sex,char *add,Class score);
+    char *GetName();                        
+    char * GetNo();                         
+    Student *Next;                           
+protected:
+    char Name[20];                          
+    char No[20];    
+    int Age;
+    char Sex[20];
+    char Add[40];
+    Class Score ;
+&#125;;
+Student::Student():Next(0)&#123;&#125;                   
+char *Student::GetName()&#123;return Name;&#125;        
+char *Student::GetNo()&#123;return No;&#125;
+void Student::Set(char *name,char *no,int age,char *sex,char *add,Class score)
+&#123;    strcpy(Name,name);
+    strcpy(No,no);
+    Age=age;
+    strcpy(Sex,sex);
+    strcpy(Add,add);
+    Score=score;
+&#125;
+void Student::Infile(ifstream &amp;f)
+&#123;    f&gt;&gt;Name&gt;&gt;No&gt;&gt;Age&gt;&gt;Sex&gt;&gt;Add&gt;&gt;Score.Computer&gt;&gt;Score.Math&gt;&gt;Score.English;    //将数据输入到文件                
+&#125;
+void Student::Ofile(ofstream &amp;of)
+&#123;    of&lt;&lt;&quot; &quot;&lt;&lt;Name&lt;&lt;&quot; &quot;&lt;&lt;No&lt;&lt;&quot; &quot;&lt;&lt;Age&lt;&lt;&quot; &quot;&lt;&lt;Sex&lt;&lt;&quot; &quot;&lt;&lt;Add&lt;&lt;&quot; &quot;&lt;&lt;Score.Computer&lt;&lt;&quot; &quot;&lt;&lt;Score.Math&lt;&lt;&quot; &quot;&lt;&lt;Score.English;          //从文件中提取数据
+&#125;
+void Student::Out()
+&#123; 
+    cout&lt;&lt;&quot;-------------------------------------------------------------------------------&quot;&lt;&lt;endl;
+    cout&lt;&lt;Name&lt;&lt;&quot;\t&quot;&lt;&lt;No&lt;&lt;&quot;\t&quot;&lt;&lt;Age&lt;&lt;&quot;\t&quot;&lt;&lt;Sex&lt;&lt;&quot;\t&quot;&lt;&lt;Add&lt;&lt;&quot;\t  &quot;&lt;&lt;Score.Computer&lt;&lt;&quot;\t   &quot;&lt;&lt;Score.Math&lt;&lt;&quot;\t  &quot;&lt;&lt;Score.English&lt;&lt;endl; 
+&#125;
+class Function                             //功能类                   
+&#123;
+public:
+    Function();                            //构造函数
+    ~Function();                          //析构函数
+    void Menu();                          //菜单函数
+    void Add();                           //录入学生信息函数
+    void Insert();                          //插入学生信息函数
+    void Modify();                          //修改学生信息函数
+    void Delete();                         //删除学生信息函数                         
+    void Show();                           //显示学生信息函数
+    void Search();                        //查询学生信息函数
+    
+private:
+    Student *Student_First;                         
+    void Read();                           //读取学生信息函数
+    void Save();                           //保存学生信息函数
+&#125;;
+Function::Function()
+&#123;    Student_First=new Student;                             
+    Read();
+&#125;  
+Function::~Function()
+&#123;    delete Student_First;            
+&#125;
+void Function::Add()                           //录入学生信息函数
+&#123;    char name[20];
+    char no[20]; 
+    int age;
+    char sex[20];
+    char add[100];
+    Class score;
+    char choose;                            
+    Student *f1,*p,*f2;                         
+    system(&quot;cls&quot;);
+    f1=Student_First;
+    f2=Student_First-&gt;Next;
+    while(f1-&gt;Next)
+        f1=f1-&gt;Next;                  
+    do
+    &#123;  p=new Student;
+        cout&lt;&lt;&quot;请输入您要添加的学生成绩信息:&quot;&lt;&lt;endl;
+        cout&lt;&lt;&quot;请输入学生姓名: &quot;;
+        cin&gt;&gt;name;
+        cout&lt;&lt;&quot;请输入学号: &quot;;
+        cin&gt;&gt;no;
+        while(f2)
+        &#123;    if(strcmp(f2-&gt;GetNo(),no)==0)
+            &#123;    cout&lt;&lt;&quot;该学生已存在，请确定学号!\n\n&quot;;
+            cout&lt;&lt;&quot;1.返回主菜单\n2.继续添加 ------- &quot;;
+            cin&gt;&gt;choose;
+            while(choose!=&#39;1&#39;&amp;&amp;choose!=&#39;2&#39;)
+            &#123;        cout&lt;&lt;&quot;1.返回主菜单\n2.继续添加 ------- &quot;;
+                     cin&gt;&gt;choose;
+            &#125;
+            if(choose==&#39;1&#39;)
+            Menu();
+            else if(choose==&#39;2&#39;)
+
+                Add();
+            &#125;
+            f2=f2-&gt;Next;
+        &#125;
+        
+        cout&lt;&lt;&quot;请输入年龄: &quot;;
+        cin&gt;&gt;age;
+        cout&lt;&lt;&quot;请输入性别: &quot;;
+        cin&gt;&gt;sex;
+        cout&lt;&lt;&quot;请输入宿舍地址: &quot;;
+        cin&gt;&gt;add;
+
+        cout&lt;&lt;&quot;请输入计算机成绩: &quot;;
+       cin&gt;&gt;score.Computer;
+        cout&lt;&lt;&quot;请输入数学成绩: &quot;;
+       cin&gt;&gt;score.Math;
+        cout&lt;&lt;&quot;请输入英语成绩: &quot;;
+        cin&gt;&gt;score.English;
+        p-&gt;Set(name,no,age,sex,add,score);
+        f1-&gt;Next=p;                  
+        p-&gt;Next=NULL;
+        f1=f1-&gt;Next;
+        cout&lt;&lt;&quot;是否继续输入信息?(Y\\N) ------- &quot;;
+        cin&gt;&gt;choose;
+        &#125;while(choose==&#39;y&#39;||choose==&#39;Y&#39;);
+    Save();
+    Menu();
+&#125;
+
+void Function::Insert()  
+&#123;
+    char name[20];
+    char no[20]; 
+    int age;
+    char sex[20];
+    char add[100];
+    Class score;
+    int flag(0);
+    Student *f1,*p;                         
+    system(&quot;cls&quot;);
+    f1=Student_First;
+                        
+    
+     p=new Student;
+        cout&lt;&lt;&quot;请输入学号来确定插入位置:&quot;&lt;&lt;endl;
+        cin&gt;&gt;no;
+        while(f1)
+            &#123;    if(strcmp(f1-&gt;GetNo(),no)==0)        
+                &#123;    flag=1;                    
+                    break;
+                &#125;
+                f1=f1-&gt;Next;         
+            &#125;
+                if(flag==0)
+            &#123;
+                cout&lt;&lt;&quot;\n无该学生的信息,程序将返回主菜单\n&quot;&lt;&lt;endl;
+                Sleep(2000);
+                Menu();
+            &#125;
+
+            else
+            &#123;    
+            cout&lt;&lt;&quot;请输入学生姓名: &quot;;
+            cin&gt;&gt;name;
+            cout&lt;&lt;&quot;请输入学号: &quot;;
+            cin&gt;&gt;no;
+            cout&lt;&lt;&quot;请输入年龄: &quot;;
+            cin&gt;&gt;age;
+            cout&lt;&lt;&quot;请输入性别: &quot;;
+            cin&gt;&gt;sex;
+            cout&lt;&lt;&quot;请输入宿舍地址: &quot;;
+            cin&gt;&gt;add;
+
+            cout&lt;&lt;&quot;请输入计算机成绩: &quot;;
+             cin&gt;&gt;score.Computer;
+            cout&lt;&lt;&quot;请输入数学成绩: &quot;;
+             cin&gt;&gt;score.Math;
+            cout&lt;&lt;&quot;请输入英语成绩: &quot;;
+            cin&gt;&gt;score.English;
+            p-&gt;Set(name,no,age,sex,add,score);
+            &#125;
+                          
+        p-&gt;Next=f1-&gt;Next;
+        f1-&gt;Next=p;
+        Save();
+        cout&lt;&lt;&quot;插入成功! &quot;;
+        Sleep(1500);
+    
+    Menu();
+&#125;
+
+void Function::Modify()                 //修改学生信息函数
+&#123;    
+    int flag(0);
+    char choose,name[20];               
+    Student *temp,*p;                           
+    char no[20];
+    int age;
+    char sex[20];
+    char add[100];
+    Class score;
+    system(&quot;cls&quot;);
+    temp=p=Student_First;
+    cout&lt;&lt;&quot;输入修改方式：\n1.按姓名修改\n2.按学号修改 ------- &quot;;
+        cin&gt;&gt;choose;
+        if(choose==&#39;1&#39;)
+        &#123;    
+            cout&lt;&lt;&quot;请输入您要修改的姓名:\n  &quot;;
+            cin&gt;&gt;name;
+    while(temp)
+    &#123;    if(strcmp(temp-&gt;GetName(),name)==0)          
+        &#123;
+            flag=1;
+            cout&lt;&lt;&quot;\n姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+            temp-&gt;Out();
+            cout&lt;&lt;&quot;请输入姓名: &quot;;
+             cin&gt;&gt;name;                                   
+            cout&lt;&lt;&quot;请输入学号: &quot;;
+            cin&gt;&gt;no;
+            cout&lt;&lt;&quot;请输入年龄: &quot;;
+            cin&gt;&gt;age;
+            cout&lt;&lt;&quot;请输入性别: &quot;;
+            cin&gt;&gt;sex;
+            cout&lt;&lt;&quot;请输入宿舍地址: &quot;;
+            cin&gt;&gt;add;
+            cout&lt;&lt;&quot;请输入计算机成绩: &quot;;
+            cin&gt;&gt;score.Computer;                                       
+            cout&lt;&lt;&quot;请输入数学成绩: &quot;;
+             cin&gt;&gt;score.Math;
+            cout&lt;&lt;&quot;请输入英语成绩: &quot;;
+            cin&gt;&gt;score.English;
+            temp-&gt;Set(name,no,age,sex,add,score);
+            
+            break;
+        &#125;
+        temp=temp-&gt;Next;  
+            
+    &#125;
+    &#125;
+        else if(choose==&#39;2&#39;)
+        &#123;    
+            cout&lt;&lt;&quot;请输入您要修改的学号: &quot;;
+            cin&gt;&gt;no;
+            while(temp)
+            &#123;    if(strcmp(temp-&gt;GetNo(),no)==0)        
+                &#123;    
+                    flag=1;
+                    cout&lt;&lt;&quot;\n姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+                    temp-&gt;Out();
+                    cout&lt;&lt;endl;
+                    cout&lt;&lt;&quot;请输入姓名: &quot;;
+                     cin&gt;&gt;name;                                   
+                    cout&lt;&lt;&quot;请输入学号: &quot;;
+                    cin&gt;&gt;no;
+                    cout&lt;&lt;&quot;请输入年龄: &quot;;
+                    cin&gt;&gt;age;
+                    cout&lt;&lt;&quot;请输入性别: &quot;;
+                    cin&gt;&gt;sex;
+                    cout&lt;&lt;&quot;请输入宿舍地址: &quot;;
+                    cin&gt;&gt;add;
+                    cout&lt;&lt;&quot;请输入计算机成绩: &quot;;
+                    cin&gt;&gt;score.Computer;                                       
+                    cout&lt;&lt;&quot;请输入数学成绩: &quot;;
+                     cin&gt;&gt;score.Math;
+                    cout&lt;&lt;&quot;请输入英语成绩: &quot;;
+                    cin&gt;&gt;score.English;
+                    temp-&gt;Set(name,no,age,sex,add,score);
+            
+                    break;
+                &#125;
+                temp=temp-&gt;Next;        
+            
+        &#125;        
+    &#125;
+if(flag==0)
+    cout&lt;&lt;&quot;\n无该学生的信息\n&quot;&lt;&lt;endl;
+else
+&#123;
+    Save();
+    cout&lt;&lt;&quot;修改成功!&quot;&lt;&lt;endl;
+&#125;
+
+    cout&lt;&lt;&quot;1.返回主菜单\n2.继续修改 ------- &quot;;
+    cin&gt;&gt;choose;
+    while(choose!=&#39;1&#39;&amp;&amp;choose!=&#39;2&#39;)
+    &#123;     cout&lt;&lt;&quot;1.返回主菜单\n2.继续修改 ------- &quot;;
+        cin&gt;&gt;choose;
+    &#125;
+    if(choose==&#39;1&#39;)
+        Menu();
+    else if(choose==&#39;2&#39;)
+        Modify();
+&#125;
+
+void Function::Delete()           //删除学生信息函数
+&#123;     char name[20];               
+    char no[20];
+    char choose;
+    Student *temp,*p;
+    system(&quot;cls&quot;);
+    p=temp=Student_First-&gt;Next;
+    cout&lt;&lt;&quot;请输入姓名: &quot;;
+    cin&gt;&gt;name;
+    cout&lt;&lt;&quot;输入学号: &quot;;
+    cin&gt;&gt;no;
+    while(temp)
+    &#123; if(strcmp(temp-&gt;GetName(),name)==0&amp;&amp;strcmp(temp-&gt;GetNo(),no)==0)  //判断该学生信息是否存在
+        &#123;      cout&lt;&lt;&quot;姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+               temp-&gt;Out();
+               cout&lt;&lt;&quot;\n是否删除(Y/N) -------&quot;;
+              cin&gt;&gt;choose;
+            if(choose==&#39;y&#39;||choose==&#39;Y&#39;)
+            &#123;    p-&gt;Next=p-&gt;Next-&gt;Next;
+                delete temp;
+                cout&lt;&lt;&quot;删除成功:\n&quot;;
+            &#125;
+               break;                    
+        &#125;
+        p=temp;
+        temp=temp-&gt;Next; 
+    &#125;
+    Save();                                     
+    cout&lt;&lt;&quot;1.返回主菜单\n2.继续删除 ------- &quot;;
+    cin&gt;&gt;choose;                              
+    while(choose!=&#39;1&#39;&amp;&amp;choose!=&#39;2&#39;)
+    &#123;    cout&lt;&lt;&quot;1.返回主菜单\n2.继续删除 ------- &quot;;
+        cin&gt;&gt;choose;
+    &#125;
+    if(choose==&#39;1&#39;)
+        Menu();                               
+    else if(choose==&#39;2&#39;)
+        Delete();                    
+&#125;
+
+void Function::Read()                       //读取学生信息函数
+&#123;    Student *p,*p2;
+    p=Student_First;                            
+    ifstream is(&quot;Student.txt&quot;,ios::in);         
+    if(!is)                             
+    &#123;   ofstream os(&quot;Student.txt&quot;,ios::out);     
+        os.close();                        
+        return ;
+    &#125;
+    while(!is.eof())
+    &#123;   p2=new Student;                   
+        p2-&gt;Infile(is);
+        p-&gt;Next=p2;                      
+        p2-&gt;Next=NULL;                  
+         p=p-&gt;Next;
+    &#125;
+&#125;
+void Function::Save()                                 //保存学生信息函数
+&#123;    ofstream of(&quot;Student.txt&quot;,ios::out);         
+    Student *p=Student_First-&gt;Next;                      
+    while(p)
+    &#123;    p-&gt;Ofile(of);                       
+        p=p-&gt;Next;                      
+    &#125;
+    of.close();
+&#125;
+void Function::Search()                       
+&#123;    int flag(0);                           
+    char choose;                          
+    char t1[20];
+    char t2[20];
+    system(&quot;cls&quot;);
+    Student *temp=Student_First-&gt;Next;            
+    do
+    &#123;   cout&lt;&lt;&quot;输入查询方式：\n1.按姓名查询\n2.按学号查询 ------- &quot;;
+        cin&gt;&gt;choose;
+        if(choose==&#39;1&#39;)
+        &#123;    cout&lt;&lt;&quot;请输入您要查询的姓名:&quot;;
+            cin&gt;&gt;t1;    
+            while(temp)
+            &#123;    if(strcmp(t1,temp-&gt;GetName())==0)        
+                &#123;    flag=1;    
+                    break;
+                &#125;
+                temp=temp-&gt;Next;         
+            &#125;
+            if(flag==0)
+                cout&lt;&lt;&quot;\n无该学生的信息\n&quot;&lt;&lt;endl;
+            else
+            &#123;    
+                cout&lt;&lt;&quot;\n&quot;;
+                cout&lt;&lt;&quot;姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+                temp-&gt;Out();
+            &#125;
+            break;
+        &#125;
+        else if(choose==&#39;2&#39;)
+        &#123;    cout&lt;&lt;&quot;请输入您要查询的学号 ------- &quot;;
+            cin&gt;&gt;t2;
+            while(temp)
+            &#123;    if(strcmp(t2,temp-&gt;GetNo())==0)        
+                &#123;    flag=1;                    
+                    break;
+                &#125;
+                temp=temp-&gt;Next;         
+            &#125;
+            if(flag==0)
+                cout&lt;&lt;&quot;\n无该学生的信息\n&quot;&lt;&lt;endl;
+            else
+            &#123;    
+                cout&lt;&lt;&quot;\n&quot;;
+                cout&lt;&lt;&quot;姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+                temp-&gt;Out();
+             &#125;
+            break;
+        &#125;
+    &#125;while(choose!=&#39;1&#39;||choose!=&#39;2&#39;);
+    cout&lt;&lt;&quot;\n1.返回主菜单\n2.继续查询 ------- &quot;;
+    cin&gt;&gt;choose;
+    while(choose!=&#39;1&#39;&amp;&amp;choose!=&#39;2&#39;)
+    &#123;    cout&lt;&lt;&quot;1.返回主菜单\n2.继续查询 ------- &quot;;
+        cin&gt;&gt;choose;
+    &#125;
+    if(choose==&#39;1&#39;)
+        Menu();               
+    else if(choose==&#39;2&#39;)
+         Search();               
+&#125;
+void Function::Show()        
+&#123;    
+    Student *temp;
+    system(&quot;cls&quot;);
+    temp=Student_First-&gt;Next;         
+    if(!temp)                  
+    &#123;    cout&lt;&lt;&quot;文件无数据\n\n &quot;&lt;&lt;endl;
+        cout&lt;&lt;&quot;按任意键返回主菜单&quot;&lt;&lt;endl;
+        getch();
+         
+        Menu();           
+    &#125;
+    else
+    &#123;    cout&lt;&lt;&quot;姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+        while(temp!=NULL)
+        &#123;     temp-&gt;Out();
+            temp=temp-&gt;Next;                     
+        &#125;
+    &#125;
+    cout&lt;&lt;endl&lt;&lt;&quot;按任意键返回主菜单&quot;&lt;&lt;endl;
+    getch();
+    
+    Menu();                      
+&#125;
+void Function::Menu()
+&#123;   system(&quot;color F9&quot;);
+    time_t t;
+    time(&amp;t);
+    char choose;               
+    system(&quot;cls&quot;);    
+
+    cout&lt;&lt;endl;
+    cout&lt;&lt;&quot;\t※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;\t                        西安科技大学欢迎您                 &quot;&lt;&lt;endl&lt;&lt;endl; 
+    cout&lt;&lt;&quot;\t                  学生信息管理系统                    &quot;&lt;&lt;endl&lt;&lt;endl; 
+    cout&lt;&lt;&quot;\t     当前系统时间: &quot;&lt;&lt;ctime(&amp;t)&lt;&lt;&quot;&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;\t                                            版权所有：李晋旭 杨凯文&quot;&lt;&lt;endl; 
+    cout&lt;&lt;&quot;\t※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※&quot;&lt;&lt;endl&lt;&lt;endl;
+    cout&lt;&lt;&quot;请按键选择需要的操作 （请输入数字）&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;\n&quot;;
+
+    cout&lt;&lt;&quot;  ╭--------------------------------------╮&quot;&lt;&lt;endl;
+      cout&lt;&lt;&quot; │          1 录入学生信息:               │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; │          2 插入学生信息:               │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; │          3 修改学生信息:               │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; │          4 删除学生信息:               │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; │          5 显示全部学生信息:           │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; │          6 查找学生信息:               │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; │          7 退出系统:                   │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; ╰----------------------------------------╯&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;\n&quot;;
+    cin&gt;&gt;choose;
+    switch(choose)
+&#123;    case &#39;1&#39;: Add();break;                 
+    case &#39;2&#39;: Insert();break;
+    case &#39;3&#39;: Modify();break;
+    case &#39;4&#39;: Delete();break;
+    case &#39;5&#39;: Show();break;
+    case &#39;6&#39;: Search();break;
+    case &#39;7&#39;: exit(1);break;    
+    default:
+        &#123;    cout&lt;&lt;&quot;请按规定输入选择项!&quot;&lt;&lt;endl;
+            Sleep(1500);
+            Menu();
+        &#125;
+    &#125;
+&#125;
+int main()
+&#123;    Function function;          //定义功能接口
+    function.Menu();            //调用主菜单
+&#125;                                       
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\03\12\NFA的确定化（子集法）\" rel="bookmark">NFA的确定化</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\01\02\N皇后问题\" rel="bookmark">N皇后问题</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\02\05\字符串的冒泡排序\" rel="bookmark">字符串的冒泡排序</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2019\04\02\编程基础\" rel="bookmark">编程基础</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\02\02\说反话-加强版\" rel="bookmark">说反话-加强版</a></div>
+    </li>
+  </ul>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/username">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+               <a href="/tags/C/" rel="tag"><i class="fa fa-tags"></i> C</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/02/02/C-huffuman/" rel="prev" title="Huffman编码实践">
+      <i class="fa fa-chevron-left"></i> Huffman编码实践
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/02/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" rel="next" title="编程基础">
+      编程基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+ 
+	  <!--/网易云音乐-->
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EC%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AD%A6%E7%94%9F%E4%BF%A1%E6%81%AF%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F"><span class="nav-number">1.</span> <span class="nav-text">基于C语言的学生信息管理系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E7%B3%BB%E7%BB%9F%E9%9C%80%E6%B1%82%E4%B8%8E%E5%8A%9F%E8%83%BD%E5%88%86%E6%9E%90"><span class="nav-number">2.</span> <span class="nav-text">一、系统需求与功能分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E6%80%BB%E4%BD%93%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="nav-number">3.</span> <span class="nav-text">二、总体结构设计</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kevin"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">kevin</p>
+  <div class="site-description" itemprop="description">纵有疾风起，人生不言弃</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kevin-deepbule" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kevin-deepbule" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/2313809283@qq.com" title="E-Mail → 2313809283@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/2313809283" title="QQ → 2313809283"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.google.com/2313809283@qq.com" title="Google → https:&#x2F;&#x2F;www.google.com&#x2F;2313809283@qq.com" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.bilibili.com/video/BV1aE411o7qd" title="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1aE411o7qd" rel="noopener" target="_blank">机器学习之白板推导</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.bilibili.com/video/BV1dJ411B7gh" title="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1dJ411B7gh" rel="noopener" target="_blank">浙大机器学习课程</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.bilibili.com/video/BV164411b7dx" title="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV164411b7dx" rel="noopener" target="_blank">吴恩达机器学习</a>
+        </li>
+    </ul>
+  </div>
+
+       
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+<!--网易云音乐-->
+        <div id="music163player" style="position:fixed; bottom: 200px;left: 20px  width:255px height:110px">
+            <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=255 height=300 src="//music.163.com/outchain/player?type=0&id=2857550594&auto=0">
+            </iframe>
+        </div>
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kevin</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">44k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">40 分钟</span>
+</div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+<!--网易云音乐-->
+  
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cn-yangkaiwen-tk-2.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://cn.yangkaiwen.tk/2019/02/02/C-student-info-manage/";
+    this.page.identifier = "2019/02/02/C-student-info-manage/";
+    this.page.title = "基于C语言的学生成绩管理系统";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cn-yangkaiwen-tk-2.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+  
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+<script type="text/javascript" src="/js/src/firework.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

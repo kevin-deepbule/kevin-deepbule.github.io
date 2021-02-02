@@ -1,9 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Huffman编码实践</title>
+    <url>/2019/02/02/C-huffuman/</url>
+    <content><![CDATA[<h2 id="Huffman编码解码C语言实现"><a href="#Huffman编码解码C语言实现" class="headerlink" title="Huffman编码解码C语言实现"></a>Huffman编码解码C语言实现</h2><a id="more"></a>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">哈夫曼编码</span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;conio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXVALUE 10000</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXLEAF 30</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXNODE MAXLEAF*2-1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAXBIT 50</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> NULL 0</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">	<span class="keyword">char</span> letter;</span><br><span class="line">	<span class="keyword">int</span> weight;</span><br><span class="line">	<span class="keyword">int</span> parent;</span><br><span class="line">	<span class="keyword">int</span> lchild;</span><br><span class="line">	<span class="keyword">int</span> rchild;</span><br><span class="line">&#125;HNodeType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">	<span class="keyword">char</span> letter;</span><br><span class="line">	<span class="keyword">int</span> bit[MAXBIT];</span><br><span class="line">	<span class="keyword">int</span> start;</span><br><span class="line">&#125;HCodeType;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line">	<span class="keyword">char</span> s;</span><br><span class="line">	<span class="keyword">int</span> num;</span><br><span class="line">&#125;Message;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HuffmanTree</span><span class="params">(HNodeType HuffNode[],<span class="keyword">int</span> n,Message a[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i,j,m1,m2,x1,x2,temp1;<span class="keyword">char</span> temp2;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">2</span>*n<span class="number">-1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">		HuffNode[i].letter=<span class="literal">NULL</span>;</span><br><span class="line">		HuffNode[i].weight=<span class="number">0</span>;</span><br><span class="line">		HuffNode[i].parent=<span class="number">-1</span>;</span><br><span class="line">		HuffNode[i].lchild=<span class="number">-1</span>;</span><br><span class="line">		HuffNode[i].rchild=<span class="number">-1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">	<span class="keyword">for</span>(j=i+<span class="number">1</span>;j&lt;n<span class="number">-1</span>;j++)</span><br><span class="line">		<span class="keyword">if</span>(a[j].num&gt;a[i].num)</span><br><span class="line">	&#123;</span><br><span class="line">        temp1=a[i].num;a[i].num=a[j].num;a[j].num=temp1;</span><br><span class="line">		temp2=a[i].s;a[i].s=a[j].s;a[j].s=temp2;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">       HuffNode[i].weight=a[i].num;</span><br><span class="line">	   HuffNode[i].letter=a[i].s;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n<span class="number">-1</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		m1=m2=MAXVALUE;</span><br><span class="line">		x1=x2=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;n+<span class="number">1</span>;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(HuffNode[j].parent==<span class="number">-1</span>&amp;&amp;HuffNode[j].weight&lt;m1)</span><br><span class="line">			&#123;</span><br><span class="line">				m2=m1;x2=x1;</span><br><span class="line">				m1=HuffNode[j].weight;</span><br><span class="line">				x1=j;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(HuffNode[j].parent==<span class="number">-1</span>&amp;&amp;HuffNode[j].weight&lt;m2)</span><br><span class="line">			&#123;</span><br><span class="line">				m2=HuffNode[j].weight;</span><br><span class="line">			    x2=j;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		HuffNode[x1].parent=n+i;HuffNode[x2].parent=n+i;</span><br><span class="line">        HuffNode[n=i].weight=HuffNode[x1].weight+HuffNode[x2].weight;</span><br><span class="line">		HuffNode[n=i].lchild=x1;HuffNode[n+i].rchild=x2;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">HuffmanCode</span><span class="params">(<span class="keyword">int</span> n,Message a[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	HNodeType HuffNode[MAXNODE];</span><br><span class="line">	HCodeType HuffCode[MAXLEAF],cd;</span><br><span class="line">	<span class="keyword">int</span> i,j,c,p;</span><br><span class="line">	<span class="keyword">char</span> code[<span class="number">30</span>],*m;</span><br><span class="line">	HuffmanTree(HuffNode,n,a);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		cd.start=n<span class="number">-1</span>;</span><br><span class="line">		c=i;</span><br><span class="line">		p=HuffNode[c].parent;</span><br><span class="line">	<span class="keyword">while</span>(p!=<span class="number">-1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(HuffNode[p].lchild==c)</span><br><span class="line">			cd.bit[cd.start]=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			cd.bit[cd.start]=<span class="number">1</span>;</span><br><span class="line">		cd.start--;</span><br><span class="line">		c=p;</span><br><span class="line">		p=HuffNode[c].parent;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(j=cd.start+<span class="number">1</span>;j&lt;n;j++)</span><br><span class="line">		HuffCode[i].bit[j]=cd.bit[j];</span><br><span class="line">	HuffCode[i].start=cd.start;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;输出每个叶子的哈夫曼编码:\n&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">	&#123;</span><br><span class="line">       HuffCode[i].letter=HuffNode[i].letter;</span><br><span class="line">	   <span class="built_in">printf</span>(<span class="string">&quot;%c:&quot;</span>,HuffCode[i].letter);</span><br><span class="line">	   <span class="keyword">for</span>(j=HuffCode[i].start+<span class="number">1</span>;j&lt;n;j++)</span><br><span class="line">		   <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>,HuffCode[i].bit[j]);</span><br><span class="line">	   <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;请输入电文(1\0):\n&quot;</span>);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">30</span>;i++) code[i]=<span class="literal">NULL</span>;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,&amp;code); m=code;</span><br><span class="line">	c=<span class="number">2</span>*n<span class="number">-2</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;输出哈夫曼译码:\n&quot;</span>);</span><br><span class="line">	<span class="keyword">while</span>(*m!=<span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(*m==<span class="string">&#x27;0&#x27;</span>)</span><br><span class="line">		&#123;</span><br><span class="line">			c=i=HuffNode[c].lchild;</span><br><span class="line">			<span class="keyword">if</span>(HuffNode[c].lchild==<span class="number">-1</span>&amp;&amp;HuffNode[c].rchild==<span class="number">-1</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,HuffNode[i].letter);</span><br><span class="line">				c=<span class="number">2</span>*n<span class="number">-2</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		m++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	Message data[<span class="number">30</span>];</span><br><span class="line">	<span class="keyword">char</span> s[<span class="number">100</span>],*p;</span><br><span class="line">	<span class="keyword">int</span> i,count=<span class="number">0</span>;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\n 输入一些字符:&quot;</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>,&amp;s);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">30</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		data[i].s=<span class="literal">NULL</span>;</span><br><span class="line">		data[i].num=<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	p=s;</span><br><span class="line">	<span class="keyword">while</span> (*p)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;=count+<span class="number">1</span>;i++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">if</span>(data[i].s==<span class="literal">NULL</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				data[i].s=*p;data[i].num++;count++;<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(data[i].s==*p)</span><br><span class="line">			&#123;</span><br><span class="line">				data[i].num++;<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		p++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">&quot;不同的字符数:%d\n&quot;</span>,count);</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;count;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,data[i].s);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;权值:%d&quot;</span>,data[i].num);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	HuffmanCode(count,data);</span><br><span class="line">	getch();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>c语言</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>NFA的确定化</title>
+    <url>/2020/03/12/NFA%E7%9A%84%E7%A1%AE%E5%AE%9A%E5%8C%96%EF%BC%88%E5%AD%90%E9%9B%86%E6%B3%95%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="NFA的确定化（子集法）"><a href="#NFA的确定化（子集法）" class="headerlink" title="NFA的确定化（子集法）"></a>NFA的确定化（子集法）</h2><a id="more"></a>
+<p><img src="https://img-blog.csdnimg.cn/20200417150016943.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Mzg4NDc2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述">如上图所示，实现一个词法分析器首先由其正规集写出他所对应的正规式，再由正规式转化为NFA；这一些部分是利于人去实现的；然后通过算法将这个NFA转化为DFA；在将DFA输入到上面的通用控制中，实现词法分析；LETex是按照这种思想实现的；<br>我们在这里只实现NFA的确定化；</p>
+]]></content>
+      <categories>
+        <category>编译原理</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>编译原理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>N皇后问题</title>
+    <url>/2020/01/02/N%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="N皇后问题解法"><a href="#N皇后问题解法" class="headerlink" title="N皇后问题解法"></a>N皇后问题解法</h2><a id="more"></a>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> N;</span><br><span class="line"><span class="keyword">int</span> <span class="built_in">queue</span>[<span class="number">100</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Nqueue</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(k==N)&#123;<span class="comment">//作用是判断放的皇后行数是否超过N行 </span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt;<span class="built_in">queue</span>[i]+<span class="number">1</span>&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;<span class="comment">//遍历k行的各个列 </span></span><br><span class="line">		<span class="keyword">int</span> j;</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;k;j++)&#123;<span class="comment">//循环判断第k行的第i列，是否可以放置， </span></span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">queue</span>[j]==i||<span class="built_in">abs</span>(<span class="built_in">queue</span>[j]-i)==<span class="built_in">abs</span>(k-j))&#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(j==k)&#123;</span><br><span class="line">			<span class="built_in">queue</span>[k] = i;</span><br><span class="line">			Nqueue(k+<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="built_in">cin</span>&gt;&gt;N;</span><br><span class="line">	Nqueue(<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>N皇后问题：<br>递归回溯法求解，实际上是判断每一行上的第i列能否放上这个，不能，则什么都不做，函数返回；i++；如果可以放，赋值，然后调用Nqueue判断是否下一个可以，放，直到K==N，所有的N行全部放完，函数返回也就是回溯，然后判断上一行能不能放到下一个位置；每一行都有自己的i,如果可以向下判断，如果不能，i++,继续判断，如果到i等N还不行，那么函数返回到上一层；上一层继续判断；不考虑；<br>算法的乐趣，在于弄懂后如此简单，（也不简单），弄不懂犹如天书；<br>这个递归回溯相当于一个n^n重循环测试；递归回溯够巧妙！</p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>javascript中的深拷贝的方式总结</title>
-    <url>/2021/02/01/MyFirstBlog/</url>
-    <content><![CDATA[<h1 id="javascript中的深拷贝的方式总结"><a href="#javascript中的深拷贝的方式总结" class="headerlink" title="javascript中的深拷贝的方式总结"></a>javascript中的深拷贝的方式总结</h1><a id="more"></a>
+    <url>/2021/01/01/javascript%E4%B8%AD%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%E7%9A%84%E6%96%B9%E5%BC%8F%E6%80%BB%E7%BB%93/</url>
+    <content><![CDATA[<h2 id="javascript中的深拷贝的方式总结"><a href="#javascript中的深拷贝的方式总结" class="headerlink" title="javascript中的深拷贝的方式总结"></a>javascript中的深拷贝的方式总结</h2><a id="more"></a>
 
 <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>深拷贝指拷贝多层数据，每一层的数据都会被拷贝</p>
 <h1 id="一、使用递归实现深拷贝（函数不支持）"><a href="#一、使用递归实现深拷贝（函数不支持）" class="headerlink" title="一、使用递归实现深拷贝（函数不支持）"></a>一、使用递归实现深拷贝（函数不支持）</h1><h2 id="方法一：第一个参数是拷贝后数据的存储对象，第二个时候拷贝的对象"><a href="#方法一：第一个参数是拷贝后数据的存储对象，第二个时候拷贝的对象" class="headerlink" title="方法一：第一个参数是拷贝后数据的存储对象，第二个时候拷贝的对象"></a>方法一：第一个参数是拷贝后数据的存储对象，第二个时候拷贝的对象</h2><h2 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h2><p>利用for in 把对象或数组中的值取出来，判断类型后赋值或递归</p>
@@ -28,39 +72,863 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>tags</tag>
+        <tag>javascript</tag>
+        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
-    <title>ceshi_tuijiang</title>
-    <url>/2021/02/02/ceshi-tuijiang/</url>
-    <content><![CDATA[<p>##这是运来测试推荐的makedown</p>
+    <title>关于javascript中的组合，寄生，寄生组合继承的理解</title>
+    <url>/2021/02/02/%E5%85%B3%E4%BA%8Ejavascript%E4%B8%AD%E7%9A%84%E7%BB%84%E5%90%88%EF%BC%8C%E5%AF%84%E7%94%9F%EF%BC%8C%E5%AF%84%E7%94%9F%E7%BB%84%E5%90%88%E7%BB%A7%E6%89%BF%E7%9A%84%E7%90%86%E8%A7%A3/</url>
+    <content><![CDATA[<h2 id="javascript中的组合，寄生，寄生组合继承"><a href="#javascript中的组合，寄生，寄生组合继承" class="headerlink" title="javascript中的组合，寄生，寄生组合继承"></a>javascript中的组合，寄生，寄生组合继承</h2><a id="more"></a>
+<h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><h2 id="什么是继承"><a href="#什么是继承" class="headerlink" title="什么是继承"></a>什么是继承</h2><p> 继承是让子类获得父类的属性和方法，或者可以重新定义属性和方法</p>
+<h2 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h2><p>如何实现继承呢？<br>在ES6前并没有类，没有关键字extends 如何实现呢？<br>从继承的结果来看，继承就是让子对象拥有父对象的属性和方法。我们很容易就能想到，我们将父对象直接赋值给子对象，这样子对象便有了父对象的全部属性和方法。这么浅显的道理便是寄生式继承。当然可以对子对象进行增强（也就是重写方法或增加属性)<br>//寄生式继承实例</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> father = &#123;</span><br><span class="line">        name: <span class="string">&quot;father&quot;</span>,</span><br><span class="line">        age : <span class="number">34</span></span><br><span class="line">    &#125;</span><br><span class="line">    father.__proto__.talk = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">Son</span>(<span class="params">superType</span>)</span>&#123;    <span class="comment">//寄生式继承函数实际上是复制一份父类对象，给这个父类对象添加属性</span></span><br><span class="line">        <span class="keyword">var</span> subType = <span class="built_in">Object</span>(father);<span class="comment">//将实例对象完全复制一份 给subType</span></span><br><span class="line">        subType.name = <span class="string">&quot;son&quot;</span>;<span class="comment">//重新赋值</span></span><br><span class="line">        <span class="keyword">return</span> subType;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> son = Son(father)</span><br><span class="line">    <span class="built_in">console</span>.log(son)</span><br></pre></td></tr></table></figure>
+<p>从这个寄生式继承我们可看到，我们仅仅是将一个父对象复制了一份赋值给子对象，很明显，这一种方法有很大的弊端，子对象虽然有了和父亲一样的属性和方法，但是属性值和一样，需要重新赋值，这好吗？这不好。这个方法有优点吗?有，他们的原型对象是同一个。<br>再来看看组合式继承</p>
+<h2 id="组合式继承"><a href="#组合式继承" class="headerlink" title="组合式继承"></a>组合式继承</h2><p>因为我们继承的定义是让子类获得父类的属性和方法，所以我们理所应当的从子类的构造函数入手，看如何能让他获得父类的属性与方法。<br>对于属性：可以想到，在子类的构造函数中调用父类的构造函数，目的在new子类构造函数的时候，能执行父类构造函数中的代码，但是直接调用Father(参数)的话，其中的this指向的是函数的调用者，也就是window，我们是要让子类有父类的属性，不是给window添加的，所以这里在调用的时候需要用call方法指定是调用者（new的子类对象)，给子类对象添加属性。<br>对于方法：可以想到，通过原型链来查找，什么意思呢？就是说，给这个子类对象的原型对象等于父类对象，作用就是子类对象在查找父类对象的函数时，先在自己的属性中找，没找见，去原型对象中找，原型对象中的原型对象中找见了，于是，子类拥有了父类的方法。这便是方法的继承。（感觉很蠢，明明我们只要子类原型对象中找到父类原型对象中定义的函数，但却new了一个父类对象出来赋值给了子类的原型对象，能不能直接把父类的原型对象赋值给子类原型对象，这就是寄生组合式继承）</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Father</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">    Father.prototype.talk = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span>(<span class="params">name,age,score</span>)</span>&#123;</span><br><span class="line">    Father.call(<span class="built_in">this</span>,name,age);<span class="comment">//使当前的Father构造函数中的this是Son构造函数的实例；给该实例复值</span></span><br><span class="line">    <span class="built_in">this</span>.score = score;</span><br><span class="line">    Son.prototype =<span class="keyword">new</span> Father();</span><br><span class="line">    Son.prototype.constructor = Son;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> son = <span class="keyword">new</span> Son(<span class="string">&quot;son&quot;</span>,<span class="number">12</span>,<span class="number">99</span>);</span><br><span class="line">son.talk()</span><br><span class="line"><span class="built_in">console</span>.log(son);</span><br></pre></td></tr></table></figure>
+<p>注意：在使用组合式继承时，不能使用这种保险的方式生成构造函数，理由不必赘述，上面已经说明。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> (!(<span class="built_in">this</span> <span class="keyword">instanceof</span> Father))&#123;</span><br><span class="line">           <span class="keyword">return</span> <span class="keyword">new</span> Father(name,age);</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h2><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Father</span>(<span class="params">name,age</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name;</span><br><span class="line">    <span class="built_in">this</span>.age = age;</span><br><span class="line">    Father.prototype.talk = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span>(<span class="params">name,age,score</span>)</span>&#123;</span><br><span class="line">    Father.call(<span class="built_in">this</span>,name,age);<span class="comment">//使当前的Father构造函数中的this是Son构造函数的实例；给该实例复值</span></span><br><span class="line">    <span class="built_in">this</span>.score = score;</span><br><span class="line">    Son.prototype =Father.prototype;<span class="comment">//直接把父类的原型赋值给子类</span></span><br><span class="line">    Son.prototype.constructor = Son;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> son = <span class="keyword">new</span> Son(<span class="string">&quot;son&quot;</span>,<span class="number">12</span>,<span class="number">99</span>);</span><br><span class="line">son.talk()</span><br><span class="line"><span class="built_in">console</span>.log(son);</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>组合式继承：指的是将原型链和借用构造函数的技术组合到一块，从而发挥二者之长的一种继承模式。其背后的思路是使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。<br>寄生式继承，可以在不必预先定义构造函数的情况下实现继承，其本质是执行对给定对象的浅复制。而复制得到的副本还可以得到进一步改造<br>寄生组合式继承，集寄生式继承和组合继承的优点与一身，是实现基于类型继承的最有效方式。</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/02/02/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<a id="more"></a>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>test_tag</title>
-    <url>/2021/02/01/test-tag/</url>
-    <content><![CDATA[<h2 id="这个是guestbook"><a href="#这个是guestbook" class="headerlink" title="这个是guestbook"></a>这个是guestbook</h2>]]></content>
       <categories>
-        <category>搭建博客练习</category>
+        <category>javascript</category>
       </categories>
       <tags>
-        <tag>tags</tag>
+        <tag>javascript</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>字符串的冒泡排序</title>
+    <url>/2020/02/05/%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%86%92%E6%B3%A1%E6%8E%92%E5%BA%8F/</url>
+    <content><![CDATA[<h2 id="字符串的冒泡排序"><a href="#字符串的冒泡排序" class="headerlink" title="字符串的冒泡排序"></a>字符串的冒泡排序</h2><a id="more"></a>
+
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> N;</span><br><span class="line">	<span class="keyword">int</span> C;</span><br><span class="line">	<span class="keyword">char</span> a[<span class="number">110</span>][<span class="number">20</span>]=&#123;&#125;;</span><br><span class="line">	<span class="keyword">char</span> a1[<span class="number">20</span>]=&#123;&#125;;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">&quot;%d %d\n&quot;</span>,&amp;N,&amp;C);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;</span><br><span class="line">		gets(a[i]);<span class="comment">//获得从输入流中获得一行的输入；给 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i= <span class="number">0</span>;i&lt;C;i++)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j =<span class="number">0</span>;j&lt;N-i<span class="number">-1</span>;j++)&#123;</span><br><span class="line">			<span class="keyword">if</span> (<span class="built_in">strcmp</span>(a[j],a[j+<span class="number">1</span>])&gt;<span class="number">0</span>)&#123;</span><br><span class="line">				<span class="built_in">strcpy</span>(a1,a[j]);</span><br><span class="line">				<span class="built_in">strcpy</span>(a[j],a[j+<span class="number">1</span>]);</span><br><span class="line">				<span class="built_in">strcpy</span>(a[j+<span class="number">1</span>],a1);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;N;i++)&#123;</span><br><span class="line">		<span class="built_in">puts</span>(a[i]); </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>收获：gets函数<br>函数：gets<br>  头文件：stdio.h<br>功能：从stdin流中读取字符串，直至接受到换行符或EOF时停止，并将读取的结果存放在str指针所指向的字符数组中。换行符不作为读取串的内容，读取的换行符被转换为null值，并由此来结束字符串。<br><strong>gets函数从stdin流中读取字符串，直至接受到换行符或EOF时停止读入；<br>char *gets(char *str); 其中str 是一个字符指针变量名，也可以是一个字符数组名。gets() 函数的功能是从输入缓冲区中读取一个字符串存储到字符指针变量 str 所指向的内存空间。</strong><br>strcmp:字符串比较函数；</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>王挺MOOC编译原理实验1</title>
+    <url>/2020/06/02/%E7%8E%8B%E6%8C%BAMOOC%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%AE%9E%E9%AA%8C1/</url>
+    <content><![CDATA[<p>王挺MOOC编译原理实验1</p>
+<a id="more"></a>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* begin */</span></span><br><span class="line">[+]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: PLUS\n&quot;</span>,yytext);&#125;</span><br><span class="line">[-]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: MINUS\n&quot;</span>,yytext);&#125;</span><br><span class="line">[*]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: TIMES\n&quot;</span>,yytext);&#125;</span><br><span class="line">[/]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: DIVSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[:][=] 			&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: BECOME\n&quot;</span>,yytext);&#125;</span><br><span class="line">[&#x27;][^&#x27;]*[&#x27;]			&#123;printf(&quot;%s: CHARCON\n&quot;,yytext);&#125;</span><br><span class="line">[\$\!\@\#\%^\&amp;\*\~\_\\]		&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: ERROR\n&quot;</span>,yytext);&#125;</span><br><span class="line">[=]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: EQL\n&quot;</span>,yytext);&#125;</span><br><span class="line">[&lt;][&gt;]			&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: NEQ\n&quot;</span>,yytext);&#125;</span><br><span class="line">[&lt;]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: LSS\n&quot;</span>,yytext);&#125;</span><br><span class="line">[&lt;][=]			&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: LEQ\n&quot;</span>,yytext);&#125;</span><br><span class="line">[&gt;]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: GTR\n&quot;</span>,yytext);&#125;</span><br><span class="line">[&gt;][=]			&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: GEQ\n&quot;</span>,yytext);&#125;</span><br><span class="line">[o][f]			&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: OFSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[a][r][r][a][y] &#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: ARRAYSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[p][r][o][g][r][a][m] &#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: PROGRAMSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[m][o][d]		&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: MODSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[a][n][d]		&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: ANDSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[o][r]			&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: ORSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[n][o][t]		&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: NOTSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[[]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: LBRACK\n&quot;</span>,yytext);&#125;</span><br><span class="line">[]]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: RBRACK\n&quot;</span>,yytext);&#125;</span><br><span class="line">[(]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: LPAREN\n&quot;</span>,yytext);&#125;</span><br><span class="line">[)]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: RPAREN\n&quot;</span>,yytext);&#125;</span><br><span class="line">[,]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: COMMA\n&quot;</span>,yytext);&#125;</span><br><span class="line">[;]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: SEMICOLON\n&quot;</span>,yytext);&#125;</span><br><span class="line">[.]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: PERIOD\n&quot;</span>,yytext);&#125;</span><br><span class="line">[:]				&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: COLON\n&quot;</span>,yytext);&#125;</span><br><span class="line">[b][e][g][i][n] &#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: BEGINSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[e][n][d]		&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: ENDSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[i][f]			&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: IFSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[t][h][e][n]	&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: THENSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[e][l][s][e]	&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: ELSESYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[w][h][i][l][e] &#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: WHILESYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[d][o]			&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: DOSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[c][a][l][l]	&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: CALLSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[c][o][n][s][t]	&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: CONSTSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[t][y][p][e]	&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: TYPESYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[v][a][r]		&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: VARSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">[p][r][o][c][e][d][u][r][e]	&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: PROCSYM\n&quot;</span>,yytext);&#125;</span><br><span class="line">&#123;INTCON&#125;		&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: INTCON\n&quot;</span>, yytext);&#125;</span><br><span class="line">&#123;IDENT&#125;			&#123;<span class="built_in">printf</span>(<span class="string">&quot;%s: IDENT\n&quot;</span>, yytext);&#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/* end */</span></span><br></pre></td></tr></table></figure>
+<p><img src="https://img-blog.csdnimg.cn/20200417170901228.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0Mzg4NDc2,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+]]></content>
+      <categories>
+        <category>编译原理</category>
+      </categories>
+      <tags>
+        <tag>编译原理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>编程基础</title>
+    <url>/2019/04/02/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h2 id="编程基础练习题"><a href="#编程基础练习题" class="headerlink" title="编程基础练习题"></a>编程基础练习题</h2><a id="more"></a>
+<h2 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h2><p>任何一个正整数都可以用2的幂次方表示。例如：</p>
+<pre><code>137=27+23+20
+</code></pre>
+<p>同时约定方次用括号来表示，即ab可表示为a(b)。由此可知，137可表示为：</p>
+<pre><code>2(7)+2(3)+2(0)
+</code></pre>
+<p>进一步：7=22+2+20（21用2表示）</p>
+<pre><code>    3=2+20
+</code></pre>
+<p>所以最后137可表示为：</p>
+<pre><code>2(2(2)+2+2(0))+2(2+2(0))+2(0)
+</code></pre>
+<p>又如：</p>
+<pre><code>1315=210+28+25+2+1
+</code></pre>
+<p>所以1315最后可表示为：</p>
+<pre><code>2(2(2+2(0))+2)+2(2(2+2(0)))+2(2(2)+2(0))+2+2(0)
+</code></pre>
+<p>输入</p>
+<p>一个正整数n（n≤20000）。</p>
+<p>输出</p>
+<p>一行，符合约定的n的0，2表示（在表示中不能有空格）。</p>
+<p>样例输入</p>
+<p>137<br>样例输出</p>
+<p>2(2(2)+2+2(0))+2(2+2(0))+2(0)<br>————————————————————————————</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>我好菜啊，这种题都解决不了，看来得继续加强编程能力，还有就是，一定要想清楚整个逻辑，用自然语言描述出来，不能，似是而非，会吃很大的亏。递归中不用循环，逻辑有误；时间花费太大；参考博客：<a href="https://blog.csdn.net/lovemylife1234/article/details/69188391">代码出处</a></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">translate</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2(0)&quot;</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2&quot;</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> p=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(p&lt;=n)&#123; <span class="comment">//只能大于函数参数n</span></span><br><span class="line">			p&lt;&lt;=<span class="number">1</span>; <span class="comment">//p左移，左移一次代表乘2</span></span><br><span class="line">			cnt++; </span><br><span class="line">		&#125;</span><br><span class="line">		cnt--; </span><br><span class="line">		<span class="keyword">if</span>(n==p/<span class="number">2</span>)&#123; <span class="comment">//如果只有一个1 那么好办，只输出2（）即可；关键在cnt</span></span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2(&quot;</span>;</span><br><span class="line">			translate(cnt);<span class="comment">//移动几次为几次方；括号中的为指数，而不是倍数</span></span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;)&quot;</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(p/<span class="number">2</span>==<span class="number">2</span>)&#123; <span class="comment">////</span></span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2+&quot;</span>;</span><br><span class="line">				translate(n-p/<span class="number">2</span>); <span class="comment">//3-2</span></span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2(&quot;</span>;</span><br><span class="line">				translate(cnt);</span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;)+&quot;</span>;</span><br><span class="line">				translate(n-p/<span class="number">2</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">oj_2_2</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">	translate(n);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	oj_2_2();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h2><p>n是3时，一种特殊情况，p为4；m要是大于3，则变化的都有2（）+。。。，只有n = 3时，表达式开头为2，可以将n = 3 作为特殊情况，而输出唯一的一个字符串吗？可以，因为n == 3是一个特殊情////况，这是一个大坑，这道题的核心思想在于对m的情况分类；难点在于m==3和m的次方确定，和n-p/2为n去掉最高位的数；那么什么是递归呢？对当前情况进行处理，有终止条件，则无后续，否则，translate(n-p/2);给他下一个数；让他处理。<br>左移的位数为2的次方数；可以得到下一个处理的数；<br>1010101100，求一个数的递归的每次去掉最高位的1，n-p/2<br>while(p&gt;n){<br>    p&lt;&lt;=1;<br>    cnt++；<br>}</p>
+]]></content>
+      <categories>
+        <category>编程基础</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>编程基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>说反话-加强版</title>
+    <url>/2020/02/02/%E8%AF%B4%E5%8F%8D%E8%AF%9D-%E5%8A%A0%E5%BC%BA%E7%89%88/</url>
+    <content><![CDATA[<h2 id="浙大pat基础练习题"><a href="#浙大pat基础练习题" class="headerlink" title="浙大pat基础练习题"></a>浙大pat基础练习题</h2><a id="more"></a>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> a[<span class="number">5000000</span>];</span><br><span class="line"><span class="keyword">char</span> b[<span class="number">5000000</span>];</span><br><span class="line"><span class="comment">//构建函数Find：获得每一个字符串在a中的起始位置和结束位置；构成一个数组；按这个数组输出；</span></span><br><span class="line"><span class="keyword">int</span> Loc[<span class="number">1000000</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Find</span><span class="params">(<span class="keyword">char</span> *a,<span class="keyword">int</span> Loc[])</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> i=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> j=<span class="number">0</span>; </span><br><span class="line">	<span class="keyword">int</span> flag = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span>(a[i]==<span class="string">&#x27; &#x27;</span>)&#123;</span><br><span class="line">		i++;</span><br><span class="line">	&#125;</span><br><span class="line">	Loc[j] = i;</span><br><span class="line">	j++;</span><br><span class="line">	<span class="keyword">for</span>(;i&lt;<span class="built_in">strlen</span>(a);i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(a[i]==<span class="string">&#x27; &#x27;</span>||a[i]==<span class="string">&#x27;\n&#x27;</span>)&#123;</span><br><span class="line">			<span class="keyword">if</span>(flag==<span class="number">0</span>)&#123;</span><br><span class="line">				Loc[j] = i;</span><br><span class="line">				j++;</span><br><span class="line">				</span><br><span class="line">			&#125;</span><br><span class="line">			flag =<span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(flag==<span class="number">1</span>)&#123;</span><br><span class="line">				Loc[j] = i;</span><br><span class="line">				j++;</span><br><span class="line">				</span><br><span class="line">			&#125;flag=<span class="number">0</span>;</span><br><span class="line">			</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(flag==<span class="number">0</span>)&#123;</span><br><span class="line">		Loc[j] = i;</span><br><span class="line">		j++;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> flag = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> length = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> Count = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> flag0 = <span class="number">0</span>;</span><br><span class="line">	gets(a);<span class="comment">//处理a;</span></span><br><span class="line">	<span class="keyword">int</span> c =Find(a,Loc);</span><br><span class="line"><span class="comment">//	for(int i =0;i&lt;=c;i++) //查看数组是否正确；</span></span><br><span class="line"><span class="comment">//		printf(&quot;%d&quot;,Loc[i]);</span></span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=c<span class="number">-1</span>;i&gt;<span class="number">0</span>;i=i<span class="number">-2</span>)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=Loc[i<span class="number">-1</span>];j&lt;Loc[i];j++)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,a[j]);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(i!=<span class="number">1</span>)</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">&quot; &quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>注意：在PTA中选择运行环境是C(clang);<br>收获：对于数组问题可以将其转化为寻找数组下标的问题；<br>gets函数获得每一行的字符，gets获得的字符自动删除换行符；<br>strlen函数求字符串长度时遇到字符数组a[i] = 0 时返回；也就是说字符数组最后一个必有0；</p>
+]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+        <tag>算法</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>谢宾斯基三角形的绘制（递归）</title>
+    <url>/2020/12/02/%E8%B0%A2%E5%AE%BE%E6%96%AF%E5%9F%BA%E4%B8%89%E8%A7%92%E5%BD%A2%E7%9A%84%E7%BB%98%E5%88%B6%EF%BC%88%E9%80%92%E5%BD%92%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="谢宾斯基三角形的绘制（递归）"><a href="#谢宾斯基三角形的绘制（递归）" class="headerlink" title="谢宾斯基三角形的绘制（递归）"></a>谢宾斯基三角形的绘制（递归）</h2><a id="more"></a>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#谢宾斯基三角形.py</span></span><br><span class="line"><span class="keyword">import</span> turtle</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">san</span>(<span class="params">l,n</span>):</span><span class="comment">#l为长度 n为几次递归</span></span><br><span class="line">    <span class="keyword">if</span> n==<span class="number">0</span>:</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">            turtle.fd(l)</span><br><span class="line">            turtle.left(<span class="number">120</span>)</span><br><span class="line">        turtle.fd(l / <span class="number">2</span>)</span><br><span class="line">        turtle.left(<span class="number">60</span>)</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">            turtle.fd(l/<span class="number">2</span>)</span><br><span class="line">            turtle.left(<span class="number">120</span>)</span><br><span class="line">        turtle.right(<span class="number">60</span>)</span><br><span class="line">        turtle.backward(l/<span class="number">2</span>)</span><br><span class="line">    <span class="keyword">else</span>:  <span class="comment">#一次画图的转化</span></span><br><span class="line">        san(l/<span class="number">2</span>, n-<span class="number">1</span>)</span><br><span class="line">        turtle.left(<span class="number">60</span>)</span><br><span class="line">        turtle.fd(l / <span class="number">2</span>)</span><br><span class="line">        turtle.right(<span class="number">60</span>)</span><br><span class="line">        san(l/<span class="number">2</span>, n - <span class="number">1</span>)</span><br><span class="line">        turtle.fd(l/<span class="number">2</span>)</span><br><span class="line">        turtle.right(<span class="number">120</span>)</span><br><span class="line">        turtle.fd(l / <span class="number">2</span>)</span><br><span class="line">        turtle.left(<span class="number">120</span>)</span><br><span class="line">        san(l / <span class="number">2</span>, n - <span class="number">1</span>)</span><br><span class="line">        turtle.backward(l / <span class="number">2</span>)</span><br><span class="line">san(<span class="number">200</span>,<span class="number">4</span>)</span><br><span class="line">turtle.done()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>递归 有if else 为框架组成 基元素 和 递归关系组成了递归。注意理解递归关系是一次执行的总体框架，不考虑具体怎么做，只处理当前步，返回。</p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>基于C语言的学生成绩管理系统</title>
+    <url>/2019/02/02/C-student-info-manage/</url>
+    <content><![CDATA[<h2 id="基于C语言的学生信息管理系统"><a href="#基于C语言的学生信息管理系统" class="headerlink" title="基于C语言的学生信息管理系统"></a>基于C语言的学生信息管理系统</h2><a id="more"></a>
+<h2 id="一、系统需求与功能分析"><a href="#一、系统需求与功能分析" class="headerlink" title="一、系统需求与功能分析"></a>一、系统需求与功能分析</h2><p>1.1 系统需求分析<br>(1) 能完成学生信息的录入，插入、修改、删除、输出、查询等功能；<br>(2)采用单链表存储结构实现；<br>(3) 所有数据以外部文件方式保存。<br>1.2系统功能分析<br>(1)要设计一个学生信息管理系统，其功能包括：<br>①录入函数Add()：将学生信息按尾插法插入到链表中；<br>②插入函数Insert()：根据所给学号作为插入位置，在其后插入信息；<br>③修改函数Modify()：修改指定的学生信息；<br>④删除函数Delete()：当需要删除的学号和姓名一致时则删除对应的学生记录；<br>⑤输出函数Show()：显示全部学生信息；<br>⑥查询函数Search()：分别可以按学号和按姓名进行学生信息查询；<br>⑦菜单函数Menu()：为程序的菜单函数为实现各种功能提供便捷；<br>⑧读取数据函数Read()：从外部文件读取学生信息信息；<br>⑨保存数据函数Save()：将数据保存到外部文件中。<br>(2)线性表的链接存储结构称为单链表，单链表使用一组任意的存储单元存放线性表的元素，这组存储单元可以连续也可以不连续，甚至可以零散分布在内存中的任意位置。为了正确表示元素之间逻辑关系，每个存储单元在存储数据元素的同时，还必须存储其后继元素所在地址信息，这个地址信息称为指针，这两部分组成了数据元素的存储映像，称为结点，结点结构如图1.1所示。</p>
+<p>图1.1单链表的结点构造<br> 设p是一个指针变量，则p的值是一个指针。设指针p指向某个结点，则该结点用*p表示，在单链表中，结点p由两个域组成：存放数据元素的部分和存放后继结点地址的指针部分，分别用p-&gt;data和p-&gt;next来标识，p-&gt;next指向结点ai+1，其指针与结点之间关系如图1.2所示。</p>
+<p>图1.2指针与结点之间关系的示意图<br>1.3系统性能分析<br>1．硬件环境<br>处理器：CPU主频在500MHz以上<br>内存：128MB以上<br>硬盘空间：10MB。<br>2．软件环境<br>操作系统: Windows 98/Me/NT/2000/XP(推荐使用Windows 2000/XP)。<br>调试环境: Visual C++及以上版本。</p>
+<h2 id="二、总体结构设计"><a href="#二、总体结构设计" class="headerlink" title="二、总体结构设计"></a>二、总体结构设计</h2><p>2.1系统的结构设计<br>通过对学生信息管理系统的功能分析，可以定义出系统的总体结构模块图，如图2.1所示。</p>
+<p>图2.1学生信息管理系统总体结构设计<br>2.2系统管理流程图<br>  前面的分析中已经定义了系统各个模块，属于静态建模的范围。在系统运行时刻的动态模型应该由系统的流程决定。当用户运行该系统后可以来进行学生信息信息（录入）插入管理、学生信息修改管理、学生信息删除管理、学生信息显示管理及学生信息显示等操作，具体的流程如图2.2所示。</p>
+<p>图2.2系统流程图<br>主模块应负责应用程序的主界面，由它调用其他模块.因此主模块应具有操作性好、界面清晰的特点，使用户能够很方便地找到所需功能。<br>根据功能需求的结果分析，主界面应该由学生信息录入管理，学生信息插入管理，学生信息修改管理、学生信息删除管理、学生信息显示管理和学生信息信息查询管理组成，可以通过输入相应的数字进入相应的功能模块。</p>
+<p>三、 系统详细设计和系统实现<br>系统总体设计完成后，就可以根据需求对各个模块来进行实现了。在本系统中需要编码实现的主要有学生信息信息插入、学生信息信息查询、学生信息信息修改、学生信息信息删除和学生信息信息输出等5个模块。<br>(1)学生信息录入模块<br>添加的信息包括姓名(允许重复)、学号(不允许重复)、年龄、性别、宿舍地址、计算机成绩、数学成绩和英语成绩。流程图如下图3.1所示。</p>
+<p>图3.1录入模块流程图<br>本程序采用的是尾插法，就是每次将新申请的结点插在终端结点的后面，其执行过程如图3.12所示。</p>
+<p>图3.12尾插法建立单链表操作示意图<br>(2)学生信息插入模块<br>输入一个存在的学号作为插入位置，在其后插入的信息包括姓名、学号、年龄、性别、宿舍地址、计算机成绩、数学成绩和英语成绩。流程图如下图3.2所示。</p>
+<p>图3.2插入模块流程图<br>本程序采用的是尾插法，就是每次将新申请的结点插在终端结点的后面，其执行过程如图3.22所示。</p>
+<p>图3.22 尾插法插入操作示意图</p>
+<p>(3)学生信息修改模块<br>首先要查找与要修改数据相匹配的信息，若没有则返回失败。否则把相应的信息输出，然后再重新输入新的数据并保存到单链表。</p>
+<p>(4)学生信息删除模块<br>当选择删除功能时，首先输入要删除的同学的姓名，然后输入要删除的同学的学号，如果该同学存在并且姓名与学号匹配的上，则进行删除操作，否则返回失败。其流程图3.4如下：</p>
+<p>图3.4删除学生信息模块流程图<br>删除操作定义为将单链表的第i个结点删去。因为在单链表中结点ai存储地址在其前驱结点ai-1的指针域，所以必须首先找到ai-1的存储地址p，然后令p的next域指向ai 的后继结点，即把结点ai 从链上摘下来，最后释放结点ai的存储空间，如图3.42所示。 </p>
+<p>图3.42在单链表中删除结点指针的变化情况</p>
+<p>(5)学生信息显示模块<br>从单链表表头遍历整个单链表，将所有数据输出。其部分代码如下：</p>
+<pre><code> void Function::Show()        
+&#123;    
+    Student *temp;
+    system(&quot;cls&quot;);
+    temp=Student_First-&gt;Next;         
+    if(!temp)                  
+    &#123;    cout&lt;&lt;&quot;文件无数据\n\n &quot;&lt;&lt;endl;
+        cout&lt;&lt;&quot;按任意键返回主菜单&quot;&lt;&lt;endl;
+        getch();
+         
+        Menu();           
+    &#125;
+    else
+    &#123;cout&lt;&lt;&quot;姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+        while(temp!=NULL)
+        &#123;     temp-&gt;Out();
+            temp=temp-&gt;Next;                     
+        &#125;
+    &#125;
+    cout&lt;&lt;endl&lt;&lt;&quot;按任意键返回主菜单&quot;&lt;&lt;endl;
+    getch();
+    
+    Menu();                      
+&#125; 
+</code></pre>
+<p>(6)学生信息查询模块<br>按姓名和学号查找学生信息的流程图分别如下图3.6所示。</p>
+<p>图3.6按姓名或学号查找学生信息信息流程图<br>在单链表中，即使知道被访问结点的位置i，也不能像顺序表那样直接按序号访问，而只能从头指针出发，设置一个工作指针p，顺next域逐个结点往下搜索。当p指向某个结点时判断是否为第i个结点，若是则查找成功；否则，将工作指针p后移，即将p指向原来所指结点的后继结点。直到p为NULL时查找失败。单链表查找过程如图3.62所示。</p>
+<p>图3.62单链表查找过程的示意图</p>
+<p>四、 系统测试<br>在完成了系统各方面的设计后，并不是可以运行就完成的，为了保证系统性能的稳定性跟安全性等，就要对系统做测试。<br>测试环境如下：<br>    硬件:联想ThinkPad 2.4GHz，500GB硬盘，4G内存；<br>    软件:Windows 7 Personal SP1，分辨率1366*768，Microsoft Visual C++ 6.0。</p>
+<p>在对系统功能进行逐一测试的时候，遇到了一些问题，例如，因为把学号定义为整形（int），在输入以0为开头的学号时，系统会自动把0去掉，这样学号的信息就丢失了第一位。为了解决这个问题，将学号改成了 字符型(char)，这样在构造函数里也需要把学号的初始化用 字符串拷贝（strcpy）来实现。<br>遇到的问题还有很多，例如数据出错，内存溢出等，经过反复测试，调试和努力修正，程序得以完善。<br>下面为源码：</p>
+<pre><code>// 程序名称：Student.cpp 
+// 程序功能：采用链表与文件实现一个简单的学生成绩管理系统。
+
+#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include&lt;cstring&gt;
+#include&lt;conio.h&gt;
+#include&lt;windows.h&gt;
+#include &lt;ctime&gt;
+using namespace std;
+struct Class
+&#123;   int Computer;
+    int Math;
+    int English;
+&#125;;
+class Student&#123;
+public:
+    Student();
+    void Ofile(ofstream &amp;of);                 
+    void Infile(ifstream &amp;f);                
+    void Out();                                                 
+    void Set(char *name,char *no,int age,char *sex,char *add,Class score);
+    char *GetName();                        
+    char * GetNo();                         
+    Student *Next;                           
+protected:
+    char Name[20];                          
+    char No[20];    
+    int Age;
+    char Sex[20];
+    char Add[40];
+    Class Score ;
+&#125;;
+Student::Student():Next(0)&#123;&#125;                   
+char *Student::GetName()&#123;return Name;&#125;        
+char *Student::GetNo()&#123;return No;&#125;
+void Student::Set(char *name,char *no,int age,char *sex,char *add,Class score)
+&#123;    strcpy(Name,name);
+    strcpy(No,no);
+    Age=age;
+    strcpy(Sex,sex);
+    strcpy(Add,add);
+    Score=score;
+&#125;
+void Student::Infile(ifstream &amp;f)
+&#123;    f&gt;&gt;Name&gt;&gt;No&gt;&gt;Age&gt;&gt;Sex&gt;&gt;Add&gt;&gt;Score.Computer&gt;&gt;Score.Math&gt;&gt;Score.English;    //将数据输入到文件                
+&#125;
+void Student::Ofile(ofstream &amp;of)
+&#123;    of&lt;&lt;&quot; &quot;&lt;&lt;Name&lt;&lt;&quot; &quot;&lt;&lt;No&lt;&lt;&quot; &quot;&lt;&lt;Age&lt;&lt;&quot; &quot;&lt;&lt;Sex&lt;&lt;&quot; &quot;&lt;&lt;Add&lt;&lt;&quot; &quot;&lt;&lt;Score.Computer&lt;&lt;&quot; &quot;&lt;&lt;Score.Math&lt;&lt;&quot; &quot;&lt;&lt;Score.English;          //从文件中提取数据
+&#125;
+void Student::Out()
+&#123; 
+    cout&lt;&lt;&quot;-------------------------------------------------------------------------------&quot;&lt;&lt;endl;
+    cout&lt;&lt;Name&lt;&lt;&quot;\t&quot;&lt;&lt;No&lt;&lt;&quot;\t&quot;&lt;&lt;Age&lt;&lt;&quot;\t&quot;&lt;&lt;Sex&lt;&lt;&quot;\t&quot;&lt;&lt;Add&lt;&lt;&quot;\t  &quot;&lt;&lt;Score.Computer&lt;&lt;&quot;\t   &quot;&lt;&lt;Score.Math&lt;&lt;&quot;\t  &quot;&lt;&lt;Score.English&lt;&lt;endl; 
+&#125;
+class Function                             //功能类                   
+&#123;
+public:
+    Function();                            //构造函数
+    ~Function();                          //析构函数
+    void Menu();                          //菜单函数
+    void Add();                           //录入学生信息函数
+    void Insert();                          //插入学生信息函数
+    void Modify();                          //修改学生信息函数
+    void Delete();                         //删除学生信息函数                         
+    void Show();                           //显示学生信息函数
+    void Search();                        //查询学生信息函数
+    
+private:
+    Student *Student_First;                         
+    void Read();                           //读取学生信息函数
+    void Save();                           //保存学生信息函数
+&#125;;
+Function::Function()
+&#123;    Student_First=new Student;                             
+    Read();
+&#125;  
+Function::~Function()
+&#123;    delete Student_First;            
+&#125;
+void Function::Add()                           //录入学生信息函数
+&#123;    char name[20];
+    char no[20]; 
+    int age;
+    char sex[20];
+    char add[100];
+    Class score;
+    char choose;                            
+    Student *f1,*p,*f2;                         
+    system(&quot;cls&quot;);
+    f1=Student_First;
+    f2=Student_First-&gt;Next;
+    while(f1-&gt;Next)
+        f1=f1-&gt;Next;                  
+    do
+    &#123;  p=new Student;
+        cout&lt;&lt;&quot;请输入您要添加的学生成绩信息:&quot;&lt;&lt;endl;
+        cout&lt;&lt;&quot;请输入学生姓名: &quot;;
+        cin&gt;&gt;name;
+        cout&lt;&lt;&quot;请输入学号: &quot;;
+        cin&gt;&gt;no;
+        while(f2)
+        &#123;    if(strcmp(f2-&gt;GetNo(),no)==0)
+            &#123;    cout&lt;&lt;&quot;该学生已存在，请确定学号!\n\n&quot;;
+            cout&lt;&lt;&quot;1.返回主菜单\n2.继续添加 ------- &quot;;
+            cin&gt;&gt;choose;
+            while(choose!=&#39;1&#39;&amp;&amp;choose!=&#39;2&#39;)
+            &#123;        cout&lt;&lt;&quot;1.返回主菜单\n2.继续添加 ------- &quot;;
+                     cin&gt;&gt;choose;
+            &#125;
+            if(choose==&#39;1&#39;)
+            Menu();
+            else if(choose==&#39;2&#39;)
+
+                Add();
+            &#125;
+            f2=f2-&gt;Next;
+        &#125;
+        
+        cout&lt;&lt;&quot;请输入年龄: &quot;;
+        cin&gt;&gt;age;
+        cout&lt;&lt;&quot;请输入性别: &quot;;
+        cin&gt;&gt;sex;
+        cout&lt;&lt;&quot;请输入宿舍地址: &quot;;
+        cin&gt;&gt;add;
+
+        cout&lt;&lt;&quot;请输入计算机成绩: &quot;;
+       cin&gt;&gt;score.Computer;
+        cout&lt;&lt;&quot;请输入数学成绩: &quot;;
+       cin&gt;&gt;score.Math;
+        cout&lt;&lt;&quot;请输入英语成绩: &quot;;
+        cin&gt;&gt;score.English;
+        p-&gt;Set(name,no,age,sex,add,score);
+        f1-&gt;Next=p;                  
+        p-&gt;Next=NULL;
+        f1=f1-&gt;Next;
+        cout&lt;&lt;&quot;是否继续输入信息?(Y\\N) ------- &quot;;
+        cin&gt;&gt;choose;
+        &#125;while(choose==&#39;y&#39;||choose==&#39;Y&#39;);
+    Save();
+    Menu();
+&#125;
+
+void Function::Insert()  
+&#123;
+    char name[20];
+    char no[20]; 
+    int age;
+    char sex[20];
+    char add[100];
+    Class score;
+    int flag(0);
+    Student *f1,*p;                         
+    system(&quot;cls&quot;);
+    f1=Student_First;
+                        
+    
+     p=new Student;
+        cout&lt;&lt;&quot;请输入学号来确定插入位置:&quot;&lt;&lt;endl;
+        cin&gt;&gt;no;
+        while(f1)
+            &#123;    if(strcmp(f1-&gt;GetNo(),no)==0)        
+                &#123;    flag=1;                    
+                    break;
+                &#125;
+                f1=f1-&gt;Next;         
+            &#125;
+                if(flag==0)
+            &#123;
+                cout&lt;&lt;&quot;\n无该学生的信息,程序将返回主菜单\n&quot;&lt;&lt;endl;
+                Sleep(2000);
+                Menu();
+            &#125;
+
+            else
+            &#123;    
+            cout&lt;&lt;&quot;请输入学生姓名: &quot;;
+            cin&gt;&gt;name;
+            cout&lt;&lt;&quot;请输入学号: &quot;;
+            cin&gt;&gt;no;
+            cout&lt;&lt;&quot;请输入年龄: &quot;;
+            cin&gt;&gt;age;
+            cout&lt;&lt;&quot;请输入性别: &quot;;
+            cin&gt;&gt;sex;
+            cout&lt;&lt;&quot;请输入宿舍地址: &quot;;
+            cin&gt;&gt;add;
+
+            cout&lt;&lt;&quot;请输入计算机成绩: &quot;;
+             cin&gt;&gt;score.Computer;
+            cout&lt;&lt;&quot;请输入数学成绩: &quot;;
+             cin&gt;&gt;score.Math;
+            cout&lt;&lt;&quot;请输入英语成绩: &quot;;
+            cin&gt;&gt;score.English;
+            p-&gt;Set(name,no,age,sex,add,score);
+            &#125;
+                          
+        p-&gt;Next=f1-&gt;Next;
+        f1-&gt;Next=p;
+        Save();
+        cout&lt;&lt;&quot;插入成功! &quot;;
+        Sleep(1500);
+    
+    Menu();
+&#125;
+
+void Function::Modify()                 //修改学生信息函数
+&#123;    
+    int flag(0);
+    char choose,name[20];               
+    Student *temp,*p;                           
+    char no[20];
+    int age;
+    char sex[20];
+    char add[100];
+    Class score;
+    system(&quot;cls&quot;);
+    temp=p=Student_First;
+    cout&lt;&lt;&quot;输入修改方式：\n1.按姓名修改\n2.按学号修改 ------- &quot;;
+        cin&gt;&gt;choose;
+        if(choose==&#39;1&#39;)
+        &#123;    
+            cout&lt;&lt;&quot;请输入您要修改的姓名:\n  &quot;;
+            cin&gt;&gt;name;
+    while(temp)
+    &#123;    if(strcmp(temp-&gt;GetName(),name)==0)          
+        &#123;
+            flag=1;
+            cout&lt;&lt;&quot;\n姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+            temp-&gt;Out();
+            cout&lt;&lt;&quot;请输入姓名: &quot;;
+             cin&gt;&gt;name;                                   
+            cout&lt;&lt;&quot;请输入学号: &quot;;
+            cin&gt;&gt;no;
+            cout&lt;&lt;&quot;请输入年龄: &quot;;
+            cin&gt;&gt;age;
+            cout&lt;&lt;&quot;请输入性别: &quot;;
+            cin&gt;&gt;sex;
+            cout&lt;&lt;&quot;请输入宿舍地址: &quot;;
+            cin&gt;&gt;add;
+            cout&lt;&lt;&quot;请输入计算机成绩: &quot;;
+            cin&gt;&gt;score.Computer;                                       
+            cout&lt;&lt;&quot;请输入数学成绩: &quot;;
+             cin&gt;&gt;score.Math;
+            cout&lt;&lt;&quot;请输入英语成绩: &quot;;
+            cin&gt;&gt;score.English;
+            temp-&gt;Set(name,no,age,sex,add,score);
+            
+            break;
+        &#125;
+        temp=temp-&gt;Next;  
+            
+    &#125;
+    &#125;
+        else if(choose==&#39;2&#39;)
+        &#123;    
+            cout&lt;&lt;&quot;请输入您要修改的学号: &quot;;
+            cin&gt;&gt;no;
+            while(temp)
+            &#123;    if(strcmp(temp-&gt;GetNo(),no)==0)        
+                &#123;    
+                    flag=1;
+                    cout&lt;&lt;&quot;\n姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+                    temp-&gt;Out();
+                    cout&lt;&lt;endl;
+                    cout&lt;&lt;&quot;请输入姓名: &quot;;
+                     cin&gt;&gt;name;                                   
+                    cout&lt;&lt;&quot;请输入学号: &quot;;
+                    cin&gt;&gt;no;
+                    cout&lt;&lt;&quot;请输入年龄: &quot;;
+                    cin&gt;&gt;age;
+                    cout&lt;&lt;&quot;请输入性别: &quot;;
+                    cin&gt;&gt;sex;
+                    cout&lt;&lt;&quot;请输入宿舍地址: &quot;;
+                    cin&gt;&gt;add;
+                    cout&lt;&lt;&quot;请输入计算机成绩: &quot;;
+                    cin&gt;&gt;score.Computer;                                       
+                    cout&lt;&lt;&quot;请输入数学成绩: &quot;;
+                     cin&gt;&gt;score.Math;
+                    cout&lt;&lt;&quot;请输入英语成绩: &quot;;
+                    cin&gt;&gt;score.English;
+                    temp-&gt;Set(name,no,age,sex,add,score);
+            
+                    break;
+                &#125;
+                temp=temp-&gt;Next;        
+            
+        &#125;        
+    &#125;
+if(flag==0)
+    cout&lt;&lt;&quot;\n无该学生的信息\n&quot;&lt;&lt;endl;
+else
+&#123;
+    Save();
+    cout&lt;&lt;&quot;修改成功!&quot;&lt;&lt;endl;
+&#125;
+
+    cout&lt;&lt;&quot;1.返回主菜单\n2.继续修改 ------- &quot;;
+    cin&gt;&gt;choose;
+    while(choose!=&#39;1&#39;&amp;&amp;choose!=&#39;2&#39;)
+    &#123;     cout&lt;&lt;&quot;1.返回主菜单\n2.继续修改 ------- &quot;;
+        cin&gt;&gt;choose;
+    &#125;
+    if(choose==&#39;1&#39;)
+        Menu();
+    else if(choose==&#39;2&#39;)
+        Modify();
+&#125;
+
+void Function::Delete()           //删除学生信息函数
+&#123;     char name[20];               
+    char no[20];
+    char choose;
+    Student *temp,*p;
+    system(&quot;cls&quot;);
+    p=temp=Student_First-&gt;Next;
+    cout&lt;&lt;&quot;请输入姓名: &quot;;
+    cin&gt;&gt;name;
+    cout&lt;&lt;&quot;输入学号: &quot;;
+    cin&gt;&gt;no;
+    while(temp)
+    &#123; if(strcmp(temp-&gt;GetName(),name)==0&amp;&amp;strcmp(temp-&gt;GetNo(),no)==0)  //判断该学生信息是否存在
+        &#123;      cout&lt;&lt;&quot;姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+               temp-&gt;Out();
+               cout&lt;&lt;&quot;\n是否删除(Y/N) -------&quot;;
+              cin&gt;&gt;choose;
+            if(choose==&#39;y&#39;||choose==&#39;Y&#39;)
+            &#123;    p-&gt;Next=p-&gt;Next-&gt;Next;
+                delete temp;
+                cout&lt;&lt;&quot;删除成功:\n&quot;;
+            &#125;
+               break;                    
+        &#125;
+        p=temp;
+        temp=temp-&gt;Next; 
+    &#125;
+    Save();                                     
+    cout&lt;&lt;&quot;1.返回主菜单\n2.继续删除 ------- &quot;;
+    cin&gt;&gt;choose;                              
+    while(choose!=&#39;1&#39;&amp;&amp;choose!=&#39;2&#39;)
+    &#123;    cout&lt;&lt;&quot;1.返回主菜单\n2.继续删除 ------- &quot;;
+        cin&gt;&gt;choose;
+    &#125;
+    if(choose==&#39;1&#39;)
+        Menu();                               
+    else if(choose==&#39;2&#39;)
+        Delete();                    
+&#125;
+
+void Function::Read()                       //读取学生信息函数
+&#123;    Student *p,*p2;
+    p=Student_First;                            
+    ifstream is(&quot;Student.txt&quot;,ios::in);         
+    if(!is)                             
+    &#123;   ofstream os(&quot;Student.txt&quot;,ios::out);     
+        os.close();                        
+        return ;
+    &#125;
+    while(!is.eof())
+    &#123;   p2=new Student;                   
+        p2-&gt;Infile(is);
+        p-&gt;Next=p2;                      
+        p2-&gt;Next=NULL;                  
+         p=p-&gt;Next;
+    &#125;
+&#125;
+void Function::Save()                                 //保存学生信息函数
+&#123;    ofstream of(&quot;Student.txt&quot;,ios::out);         
+    Student *p=Student_First-&gt;Next;                      
+    while(p)
+    &#123;    p-&gt;Ofile(of);                       
+        p=p-&gt;Next;                      
+    &#125;
+    of.close();
+&#125;
+void Function::Search()                       
+&#123;    int flag(0);                           
+    char choose;                          
+    char t1[20];
+    char t2[20];
+    system(&quot;cls&quot;);
+    Student *temp=Student_First-&gt;Next;            
+    do
+    &#123;   cout&lt;&lt;&quot;输入查询方式：\n1.按姓名查询\n2.按学号查询 ------- &quot;;
+        cin&gt;&gt;choose;
+        if(choose==&#39;1&#39;)
+        &#123;    cout&lt;&lt;&quot;请输入您要查询的姓名:&quot;;
+            cin&gt;&gt;t1;    
+            while(temp)
+            &#123;    if(strcmp(t1,temp-&gt;GetName())==0)        
+                &#123;    flag=1;    
+                    break;
+                &#125;
+                temp=temp-&gt;Next;         
+            &#125;
+            if(flag==0)
+                cout&lt;&lt;&quot;\n无该学生的信息\n&quot;&lt;&lt;endl;
+            else
+            &#123;    
+                cout&lt;&lt;&quot;\n&quot;;
+                cout&lt;&lt;&quot;姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+                temp-&gt;Out();
+            &#125;
+            break;
+        &#125;
+        else if(choose==&#39;2&#39;)
+        &#123;    cout&lt;&lt;&quot;请输入您要查询的学号 ------- &quot;;
+            cin&gt;&gt;t2;
+            while(temp)
+            &#123;    if(strcmp(t2,temp-&gt;GetNo())==0)        
+                &#123;    flag=1;                    
+                    break;
+                &#125;
+                temp=temp-&gt;Next;         
+            &#125;
+            if(flag==0)
+                cout&lt;&lt;&quot;\n无该学生的信息\n&quot;&lt;&lt;endl;
+            else
+            &#123;    
+                cout&lt;&lt;&quot;\n&quot;;
+                cout&lt;&lt;&quot;姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+                temp-&gt;Out();
+             &#125;
+            break;
+        &#125;
+    &#125;while(choose!=&#39;1&#39;||choose!=&#39;2&#39;);
+    cout&lt;&lt;&quot;\n1.返回主菜单\n2.继续查询 ------- &quot;;
+    cin&gt;&gt;choose;
+    while(choose!=&#39;1&#39;&amp;&amp;choose!=&#39;2&#39;)
+    &#123;    cout&lt;&lt;&quot;1.返回主菜单\n2.继续查询 ------- &quot;;
+        cin&gt;&gt;choose;
+    &#125;
+    if(choose==&#39;1&#39;)
+        Menu();               
+    else if(choose==&#39;2&#39;)
+         Search();               
+&#125;
+void Function::Show()        
+&#123;    
+    Student *temp;
+    system(&quot;cls&quot;);
+    temp=Student_First-&gt;Next;         
+    if(!temp)                  
+    &#123;    cout&lt;&lt;&quot;文件无数据\n\n &quot;&lt;&lt;endl;
+        cout&lt;&lt;&quot;按任意键返回主菜单&quot;&lt;&lt;endl;
+        getch();
+         
+        Menu();           
+    &#125;
+    else
+    &#123;    cout&lt;&lt;&quot;姓名\t学号\t\t年龄\t性别\t宿舍住址\t  计算机   数学   英语\n&quot;;
+        while(temp!=NULL)
+        &#123;     temp-&gt;Out();
+            temp=temp-&gt;Next;                     
+        &#125;
+    &#125;
+    cout&lt;&lt;endl&lt;&lt;&quot;按任意键返回主菜单&quot;&lt;&lt;endl;
+    getch();
+    
+    Menu();                      
+&#125;
+void Function::Menu()
+&#123;   system(&quot;color F9&quot;);
+    time_t t;
+    time(&amp;t);
+    char choose;               
+    system(&quot;cls&quot;);    
+
+    cout&lt;&lt;endl;
+    cout&lt;&lt;&quot;\t※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;\t                        西安科技大学欢迎您                 &quot;&lt;&lt;endl&lt;&lt;endl; 
+    cout&lt;&lt;&quot;\t                  学生信息管理系统                    &quot;&lt;&lt;endl&lt;&lt;endl; 
+    cout&lt;&lt;&quot;\t     当前系统时间: &quot;&lt;&lt;ctime(&amp;t)&lt;&lt;&quot;&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;\t                                            版权所有：李晋旭 杨凯文&quot;&lt;&lt;endl; 
+    cout&lt;&lt;&quot;\t※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※&quot;&lt;&lt;endl&lt;&lt;endl;
+    cout&lt;&lt;&quot;请按键选择需要的操作 （请输入数字）&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;\n&quot;;
+
+    cout&lt;&lt;&quot;  ╭--------------------------------------╮&quot;&lt;&lt;endl;
+      cout&lt;&lt;&quot; │          1 录入学生信息:               │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; │          2 插入学生信息:               │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; │          3 修改学生信息:               │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; │          4 删除学生信息:               │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; │          5 显示全部学生信息:           │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; │          6 查找学生信息:               │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; │          7 退出系统:                   │&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot; ╰----------------------------------------╯&quot;&lt;&lt;endl;
+    cout&lt;&lt;&quot;\n&quot;;
+    cin&gt;&gt;choose;
+    switch(choose)
+&#123;    case &#39;1&#39;: Add();break;                 
+    case &#39;2&#39;: Insert();break;
+    case &#39;3&#39;: Modify();break;
+    case &#39;4&#39;: Delete();break;
+    case &#39;5&#39;: Show();break;
+    case &#39;6&#39;: Search();break;
+    case &#39;7&#39;: exit(1);break;    
+    default:
+        &#123;    cout&lt;&lt;&quot;请按规定输入选择项!&quot;&lt;&lt;endl;
+            Sleep(1500);
+            Menu();
+        &#125;
+    &#125;
+&#125;
+int main()
+&#123;    Function function;          //定义功能接口
+    function.Menu();            //调用主菜单
+&#125;                                       
+</code></pre>
+]]></content>
+      <categories>
+        <category>C</category>
+      </categories>
+      <tags>
+        <tag>C</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>学习jquery</title>
+    <url>/2020/11/02/%E5%AD%A6%E4%B9%A0jquery/</url>
+    <content><![CDATA[<h2 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h2><a id="more"></a>
+<blockquote>
+<p>学习目标：</p>
+<p>能够说出4种常见的注册事件<br>能够说出 on 绑定事件的优势<br>能够说出 jQuery 事件委派的优点以及方式<br>能够说出绑定事件与解绑事件<br>能够说出 jQuery 对象的拷贝方法<br>能够说出 jQuery 多库共存的2种方法<br>能够使用 jQuery 插件</p>
+</blockquote>
+<h2 id="1-1-jQuery-事件注册"><a href="#1-1-jQuery-事件注册" class="headerlink" title="1.1. jQuery 事件注册"></a>1.1. jQuery 事件注册</h2><p>​    jQuery 为我们提供了方便的事件注册机制，是开发人员抑郁操作优缺点如下：</p>
+<ul>
+<li>优点: 操作简单，且不用担心事件覆盖等问题。</li>
+<li>缺点: 普通的事件注册不能做事件委托，且无法实现事件解绑，需要借助其他方法。</li>
+</ul>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-tcZGZd2N-1606456063532)(images/register.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">// 1. 单个事件注册</span></span><br><span class="line">            $(<span class="string">&quot;div&quot;</span>).click(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                $(<span class="built_in">this</span>).css(<span class="string">&quot;background&quot;</span>, <span class="string">&quot;purple&quot;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">            $(<span class="string">&quot;div&quot;</span>).mouseenter(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                $(<span class="built_in">this</span>).css(<span class="string">&quot;background&quot;</span>, <span class="string">&quot;skyblue&quot;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="1-2-jQuery-事件处理"><a href="#1-2-jQuery-事件处理" class="headerlink" title="1.2. jQuery 事件处理"></a>1.2. jQuery 事件处理</h2><p>​    因为普通注册事件方法的不足，jQuery又开发了多个处理方法，重点讲解如下：</p>
+<ul>
+<li>on(): 用于事件绑定，目前最好用的事件绑定方法</li>
+<li>off(): 事件解绑</li>
+<li>trigger() / triggerHandler(): 事件触发</li>
+</ul>
+<h3 id="1-2-1-事件处理-on-绑定事件"><a href="#1-2-1-事件处理-on-绑定事件" class="headerlink" title="1.2.1 事件处理 on() 绑定事件"></a>1.2.1 事件处理 on() 绑定事件</h3><p>​    因为普通注册事件方法的不足，jQuery又创建了多个新的事件绑定方法bind() / live() / delegate() / on()等，其中最好用的是: on()</p>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-2SBC8geC-1606456063536)(images/on1.png)]</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-4KbS4VyL-1606456063538)(images/on2.png)]</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-8SjncUKB-1606456063540)(images/on3.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;&lt;/div&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">        &lt;li&gt;我们都是好孩子&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;我们都是好孩子&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;我们都是好孩子&lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">    &lt;ol&gt;&lt;/ol&gt;</span><br><span class="line"></span><br><span class="line">    &lt;script&gt;</span><br><span class="line">        $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="comment">// (1) on可以绑定1个或者多个事件处理程序</span></span><br><span class="line">            <span class="comment">// $(&quot;div&quot;).on(&#123;</span></span><br><span class="line">            <span class="comment">//     mouseenter: function() &#123;</span></span><br><span class="line">            <span class="comment">//         $(this).css(&quot;background&quot;, &quot;skyblue&quot;);</span></span><br><span class="line">            <span class="comment">//     &#125;,</span></span><br><span class="line">            <span class="comment">//     click: function() &#123;</span></span><br><span class="line">            <span class="comment">//         $(this).css(&quot;background&quot;, &quot;purple&quot;);</span></span><br><span class="line">            <span class="comment">//     &#125;</span></span><br><span class="line">            <span class="comment">// &#125;);</span></span><br><span class="line">            $(<span class="string">&quot;div&quot;</span>).on(<span class="string">&quot;mouseenter mouseleave&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                $(<span class="built_in">this</span>).toggleClass(<span class="string">&quot;current&quot;</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">  </span><br><span class="line">            <span class="comment">// (2) on可以实现事件委托（委派）</span></span><br><span class="line">            <span class="comment">// click 是绑定在ul 身上的，但是 触发的对象是 ul 里面的小li</span></span><br><span class="line">            <span class="comment">// $(&quot;ul li&quot;).click();</span></span><br><span class="line">            $(<span class="string">&quot;ul&quot;</span>).on(<span class="string">&quot;click&quot;</span>, <span class="string">&quot;li&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="number">11</span>);</span><br><span class="line">            &#125;);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// (3) on可以给未来动态创建的元素绑定事件</span></span><br><span class="line">            $(<span class="string">&quot;ol&quot;</span>).on(<span class="string">&quot;click&quot;</span>, <span class="string">&quot;li&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="number">11</span>);</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="keyword">var</span> li = $(<span class="string">&quot;&lt;li&gt;我是后来创建的&lt;/li&gt;&quot;</span>);</span><br><span class="line">            $(<span class="string">&quot;ol&quot;</span>).append(li);</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="1-2-2-案例：发布微博案例"><a href="#1-2-2-案例：发布微博案例" class="headerlink" title="1.2.2. 案例：发布微博案例"></a>1.2.2. 案例：发布微博案例</h3><blockquote>
+<p>1.点击发布按钮， 动态创建一个小li，放入文本框的内容和删除按钮， 并且添加到ul 中。<br>2.点击的删除按钮，可以删除当前的微博留言。</p>
+</blockquote>
+<p>​    代码实现略。(详情参考源代码)</p>
+<h3 id="1-2-3-事件处理-off-解绑事件"><a href="#1-2-3-事件处理-off-解绑事件" class="headerlink" title="1.2.3. 事件处理 off() 解绑事件"></a>1.2.3. 事件处理 off() 解绑事件</h3><p>​    当某个事件上面的逻辑，在特定需求下不需要的时候，可以把该事件上的逻辑移除，这个过程我们称为事件解绑。jQuery 为我们提供 了多种事件解绑方法：die() / undelegate() / off() 等，甚至还有只触发一次的事件绑定方法 one()，在这里我们重点讲解一下 off() ;</p>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-3aPDi837-1606456063542)(images/off.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;&lt;/div&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">        &lt;li&gt;我们都是好孩子&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;我们都是好孩子&lt;/li&gt;</span><br><span class="line">        &lt;li&gt;我们都是好孩子&lt;/li&gt;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">    &lt;p&gt;我是一个P标签&lt;/p&gt;</span><br><span class="line">	&lt;script&gt;</span><br><span class="line">        $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  			<span class="comment">// 事件绑定</span></span><br><span class="line">            $(<span class="string">&quot;div&quot;</span>).on(&#123;</span><br><span class="line">                click: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">&quot;我点击了&quot;</span>);</span><br><span class="line">                &#125;,</span><br><span class="line">                mouseover: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                    <span class="built_in">console</span>.log(<span class="string">&#x27;我鼠标经过了&#x27;</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;);</span><br><span class="line">            $(<span class="string">&quot;ul&quot;</span>).on(<span class="string">&quot;click&quot;</span>, <span class="string">&quot;li&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="number">11</span>);</span><br><span class="line">            &#125;);</span><br><span class="line">  </span><br><span class="line">            <span class="comment">// 1. 事件解绑 off </span></span><br><span class="line">            <span class="comment">// $(&quot;div&quot;).off();  // 这个是解除了div身上的所有事件</span></span><br><span class="line">            $(<span class="string">&quot;div&quot;</span>).off(<span class="string">&quot;click&quot;</span>); <span class="comment">// 这个是解除了div身上的点击事件</span></span><br><span class="line">            $(<span class="string">&quot;ul&quot;</span>).off(<span class="string">&quot;click&quot;</span>, <span class="string">&quot;li&quot;</span>);</span><br><span class="line">  </span><br><span class="line">            <span class="comment">// 2. one() 但是它只能触发事件一次</span></span><br><span class="line">            $(<span class="string">&quot;p&quot;</span>).one(<span class="string">&quot;click&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                alert(<span class="number">11</span>);</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-4-事件处理-trigger-自动触发事件"><a href="#1-2-4-事件处理-trigger-自动触发事件" class="headerlink" title="1.2.4. 事件处理 trigger() 自动触发事件"></a>1.2.4. 事件处理 trigger() 自动触发事件</h3><p>​    有些时候，在某些特定的条件下，我们希望某些事件能够自动触发, 比如轮播图自动播放功能跟点击右侧按钮一致。可以利用定时器自动触发右侧按钮点击事件，不必鼠标点击触发。由此 jQuery 为我们提供了两个自动触发事件 trigger() 和 triggerHandler() ; </p>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-9Kx61ehw-1606456063544)(images/t1.png)]</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-PWWckLvN-1606456063545)(images/t2.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;&lt;/div&gt;</span><br><span class="line">    &lt;input type=<span class="string">&quot;text&quot;</span>&gt;</span><br><span class="line">      </span><br><span class="line">    &lt;script&gt;</span><br><span class="line">    $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 绑定事件</span></span><br><span class="line">      $(<span class="string">&quot;div&quot;</span>).on(<span class="string">&quot;click&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        alert(<span class="number">11</span>);</span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 自动触发事件</span></span><br><span class="line">      <span class="comment">// 1. 元素.事件()</span></span><br><span class="line">      <span class="comment">// $(&quot;div&quot;).click();会触发元素的默认行为</span></span><br><span class="line">      </span><br><span class="line">      <span class="comment">// 2. 元素.trigger(&quot;事件&quot;)</span></span><br><span class="line">      <span class="comment">// $(&quot;div&quot;).trigger(&quot;click&quot;);会触发元素的默认行为</span></span><br><span class="line">      $(<span class="string">&quot;input&quot;</span>).trigger(<span class="string">&quot;focus&quot;</span>);</span><br><span class="line">      </span><br><span class="line">      <span class="comment">// 3. 元素.triggerHandler(&quot;事件&quot;) 就是不会触发元素的默认行为</span></span><br><span class="line">      $(<span class="string">&quot;input&quot;</span>).on(<span class="string">&quot;focus&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        $(<span class="built_in">this</span>).val(<span class="string">&quot;你好吗&quot;</span>);</span><br><span class="line">      &#125;);</span><br><span class="line">      <span class="comment">// 一个会获取焦点，一个不会</span></span><br><span class="line">      $(<span class="string">&quot;div&quot;</span>).triggerHandler(<span class="string">&quot;click&quot;</span>);</span><br><span class="line">      <span class="comment">// $(&quot;input&quot;).triggerHandler(&quot;focus&quot;);</span></span><br><span class="line">    &#125;);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="1-3-jQuery-事件对象"><a href="#1-3-jQuery-事件对象" class="headerlink" title="1.3. jQuery 事件对象"></a>1.3. jQuery 事件对象</h2><p>​    jQuery 对DOM中的事件对象 event 进行了封装，兼容性更好，获取更方便，使用变化不大。事件被触发，就会有事件对象的产生。</p>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-DbU9qNS5-1606456063546)(images/event.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div&gt;&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">	&lt;script&gt;</span><br><span class="line">        $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            $(<span class="built_in">document</span>).on(<span class="string">&quot;click&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">&quot;点击了document&quot;</span>);</span><br><span class="line">            &#125;)</span><br><span class="line">            $(<span class="string">&quot;div&quot;</span>).on(<span class="string">&quot;click&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">                <span class="comment">// console.log(event);</span></span><br><span class="line">                <span class="built_in">console</span>.log(<span class="string">&quot;点击了div&quot;</span>);</span><br><span class="line">                event.stopPropagation();</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<p>注意：jQuery中的 event 对象使用，可以借鉴 API 和 DOM 中的 event 。</p>
+<h2 id="1-4-jQuery-拷贝对象"><a href="#1-4-jQuery-拷贝对象" class="headerlink" title="1.4.  jQuery 拷贝对象"></a>1.4.  jQuery 拷贝对象</h2><p>​    jQuery中分别为我们提供了两套快速获取和设置元素尺寸和位置的API，方便易用，内容如下。</p>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-6yRG47pM-1606456063547)(images/extend.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">       $(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  			<span class="comment">// 1.合并数据</span></span><br><span class="line">           <span class="keyword">var</span> targetObj = &#123;&#125;;</span><br><span class="line">           <span class="keyword">var</span> obj = &#123;</span><br><span class="line">               id: <span class="number">1</span>,</span><br><span class="line">               name: <span class="string">&quot;andy&quot;</span></span><br><span class="line">           &#125;;</span><br><span class="line">           <span class="comment">// $.extend(target, obj);</span></span><br><span class="line">           $.extend(targetObj, obj);</span><br><span class="line">           <span class="built_in">console</span>.log(targetObj);</span><br><span class="line">  </span><br><span class="line">  			<span class="comment">// 2. 会覆盖 targetObj 里面原来的数据</span></span><br><span class="line">           <span class="keyword">var</span> targetObj = &#123;</span><br><span class="line">               id: <span class="number">0</span></span><br><span class="line">           &#125;;</span><br><span class="line">           <span class="keyword">var</span> obj = &#123;</span><br><span class="line">               id: <span class="number">1</span>,</span><br><span class="line">               name: <span class="string">&quot;andy&quot;</span></span><br><span class="line">           &#125;;</span><br><span class="line">           <span class="comment">// $.extend(target, obj);</span></span><br><span class="line">           $.extend(targetObj, obj);</span><br><span class="line">           <span class="built_in">console</span>.log(targetObj); </span><br><span class="line">       &#125;)</span><br><span class="line">   &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="1-5-jQuery-多库共存"><a href="#1-5-jQuery-多库共存" class="headerlink" title="1.5.  jQuery 多库共存"></a>1.5.  jQuery 多库共存</h2><p>​    实际开发中，很多项目连续开发十多年，jQuery版本不断更新，最初的 jQuery 版本无法满足需求，这时就需要保证在旧有版本正常运行的情况下，新的功能使用新的jQuery版本实现，这种情况被称为，jQuery 多库共存。</p>
+<p><strong>语法</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-mVXQEj6H-1606456063548)(images/noconfig.png)]</p>
+<p><strong>演示代码</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  		<span class="comment">// 让jquery 释放对$ 控制权 让用自己决定</span></span><br><span class="line">  		<span class="keyword">var</span> suibian = jQuery.noConflict();</span><br><span class="line">  		<span class="built_in">console</span>.log(suibian(<span class="string">&quot;span&quot;</span>));</span><br><span class="line">	&#125;)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="1-6-jQuery-插件"><a href="#1-6-jQuery-插件" class="headerlink" title="1.6.  jQuery 插件"></a>1.6.  jQuery 插件</h2><p>​    jQuery 功能比较有限，想要更复杂的特效效果，可以借助于 jQuery 插件完成。 这些插件也是依赖于jQuery来完成的，所以必须要先引入</p>
+<p>jQuery文件，因此也称为 jQuery 插件。</p>
+<p>​    jQuery 插件常用的网站：</p>
+<ol>
+<li><p> jQuery 插件库  <a href="http://www.jq22.com/">http://www.jq22.com/</a>     </p>
+</li>
+<li><p>jQuery 之家   <a href="http://www.htmleaf.com/">http://www.htmleaf.com/</a> </p>
+<p>jQuery 插件使用步骤：</p>
+</li>
+<li><p> 引入相关文件。（jQuery 文件 和 插件文件）    </p>
+</li>
+<li><p> 复制相关html、css、js (调用插件)。</p>
+</li>
+</ol>
+<h3 id="1-4-1-瀑布流插件（重点讲解）"><a href="#1-4-1-瀑布流插件（重点讲解）" class="headerlink" title="1.4.1.  瀑布流插件（重点讲解）"></a>1.4.1.  瀑布流插件（重点讲解）</h3><p>​    我们学习的第一个插件是jQuery之家的开源插件，瀑布流。我们将重点详细讲解，从找到插件所在网页，然后点击下载代码，到插件的使用等，后面的插件使用可参考瀑布流插件的使用。</p>
+<p><strong>下载位置</strong></p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-8VJp4nYj-1606456063549)(images/water.png)]</p>
+<p>[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-cnmpgHVa-1606456063550)(images/download.png)]</p>
+<p><strong>代码演示</strong></p>
+<p>​    插件的使用三点：   1. 引入css.           2.引入JS            3.引入html。 （有的简单插件只需引入html和js，甚至有的只需引入js）</p>
+<ul>
+<li>1.引入css.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;css/normalize.css&quot;</span>&gt;</span><br><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> type=<span class="string">&quot;text/css&quot;</span> href=<span class="string">&quot;css/default.css&quot;</span>&gt;</span><br><span class="line">  </span><br><span class="line">&lt;!-- 下面的样式代码为页面布局，可以引入，也可以自己写，自己设计页面样式，一般为直接引入，方便 --&gt;</span><br><span class="line">&lt;style type=<span class="string">&quot;text/css&quot;</span>&gt;</span><br><span class="line">  #gallery-wrapper &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">    max-width: <span class="number">75</span>%;</span><br><span class="line">    width: <span class="number">75</span>%;</span><br><span class="line">    margin: 50px auto;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  img.thumb &#123;</span><br><span class="line">    width: <span class="number">100</span>%;</span><br><span class="line">    max-width: <span class="number">100</span>%;</span><br><span class="line">    height: auto;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .white-panel &#123;</span><br><span class="line">    position: absolute;</span><br><span class="line">    background: white;</span><br><span class="line">    border-radius: 5px;</span><br><span class="line">    box-shadow: 0px 1px 2px rgba(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.3</span>);</span><br><span class="line">    padding: 10px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .white-panel h1 &#123;</span><br><span class="line">    font-size: 1em;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .white-panel h1 a &#123;</span><br><span class="line">    color: #A92733;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .white-panel:hover &#123;</span><br><span class="line">    box-shadow: 1px 1px 10px rgba(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.5</span>);</span><br><span class="line">    margin-top: -5px;</span><br><span class="line">    -webkit-transition: all <span class="number">0.</span>3s ease-<span class="keyword">in</span>-out;</span><br><span class="line">    -moz-transition: all <span class="number">0.</span>3s ease-<span class="keyword">in</span>-out;</span><br><span class="line">    -o-transition: all <span class="number">0.</span>3s ease-<span class="keyword">in</span>-out;</span><br><span class="line">    transition: all <span class="number">0.</span>3s ease-<span class="keyword">in</span>-out;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>2.引入js.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 前两个必须引入 --&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;js/jquery-1.11.0.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;js/pinterest_grid.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;!-- 下面的为启动瀑布流代码，参数可调节属性，具体功能可参考readme.html --&gt;</span><br><span class="line">&lt;script type=<span class="string">&quot;text/javascript&quot;</span>&gt;</span><br><span class="line">	$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      $(<span class="string">&quot;#gallery-wrapper&quot;</span>).pinterest_grid(&#123;</span><br><span class="line">          no_columns: <span class="number">5</span>,</span><br><span class="line">          padding_x: <span class="number">15</span>,</span><br><span class="line">          padding_y: <span class="number">10</span>,</span><br><span class="line">          margin_bottom: <span class="number">50</span>,</span><br><span class="line">          single_column_breakpoint: <span class="number">700</span></span><br><span class="line">      &#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>3.引入html.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- html结构一般为事先写好，很难修改结构，但可以修改内容及图片的多少（article标签） --&gt;</span><br><span class="line">&lt;section id=<span class="string">&quot;gallery-wrapper&quot;</span>&gt;</span><br><span class="line">       &lt;article <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;white-panel&quot;</span>&gt;</span><br><span class="line">           &lt;img src=<span class="string">&quot;images/P_000.jpg&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;thumb&quot;</span>&gt;</span><br><span class="line">           &lt;h1&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>我是轮播图片1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/h1&gt;</span><br><span class="line">           &lt;p&gt;里面很精彩哦&lt;/p&gt;</span><br><span class="line">       &lt;/article&gt;</span><br><span class="line">       &lt;article <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;white-panel&quot;</span>&gt;</span><br><span class="line">           &lt;img src=<span class="string">&quot;images/P_005.jpg&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;thumb&quot;</span>&gt;</span><br><span class="line">           &lt;h1&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>我是轮播图片1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/h1&gt;</span><br><span class="line">           &lt;p&gt;里面很精彩哦&lt;/p&gt;</span><br><span class="line">       &lt;/article&gt;</span><br><span class="line">       &lt;article <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;white-panel&quot;</span>&gt;</span><br><span class="line">           &lt;img src=<span class="string">&quot;images/P_006.jpg&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;thumb&quot;</span>&gt;</span><br><span class="line">           &lt;h1&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>我是轮播图片1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/h1&gt;</span><br><span class="line">           &lt;p&gt;里面很精彩哦&lt;/p&gt;</span><br><span class="line">       &lt;/article&gt;</span><br><span class="line">       &lt;article <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;white-panel&quot;</span>&gt;</span><br><span class="line">           &lt;img src=<span class="string">&quot;images/P_007.jpg&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;thumb&quot;</span>&gt;</span><br><span class="line">           &lt;h1&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>我是轮播图片1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/h1&gt;</span><br><span class="line">           &lt;p&gt;里面很精彩哦&lt;/p&gt;</span><br><span class="line">       &lt;/article&gt;</span><br><span class="line">   &lt;/section&gt;</span><br></pre></td></tr></table></figure>
+<p>总结：jQuery插件就是引入别人写好的：html 、css、js  （有时也可以只引入一部分，读懂后也可以修改部分内容）</p>
+<h3 id="1-4-2-图片懒加载插件"><a href="#1-4-2-图片懒加载插件" class="headerlink" title="1.4.2. 图片懒加载插件"></a>1.4.2. 图片懒加载插件</h3><p>​    图片的懒加载就是：当页面滑动到有图片的位置，图片才进行加载，用以提升页面打开的速度及用户体验。（下载略）</p>
+<p><strong>代码演示</strong></p>
+<p>​    懒加载只需引入html 和 js操作 即可，此插件不涉及css。</p>
+<ul>
+<li>1.引入js</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;js/EasyLazyload.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">   	lazyLoadInit(&#123;</span><br><span class="line">   		showTime: <span class="number">1100</span>,</span><br><span class="line">   		onLoadBackEnd: <span class="function"><span class="keyword">function</span>(<span class="params">i, e</span>) </span>&#123;</span><br><span class="line">     		<span class="built_in">console</span>.log(<span class="string">&quot;onLoadBackEnd:&quot;</span> + i);</span><br><span class="line">   		&#125;,</span><br><span class="line">   		onLoadBackStart: <span class="function"><span class="keyword">function</span>(<span class="params">i, e</span>) </span>&#123;</span><br><span class="line">     		<span class="built_in">console</span>.log(<span class="string">&quot;onLoadBackStart:&quot;</span> + i);</span><br><span class="line">   		&#125;</span><br><span class="line"> 	&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>2.引入html</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;img data-lazy-src=<span class="string">&quot;upload/floor-1-3.png&quot;</span> alt=<span class="string">&quot;&quot;</span>&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-3-全屏滚动插件"><a href="#1-4-3-全屏滚动插件" class="headerlink" title="1.4.3. 全屏滚动插件"></a>1.4.3. 全屏滚动插件</h3><p>​    全屏滚动插件比较大，所以，一般大型插件都会有帮助文档，或者网站。全屏滚动插件介绍比较详细的网站为：</p>
+<p><a href="http://www.dowebok.com/demo/2014/77/">http://www.dowebok.com/demo/2014/77/</a></p>
+<p><strong>代码演示</strong></p>
+<p>​    全屏滚动因为有多重形式，所以不一样的风格html和css也不一样，但是 js 变化不大。所以下面只演示js的引入，html和css引入根据自己实际</p>
+<p>项目需要使用哪种风格引入对应的HTML和CSS。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;js/jquery.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;js/fullpage.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  	$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  		$(<span class="string">&#x27;#dowebok&#x27;</span>).fullpage(&#123;</span><br><span class="line">    		sectionsColor: [<span class="string">&#x27;pink&#x27;</span>, <span class="string">&#x27;#4BBFC3&#x27;</span>, <span class="string">&#x27;#7BAABE&#x27;</span>, <span class="string">&#x27;#f90&#x27;</span>],</span><br><span class="line">    		navigation: <span class="literal">true</span></span><br><span class="line">  		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>注意：实际开发，一般复制文件，然后在文件中进行修改和添加功能。</p>
+<h3 id="1-4-4-bootstrap组件"><a href="#1-4-4-bootstrap组件" class="headerlink" title="1.4.4. bootstrap组件"></a>1.4.4. bootstrap组件</h3><p>​    Bootstrap是 Twitter 公司设计的基于HTML、CSS、JavaScript开发的简洁、直观、强悍的前端开发框架，他依靠jQuery实现，且支持响应式</p>
+<p>布局，使得 Web 开发更加方便快捷。</p>
+<p>​    <strong>凡是在软件开发中用到了软件的复用，被复用的部分都可以称为组件，凡是在应用程序中已经预留接口的组件就是插件</strong>。Bootstrap组件使</p>
+<p>用非常方便:  1.引入bootstrap相关css和js        2.去官网复制html</p>
+<p><strong>代码演示</strong></p>
+<ol>
+<li>引入bootstrap相关css和js</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;bootstrap/css/bootstrap.min.css&quot;</span>&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;bootstrap/js/jquery.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;bootstrap/js/bootstrap.min.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>去官网复制html的功能模块</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">   &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;container&quot;</span>&gt;</span><br><span class="line">       &lt;!-- Single button --&gt;</span><br><span class="line">       &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn-group&quot;</span>&gt;</span><br><span class="line">           &lt;button type=<span class="string">&quot;button&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn btn-default dropdown-toggle&quot;</span> data-toggle=<span class="string">&quot;dropdown&quot;</span> aria-haspopup=<span class="string">&quot;true&quot;</span> aria-expanded=<span class="string">&quot;false&quot;</span>&gt;</span><br><span class="line">     		Action &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;caret&quot;</span>&gt;&lt;/span&gt;</span><br><span class="line">   		&lt;/button&gt;</span><br><span class="line">           &lt;ul <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;dropdown-menu&quot;</span>&gt;</span><br><span class="line">               &lt;li&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Action<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/li&gt;</span><br><span class="line">               &lt;li&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Another action<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/li&gt;</span><br><span class="line">               &lt;li&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Something else here<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/li&gt;</span><br><span class="line">               &lt;li role=<span class="string">&quot;separator&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;divider&quot;</span>&gt;&lt;/li&gt;</span><br><span class="line">               &lt;li&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&quot;#&quot;</span>&gt;</span>Separated link<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/li&gt;</span><br><span class="line">           &lt;/ul&gt;</span><br><span class="line">    	&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-5-bootstrap插件（JS）"><a href="#1-4-5-bootstrap插件（JS）" class="headerlink" title="1.4.5. bootstrap插件（JS）"></a>1.4.5. bootstrap插件（JS）</h3><p>​    bootstrap中的js插件其实也是组件的一部分，只不过是需要js调用功能的组件，所以一般bootstrap的js插件一般会伴随着js代码（有的也可以</p>
+<p>省略js，用属性实现）。</p>
+<p>​    步骤： 1.引入bootstrap相关css和js        2.去官网复制html        3.复制js代码，启动js插件。</p>
+<p><strong>代码演示</strong></p>
+<ol>
+<li>引入bootstrap相关css和js</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;bootstrap/css/bootstrap.min.css&quot;</span>&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;bootstrap/js/jquery.min.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line">&lt;script src=<span class="string">&quot;bootstrap/js/bootstrap.min.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>去官网复制html的功能模块</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;!-- 模态框 --&gt;</span><br><span class="line">&lt;!-- Large modal --&gt;</span><br><span class="line">&lt;button type=<span class="string">&quot;button&quot;</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;btn btn-primary&quot;</span> data-toggle=<span class="string">&quot;modal&quot;</span> data-target=<span class="string">&quot;.bs-example-modal-lg&quot;</span>&gt;Large modal&lt;/button&gt;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;modal fade bs-example-modal-lg&quot;</span> tabindex=<span class="string">&quot;-1&quot;</span> role=<span class="string">&quot;dialog&quot;</span> aria-labelledby=<span class="string">&quot;myLargeModalLabel&quot;</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;modal-dialog modal-lg&quot;</span> role=<span class="string">&quot;document&quot;</span>&gt;</span><br><span class="line">        &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">&quot;modal-content&quot;</span>&gt;</span><br><span class="line">            里面就是模态框</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>复制js代码，启动js插件。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">	<span class="comment">// 当我们点击了自己定义的按钮，就弹出模态框</span></span><br><span class="line">	$(<span class="string">&quot;.myBtn&quot;</span>).on(<span class="string">&quot;click&quot;</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">		<span class="comment">// alert(11);</span></span><br><span class="line">		$(<span class="string">&#x27;#btn&#x27;</span>).modal()</span><br><span class="line">	&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="1-4-6-bootstrap案例-阿里百秀"><a href="#1-4-6-bootstrap案例-阿里百秀" class="headerlink" title="1.4.6. bootstrap案例-阿里百秀"></a>1.4.6. bootstrap案例-阿里百秀</h3><blockquote>
+<p>1.通过调用组件实现导航栏<br>2.通过调用插件实现登录<br>3.通过调用插件标签页实现 tab 栏</p>
+</blockquote>
+<p>​    代码实现略。(详情参考源代码)</p>
+<h2 id="1-7-综合案例-toDoList案例分析（代码略）"><a href="#1-7-综合案例-toDoList案例分析（代码略）" class="headerlink" title="1.7. 综合案例: toDoList案例分析（代码略）"></a>1.7. 综合案例: toDoList案例分析（代码略）</h2><h3 id="1-7-1-案例：案例介绍"><a href="#1-7-1-案例：案例介绍" class="headerlink" title="1.7.1 案例：案例介绍"></a>1.7.1 案例：案例介绍</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. 文本框里面输入内容，按下回车，就可以生成待办事项。</span></span><br><span class="line"><span class="comment">// 2. 点击待办事项复选框，就可以把当前数据添加到已完成事项里面。</span></span><br><span class="line"><span class="comment">// 3. 点击已完成事项复选框，就可以把当前数据添加到待办事项里面。</span></span><br><span class="line"><span class="comment">// 4. 但是本页面内容刷新页面不会丢失。</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-7-2-案例：toDoList-分析"><a href="#1-7-2-案例：toDoList-分析" class="headerlink" title="1.7.2 案例：toDoList 分析"></a>1.7.2 案例：toDoList 分析</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1. 刷新页面不会丢失数据，因此需要用到本地存储 localStorage</span></span><br><span class="line"><span class="comment">// 2. 核心思路： 不管按下回车，还是点击复选框，都是把本地存储的数据加载到页面中，这样保证刷新关闭页面不会丢失数据</span></span><br><span class="line"><span class="comment">// 3. 存储的数据格式：var todolist =  [&#123; title : ‘xxx’, done: false&#125;]</span></span><br><span class="line"><span class="comment">// 4. 注意点1： 本地存储 localStorage 里面只能存储字符串格式 ，因此需要把对象转换为字符串 JSON.stringify(data)。</span></span><br><span class="line"><span class="comment">// 5. 注意点2： 获取本地存储数据，需要把里面的字符串转换为对象格式JSON.parse() 我们才能使用里面的数据。</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-7-3-案例：toDoList-按下回车把新数据添加到本地存储里面"><a href="#1-7-3-案例：toDoList-按下回车把新数据添加到本地存储里面" class="headerlink" title="1.7.3 案例：toDoList 按下回车把新数据添加到本地存储里面"></a>1.7.3 案例：toDoList 按下回车把新数据添加到本地存储里面</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1.切记： 页面中的数据，都要从本地存储里面获取，这样刷新页面不会丢失数据，所以先要把数据保存到本地存储里面。</span></span><br><span class="line"><span class="comment">// 2.利用事件对象.keyCode判断用户按下回车键（13）。</span></span><br><span class="line"><span class="comment">// 3.声明一个数组，保存数据。</span></span><br><span class="line"><span class="comment">// 4.先要读取本地存储原来的数据（声明函数 getData()），放到这个数组里面。</span></span><br><span class="line"><span class="comment">// 5.之后把最新从表单获取过来的数据，追加到数组里面。</span></span><br><span class="line"><span class="comment">// 6.最后把数组存储给本地存储 (声明函数 savaDate())</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-7-4-案例：toDoList-本地存储数据渲染加载到页面"><a href="#1-7-4-案例：toDoList-本地存储数据渲染加载到页面" class="headerlink" title="1.7.4 案例：toDoList 本地存储数据渲染加载到页面"></a>1.7.4 案例：toDoList 本地存储数据渲染加载到页面</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1.因为后面也会经常渲染加载操作，所以声明一个函数 load，方便后面调用</span></span><br><span class="line"><span class="comment">// 2.先要读取本地存储数据。（数据不要忘记转换为对象格式）</span></span><br><span class="line"><span class="comment">// 3.之后遍历这个数据（$.each()），有几条数据，就生成几个小li 添加到 ol 里面。</span></span><br><span class="line"><span class="comment">// 4.每次渲染之前，先把原先里面 ol 的内容清空，然后渲染加载最新的数据。</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-7-5-案例：toDoList-删除操作"><a href="#1-7-5-案例：toDoList-删除操作" class="headerlink" title="1.7.5 案例：toDoList 删除操作"></a>1.7.5 案例：toDoList 删除操作</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1.点击里面的a链接，不是删除的li，而是删除本地存储对应的数据。</span></span><br><span class="line"><span class="comment">// 2.核心原理：先获取本地存储数据，删除对应的数据，保存给本地存储，重新渲染列表li</span></span><br><span class="line"><span class="comment">// 3.我们可以给链接自定义属性记录当前的索引号</span></span><br><span class="line"><span class="comment">// 4.根据这个索引号删除相关的数据----数组的splice(i, 1)方法</span></span><br><span class="line"><span class="comment">// 5.存储修改后的数据，然后存储给本地存储</span></span><br><span class="line"><span class="comment">// 6.重新渲染加载数据列表</span></span><br><span class="line"><span class="comment">// 7.因为a是动态创建的，我们使用on方法绑定事件</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-7-6-案例：toDoList-正在进行和已完成选项操作"><a href="#1-7-6-案例：toDoList-正在进行和已完成选项操作" class="headerlink" title="1.7.6 案例：toDoList  正在进行和已完成选项操作"></a>1.7.6 案例：toDoList  正在进行和已完成选项操作</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1.当我们点击了小的复选框，修改本地存储数据，再重新渲染数据列表。</span></span><br><span class="line"><span class="comment">// 2.点击之后，获取本地存储数据。</span></span><br><span class="line"><span class="comment">// 3.修改对应数据属性 done 为当前复选框的checked状态。</span></span><br><span class="line"><span class="comment">// 4.之后保存数据到本地存储</span></span><br><span class="line"><span class="comment">// 5.重新渲染加载数据列表</span></span><br><span class="line"><span class="comment">// 6.load 加载函数里面，新增一个条件,如果当前数据的done为true 就是已经完成的，就把列表渲染加载到 ul 里面</span></span><br><span class="line"><span class="comment">// 7.如果当前数据的done 为false， 则是待办事项，就把列表渲染加载到 ol 里面</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-7-7-案例：toDoList-统计正在进行个数和已经完成个数"><a href="#1-7-7-案例：toDoList-统计正在进行个数和已经完成个数" class="headerlink" title="1.7.7 案例：toDoList 统计正在进行个数和已经完成个数"></a>1.7.7 案例：toDoList 统计正在进行个数和已经完成个数</h3><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 1.在我们load 函数里面操作</span></span><br><span class="line"><span class="comment">// 2.声明2个变量 ：todoCount 待办个数  doneCount 已完成个数   </span></span><br><span class="line"><span class="comment">// 3.当进行遍历本地存储数据的时候， 如果 数据done为 false， 则 todoCount++, 否则 doneCount++</span></span><br><span class="line"><span class="comment">// 4.最后修改相应的元素 text() </span></span><br></pre></td></tr></table></figure>
+
+<h2 id="1-8-今日总结"><a href="#1-8-今日总结" class="headerlink" title="1.8. 今日总结"></a>1.8. 今日总结</h2>]]></content>
+      <categories>
+        <category>前端</category>
+        <category>Jquery</category>
+      </categories>
+      <tags>
+        <tag>前端</tag>
+        <tag>jQuery</tag>
       </tags>
   </entry>
 </search>
