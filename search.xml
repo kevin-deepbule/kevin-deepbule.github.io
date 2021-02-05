@@ -15,6 +15,39 @@
       </tags>
   </entry>
   <entry>
+    <title>HTML，XML，XHTML的区别</title>
+    <url>/2020/09/03/HTML%EF%BC%8CXML%EF%BC%8CXHTML%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h2 id="HTML，XML，XHTML的区别"><a href="#HTML，XML，XHTML的区别" class="headerlink" title="HTML，XML，XHTML的区别"></a>HTML，XML，XHTML的区别</h2><a id="more"></a>
+<p>HTML：HyperText Markup Language / 超文本标记语言</p>
+<p>XML: Extensible Markup Language / 可扩展标记语言</p>
+<p>XHTML: Extensible Hypertext Markup Language / 可扩展超文本标记语</p>
+<h2 id="先从-HTML-说起。"><a href="#先从-HTML-说起。" class="headerlink" title="先从 HTML 说起。"></a>先从 HTML 说起。</h2><p>HTML 是用来描述和定义网页内容的标记语言，是构成网页的最基本的东西。<br>所谓超文本，就是说它除了能标记文本，还能标记其他的内容，比如：图片，链接，音频，视频等。<br>它的作用就是一个规范，告诉所有浏览器都统一标准，比如我给这段文字加个 <p> 标签，那就是告诉浏览器：这是一个段落。我加个 <img> 标签：这是一张图片，别弄错了。浏览器看到后，就会正确解析，产生相应的行为。</p>
+<h2 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h2><p>它的表现形式就是给一个文档加一堆标签，说明每段文字是干什么的，有什么意义。这样做的目的是方便存储、传输、分享数据，人和机器都可以很方便的阅读。XML 和 HTML 有一个明显的区别就是：HTML 的标签都是预定义的，你不可以自己随便增加，比如你不能自造一个标签叫 <nihao>, 但是 XML 可以，你可以自己“发明”标签————这也是“可扩展的”一个含义。</p>
+<h2 id="HTML-和-XML-一结合，就产生了-XHTML"><a href="#HTML-和-XML-一结合，就产生了-XHTML" class="headerlink" title="HTML 和 XML 一结合，就产生了 XHTML"></a>HTML 和 XML 一结合，就产生了 XHTML</h2><p>XHTML 就是以 XML 的语法形式来写 HTML.<br>XHTML 出现的原因是：HTML 是一种语法形式比较松散的标记语言，语法要求也不严格。比如大小可以混用，属性值随便你加不加引号，单引号还是双引号也随便你，标签也可以不闭合。HTML 标准的制定者 W3C 一看这样下去不行，所谓无规矩不成方圆，所以就把 XML 的语法形式往 HTML 上一套，出现了 XHTML，所以你也可以把 XHTML 理解为 HTML 的严格语法形式，除此之外，其它方面基本一样。<br>比如 XHTML 有一些强制的要求，如下：</p>
+<ol>
+<li><p>必须包含一个文件头声明 &lt;!DOCTYPE&gt;</p>
+</li>
+<li><p>所有元素名必须小写</p>
+</li>
+<li><p>所有空元素必须关闭</p>
+</li>
+<li><p>所有属性名必须小写</p>
+</li>
+<li><p>所有属性值必须加引号</p>
+</li>
+<li><p>所有布尔值属性必须加上属性值</p>
+</li>
+</ol>
+]]></content>
+      <categories>
+        <category>前端</category>
+        <category>HTML</category>
+      </categories>
+      <tags>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>NFA的确定化</title>
     <url>/2020/03/12/NFA%E7%9A%84%E7%A1%AE%E5%AE%9A%E5%8C%96%EF%BC%88%E5%AD%90%E9%9B%86%E6%B3%95%EF%BC%89/</url>
     <content><![CDATA[<h2 id="NFA的确定化（子集法）"><a href="#NFA的确定化（子集法）" class="headerlink" title="NFA的确定化（子集法）"></a>NFA的确定化（子集法）</h2><a id="more"></a>
@@ -26,22 +59,6 @@
       <tags>
         <tag>C</tag>
         <tag>编译原理</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>N皇后问题</title>
-    <url>/2020/01/02/N%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<h2 id="N皇后问题解法"><a href="#N皇后问题解法" class="headerlink" title="N皇后问题解法"></a>N皇后问题解法</h2><a id="more"></a>
-<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> N;</span><br><span class="line"><span class="keyword">int</span> <span class="built_in">queue</span>[<span class="number">100</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Nqueue</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(k==N)&#123;<span class="comment">//作用是判断放的皇后行数是否超过N行 </span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt;<span class="built_in">queue</span>[i]+<span class="number">1</span>&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;<span class="comment">//遍历k行的各个列 </span></span><br><span class="line">		<span class="keyword">int</span> j;</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;k;j++)&#123;<span class="comment">//循环判断第k行的第i列，是否可以放置， </span></span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">queue</span>[j]==i||<span class="built_in">abs</span>(<span class="built_in">queue</span>[j]-i)==<span class="built_in">abs</span>(k-j))&#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(j==k)&#123;</span><br><span class="line">			<span class="built_in">queue</span>[k] = i;</span><br><span class="line">			Nqueue(k+<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="built_in">cin</span>&gt;&gt;N;</span><br><span class="line">	Nqueue(<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>N皇后问题：<br>递归回溯法求解，实际上是判断每一行上的第i列能否放上这个，不能，则什么都不做，函数返回；i++；如果可以放，赋值，然后调用Nqueue判断是否下一个可以，放，直到K==N，所有的N行全部放完，函数返回也就是回溯，然后判断上一行能不能放到下一个位置；每一行都有自己的i,如果可以向下判断，如果不能，i++,继续判断，如果到i等N还不行，那么函数返回到上一层；上一层继续判断；不考虑；<br>算法的乐趣，在于弄懂后如此简单，（也不简单），弄不懂犹如天书；<br>这个递归回溯相当于一个n^n重循环测试；递归回溯够巧妙！</p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-        <category>算法</category>
-      </categories>
-      <tags>
-        <tag>数据结构</tag>
-        <tag>C</tag>
       </tags>
   </entry>
   <entry>
@@ -74,6 +91,22 @@
       <tags>
         <tag>javascript</tag>
         <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>N皇后问题</title>
+    <url>/2020/01/02/N%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<h2 id="N皇后问题解法"><a href="#N皇后问题解法" class="headerlink" title="N皇后问题解法"></a>N皇后问题解法</h2><a id="more"></a>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> N;</span><br><span class="line"><span class="keyword">int</span> <span class="built_in">queue</span>[<span class="number">100</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Nqueue</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(k==N)&#123;<span class="comment">//作用是判断放的皇后行数是否超过N行 </span></span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;</span><br><span class="line">			<span class="built_in">cout</span> &lt;&lt;<span class="built_in">queue</span>[i]+<span class="number">1</span>&lt;&lt;<span class="string">&quot; &quot;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">		<span class="keyword">return</span> ;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;N;i++)&#123;<span class="comment">//遍历k行的各个列 </span></span><br><span class="line">		<span class="keyword">int</span> j;</span><br><span class="line">		<span class="keyword">for</span>(j=<span class="number">0</span>;j&lt;k;j++)&#123;<span class="comment">//循环判断第k行的第i列，是否可以放置， </span></span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">queue</span>[j]==i||<span class="built_in">abs</span>(<span class="built_in">queue</span>[j]-i)==<span class="built_in">abs</span>(k-j))&#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(j==k)&#123;</span><br><span class="line">			<span class="built_in">queue</span>[k] = i;</span><br><span class="line">			Nqueue(k+<span class="number">1</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="built_in">cin</span>&gt;&gt;N;</span><br><span class="line">	Nqueue(<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>N皇后问题：<br>递归回溯法求解，实际上是判断每一行上的第i列能否放上这个，不能，则什么都不做，函数返回；i++；如果可以放，赋值，然后调用Nqueue判断是否下一个可以，放，直到K==N，所有的N行全部放完，函数返回也就是回溯，然后判断上一行能不能放到下一个位置；每一行都有自己的i,如果可以向下判断，如果不能，i++,继续判断，如果到i等N还不行，那么函数返回到上一层；上一层继续判断；不考虑；<br>算法的乐趣，在于弄懂后如此简单，（也不简单），弄不懂犹如天书；<br>这个递归回溯相当于一个n^n重循环测试；递归回溯够巧妙！</p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>数据结构</tag>
+        <tag>C</tag>
       </tags>
   </entry>
   <entry>
