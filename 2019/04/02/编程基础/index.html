@@ -58,7 +58,7 @@
 <meta property="og:description" content="编程基础练习题">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2019-04-02T12:48:28.000Z">
-<meta property="article:modified_time" content="2021-02-15T08:38:56.965Z">
+<meta property="article:modified_time" content="2021-03-01T16:26:06.446Z">
 <meta property="article:author" content="kevin">
 <meta property="article:tag" content="C">
 <meta property="article:tag" content="编程基础">
@@ -153,17 +153,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">12</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">16</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">12</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">16</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线<span class="badge">18</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线<span class="badge">22</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -278,7 +278,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
+              <span>1.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -324,8 +324,7 @@
 <p>样例输入</p>
 <p>137<br>样例输出</p>
 <p>2(2(2)+2+2(0))+2(2+2(0))+2(0)<br>————————————————————————————</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>我好菜啊，这种题都解决不了，看来得继续加强编程能力，还有就是，一定要想清楚整个逻辑，用自然语言描述出来，不能，似是而非，会吃很大的亏。递归中不用循环，逻辑有误；时间花费太大；参考博客：<a target="_blank" rel="noopener" href="https://blog.csdn.net/lovemylife1234/article/details/69188391">代码出处</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">translate</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2(0)&quot;</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2&quot;</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> p=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(p&lt;=n)&#123; <span class="comment">//只能大于函数参数n</span></span><br><span class="line">			p&lt;&lt;=<span class="number">1</span>; <span class="comment">//p左移，左移一次代表乘2</span></span><br><span class="line">			cnt++; </span><br><span class="line">		&#125;</span><br><span class="line">		cnt--; </span><br><span class="line">		<span class="keyword">if</span>(n==p/<span class="number">2</span>)&#123; <span class="comment">//如果只有一个1 那么好办，只输出2（）即可；关键在cnt</span></span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2(&quot;</span>;</span><br><span class="line">			translate(cnt);<span class="comment">//移动几次为几次方；括号中的为指数，而不是倍数</span></span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;)&quot;</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(p/<span class="number">2</span>==<span class="number">2</span>)&#123; <span class="comment">////</span></span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2+&quot;</span>;</span><br><span class="line">				translate(n-p/<span class="number">2</span>); <span class="comment">//3-2</span></span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2(&quot;</span>;</span><br><span class="line">				translate(cnt);</span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;)+&quot;</span>;</span><br><span class="line">				translate(n-p/<span class="number">2</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">oj_2_2</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">	translate(n);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	oj_2_2();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">translate</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2(0)&quot;</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2&quot;</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> p=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(p&lt;=n)&#123; <span class="comment">//只能大于函数参数n</span></span><br><span class="line">			p&lt;&lt;=<span class="number">1</span>; <span class="comment">//p左移，左移一次代表乘2</span></span><br><span class="line">			cnt++; </span><br><span class="line">		&#125;</span><br><span class="line">		cnt--; </span><br><span class="line">		<span class="keyword">if</span>(n==p/<span class="number">2</span>)&#123; <span class="comment">//如果只有一个1 那么好办，只输出2（）即可；关键在cnt</span></span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2(&quot;</span>;</span><br><span class="line">			translate(cnt);<span class="comment">//移动几次为几次方；括号中的为指数，而不是倍数</span></span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;)&quot;</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(p/<span class="number">2</span>==<span class="number">2</span>)&#123; <span class="comment">////</span></span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2+&quot;</span>;</span><br><span class="line">				translate(n-p/<span class="number">2</span>); <span class="comment">//3-2</span></span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2(&quot;</span>;</span><br><span class="line">				translate(cnt);</span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;)+&quot;</span>;</span><br><span class="line">				translate(n-p/<span class="number">2</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">oj_2_2</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">	translate(n);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	oj_2_2();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h2><p>n是3时，一种特殊情况，p为4；m要是大于3，则变化的都有2（）+。。。，只有n = 3时，表达式开头为2，可以将n = 3 作为特殊情况，而输出唯一的一个字符串吗？可以，因为n == 3是一个特殊情////况，这是一个大坑，这道题的核心思想在于对m的情况分类；难点在于m==3和m的次方确定，和n-p/2为n去掉最高位的数；那么什么是递归呢？对当前情况进行处理，有终止条件，则无后续，否则，translate(n-p/2);给他下一个数；让他处理。<br>左移的位数为2的次方数；可以得到下一个处理的数；<br>1010101100，求一个数的递归的每次去掉最高位的1，n-p/2<br>while(p&gt;n){<br>    p&lt;&lt;=1;<br>    cnt++；<br>}</p>
 
     </div>
@@ -339,10 +338,10 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\01\02\N皇后问题\" rel="bookmark">N皇后问题</a></div>
+      <div class="popular-posts-title"><a href="\2020\03\12\NFA的确定化（子集法）\" rel="bookmark">NFA的确定化</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\03\12\NFA的确定化（子集法）\" rel="bookmark">NFA的确定化</a></div>
+      <div class="popular-posts-title"><a href="\2020\01\02\N皇后问题\" rel="bookmark">N皇后问题</a></div>
     </li>
     <li class="popular-posts-item">
       <div class="popular-posts-title"><a href="\2020\02\05\字符串的冒泡排序\" rel="bookmark">字符串的冒泡排序</a></div>
@@ -477,20 +476,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -566,12 +565,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">87k</span>
+    <span title="站点总字数">91k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:19</span>
+    <span title="站点阅读时长">1:22</span>
 </div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
 
         

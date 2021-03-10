@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: skyblue; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+<script>
+    (function () {
+        if (``) {
+            if (prompt('请输入文章密码') !== '') {
+                alert('密码错误！');
+                if (history.length === 1) {
+                    location.replace("http://cn.yangkaiwen.tk"); // 这里替换成你的首页
+                } else {
+                    history.back();
+                }
+            }
+        }
+    })();
+</script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"cn.yangkaiwen.tk","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":300,"display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":5},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="携程一面暴露出的问题总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flex布局">
+<meta property="og:url" content="https://cn.yangkaiwen.tk/2021/03/10/flex%E5%B8%83%E5%B1%80/index.html">
+<meta property="og:site_name" content="kevinのBlog">
+<meta property="og:description" content="携程一面暴露出的问题总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-10T10:44:52.000Z">
+<meta property="article:modified_time" content="2021-03-10T11:57:53.626Z">
+<meta property="article:author" content="kevin">
+<meta property="article:tag" content="前端">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://cn.yangkaiwen.tk/2021/03/10/flex%E5%B8%83%E5%B1%80/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>flex布局 | kevinのBlog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">kevinのBlog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">记录生活中的点点滴滴</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>主页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">16</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>时间线<span class="badge">22</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://cn.yangkaiwen.tk/2021/03/10/flex%E5%B8%83%E5%B1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/head.jpg">
+      <meta itemprop="name" content="kevin">
+      <meta itemprop="description" content="纵有疾风起，人生不言弃">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="kevinのBlog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          flex布局
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-03-10 18:44:52 / 修改时间：19:57:53" itemprop="dateCreated datePublished" datetime="2021-03-10T18:44:52+08:00">2021-03-10</time>
+            </span>
+
+  
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2021/03/10/flex%E5%B8%83%E5%B1%80/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/03/10/flex布局/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+            <div class="post-description">携程一面暴露出的问题总结</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="携程一面收获"><a href="#携程一面收获" class="headerlink" title="携程一面收获"></a>携程一面收获</h1><a id="more"></a>
+
+<ul>
+<li><a href="##%E8%96%84%E5%BC%B1%E7%8E%AF%E8%8A%82">自己的不足</a></li>
+<li><a href="##%E6%94%B9%E8%BF%9B%E6%96%B9%E5%90%91">如何改进</a></li>
+<li><a href="##%E4%BA%8C%E9%9D%A2%E8%AE%A1%E5%88%92">二面计划</a></li>
+</ul>
+<h2 id="薄弱环节"><a href="#薄弱环节" class="headerlink" title="薄弱环节"></a>薄弱环节</h2><h3 id="flex布局"><a href="#flex布局" class="headerlink" title="flex布局"></a>flex布局</h3><p>当初学的时候以为flex布局是做响应式的，现在看来并没有那么简单，今天晚上，补上flex这块短板；</p>
+<p>粘性定位sticky 在看一下。</p>
+<h3 id="Vue-基础知识"><a href="#Vue-基础知识" class="headerlink" title="Vue 基础知识"></a>Vue 基础知识</h3><p>把Vue的基础知识进行一下巩固，花2天</p>
+<p>Vue中怎么使单个css只适用于单个Vue组件</p>
+<h3 id="心理素质"><a href="#心理素质" class="headerlink" title="心理素质"></a>心理素质</h3><p>虽然把知道的知识点能答个80%，但是，还是很容易慌乱，无论如何我都不能慌。</p>
+<h2 id="如何改进"><a href="#如何改进" class="headerlink" title="如何改进"></a>如何改进</h2><h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a>flex</h3><p>如何实现三列布局，必需学会三种？左右两列不动，中间响应式变化，？</p>
+<p>如何实现等高？一个div里10000字，一个div中1个字</p>
+<p>b站黑马视频</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1N54y1i7dG?from=search&amp;seid=16020602542480542742">https://www.bilibili.com/video/BV1N54y1i7dG?from=search&amp;seid=16020602542480542742</a></p>
+<p>阮一峰日志</p>
+<p><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html">http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html</a></p>
+<p><a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2015/07/flex-examples.html">http://www.ruanyifeng.com/blog/2015/07/flex-examples.html</a></p>
+<h3 id="Vue-基础知识-1"><a href="#Vue-基础知识-1" class="headerlink" title="Vue 基础知识"></a>Vue 基础知识</h3><p>Vue的生命周期函数是什么？</p>
+<p>Vue的路由有哪几种形式？</p>
+<p>Vue中的插槽传值，深入理解。</p>
+<p>Vue基础</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1r4411d7dn?from=search&amp;seid=1730302736014483119">https://www.bilibili.com/video/BV1r4411d7dn?from=search&amp;seid=1730302736014483119</a></p>
+<p>看着敲完代码后，再看理解一遍官方文档</p>
+<p>Vue进阶</p>
+<p><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1sW411A7vP?from=search&amp;seid=18348750116887456275">https://www.bilibili.com/video/BV1sW411A7vP?from=search&amp;seid=18348750116887456275</a></p>
+<h2 id="二面计划"><a href="#二面计划" class="headerlink" title="二面计划"></a>二面计划</h2><p>节流，手撕防抖代码，如何处理性能问题（之前写错了）</p>
+<p>手写动画函数，css动画函数</p>
+<p>原生 JS、DOM </p>
+<ul>
+<li> 创建、添加、删除、查找元素的 API </li>
+<li> addEventListener 回调函数放在哪里？在第二个参数设置，但是不知道放在哪里…… </li>
+<li> 基本数据类型（七种） </li>
+<li> ES6 和 ES7 增加了哪些类型？（symbol） set、map 应该是数据结构范畴</li>
+</ul>
+<p>Vue</p>
+<ul>
+<li>store（vuex） 主要解决了什么问题</li>
+<li>vue cli webpack 做了什么处理？</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3433142faa68">https://www.jianshu.com/p/3433142faa68</a></p>
+<p>继承的几种方式及优缺点？</p>
+<blockquote>
+<p>说比较经典的几种继承方式并比较优缺点就可以了</p>
+</blockquote>
+<ol>
+<li>借用构造函数继承，使用call或apply方法，将父对象的构造函数绑定在子对象上</li>
+<li>原型继承，将子对象的prototype指向父对象的一个实例</li>
+<li>组合继承</li>
+</ol>
+<p>原型链继承的缺点</p>
+<ul>
+<li>字面量重写原型会中断关系，使用引用类型的原型，并且子类型还无法给超类型传递参数。</li>
+</ul>
+<p>借用构造函数（类式继承）</p>
+<ul>
+<li>借用构造函数虽然解决了刚才两种问题，但没有原型，则复用无从谈起。</li>
+</ul>
+<p>组合式继承</p>
+<ul>
+<li>组合式继承是比较常用的一种继承方法，其背后的思路是使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。这样，既通过在原型上定义方法实现了函数复用，又保证每个实例都有它自己的属性。</li>
+</ul>
+<p><em>jQuery怎么实现链式调用；</em></p>
+<p>必会面试题：</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/queenya/p/13572754.html">https://www.cnblogs.com/queenya/p/13572754.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/85030402">https://zhuanlan.zhihu.com/p/85030402</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/DFF1993/article/details/84551731/">https://blog.csdn.net/DFF1993/article/details/84551731/</a></p>
+
+    </div>
+
+    
+    
+    
+
+    
+      
+  <div class="popular-posts-header">相关文章</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\12\15\Vue深入学习\" rel="bookmark">Vue深入学习</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2021\03\01\Webapi\" rel="bookmark">Webapi</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2021\01\01\javascript中的深拷贝的方式总结\" rel="bookmark">javascript中的深拷贝的方式总结</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2021\02\02\关于javascript中的组合，寄生，寄生组合继承的理解\" rel="bookmark">关于javascript中的组合，寄生，寄生组合继承的理解</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="\2020\11\05\Vue基础学习\" rel="bookmark">Vue基础学习</a></div>
+    </li>
+  </ul>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/username">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+               <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"><i class="fa fa-tags"></i> 前端</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/02/java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" rel="prev" title="java单元测试_毕业实习">
+      <i class="fa fa-chevron-left"></i> java单元测试_毕业实习
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+ 
+	  <!--/网易云音乐-->
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%90%BA%E7%A8%8B%E4%B8%80%E9%9D%A2%E6%94%B6%E8%8E%B7"><span class="nav-number">1.</span> <span class="nav-text">携程一面收获</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%96%84%E5%BC%B1%E7%8E%AF%E8%8A%82"><span class="nav-number">1.1.</span> <span class="nav-text">薄弱环节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flex%E5%B8%83%E5%B1%80"><span class="nav-number">1.1.1.</span> <span class="nav-text">flex布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="nav-number">1.1.2.</span> <span class="nav-text">Vue 基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%83%E7%90%86%E7%B4%A0%E8%B4%A8"><span class="nav-number">1.1.3.</span> <span class="nav-text">心理素质</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%94%B9%E8%BF%9B"><span class="nav-number">1.2.</span> <span class="nav-text">如何改进</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flex"><span class="nav-number">1.2.1.</span> <span class="nav-text">flex</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vue-%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">Vue 基础知识</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E9%9D%A2%E8%AE%A1%E5%88%92"><span class="nav-number">1.3.</span> <span class="nav-text">二面计划</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="kevin"
+      src="/images/head.jpg">
+  <p class="site-author-name" itemprop="name">kevin</p>
+  <div class="site-description" itemprop="description">纵有疾风起，人生不言弃</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/kevin-deepbule" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;kevin-deepbule" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/2313809283@qq.com" title="E-Mail → 2313809283@qq.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/2313809283" title="QQ → 2313809283"><i class="fab fa-qq fa-fw"></i>QQ</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.google.com/2313809283@qq.com" title="Google → https:&#x2F;&#x2F;www.google.com&#x2F;2313809283@qq.com" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.bilibili.com/video/BV1aE411o7qd" title="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1aE411o7qd" rel="noopener" target="_blank">机器学习之白板推导</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.bilibili.com/video/BV1dJ411B7gh" title="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1dJ411B7gh" rel="noopener" target="_blank">浙大机器学习课程</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.bilibili.com/video/BV164411b7dx" title="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV164411b7dx" rel="noopener" target="_blank">吴恩达机器学习</a>
+        </li>
+    </ul>
+  </div>
+
+       
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+<!--网易云音乐-->
+        <div id="music163player" style="position:fixed; bottom: 200px;left: 20px  width:255px height:110px">
+            <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=255 height=300 src="//music.163.com/outchain/player?type=0&id=2857550594&auto=0">
+            </iframe>
+        </div>
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">kevin</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">91k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:22</span>
+</div><script color="0,0,255" opacity="0.5" zIndex="-1" count="99" src="https://cdn.jsdelivr.net/npm/canvas-nest.js@1/dist/canvas-nest.js"></script>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+      <script>
+        var i = document.body.clientWidth;
+        var music = document.getElementById('music163player')
+        if (i <= 1000){
+            music.style.display = "none";
+        }
+    </script>
+<!--网易云音乐-->
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://cn-yangkaiwen-tk-2.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://cn.yangkaiwen.tk/2021/03/10/flex%E5%B8%83%E5%B1%80/";
+    this.page.identifier = "2021/03/10/flex布局/";
+    this.page.title = "flex布局";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://cn-yangkaiwen-tk-2.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+  
+<canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+<script type="text/javascript" src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+<script type="text/javascript" src="/js/src/firework.js"></script>
+
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
