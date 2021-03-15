@@ -50,21 +50,23 @@
     var CONFIG = {"hostname":"cn.yangkaiwen.tk","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":300,"display":"hide","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"disqus","storage":true,"lazyload":false,"nav":null,"activeClass":"disqus"},"algolia":{"hits":{"per_page":5},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="编程基础练习题">
+  <meta name="description" content="在后台管理项目中Vue Router的使用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="编程基础">
-<meta property="og:url" content="https://cn.yangkaiwen.tk/2019/04/02/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/index.html">
+<meta property="og:title" content="Vue Router">
+<meta property="og:url" content="https://cn.yangkaiwen.tk/2021/03/15/Vue-Router/index.html">
 <meta property="og:site_name" content="kevinのBlog">
-<meta property="og:description" content="编程基础练习题">
+<meta property="og:description" content="在后台管理项目中Vue Router的使用">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-04-02T12:48:28.000Z">
-<meta property="article:modified_time" content="2021-03-01T16:26:06.446Z">
+<meta property="og:image" content="c:/Users/kevin/AppData/Roaming/Typora/typora-user-images/image-20210315100714478.png">
+<meta property="article:published_time" content="2021-03-15T01:54:00.000Z">
+<meta property="article:modified_time" content="2021-03-15T03:11:07.731Z">
 <meta property="article:author" content="kevin">
-<meta property="article:tag" content="C">
-<meta property="article:tag" content="编程基础">
+<meta property="article:tag" content="前端">
+<meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:/Users/kevin/AppData/Roaming/Typora/typora-user-images/image-20210315100714478.png">
 
-<link rel="canonical" href="https://cn.yangkaiwen.tk/2019/04/02/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">
+<link rel="canonical" href="https://cn.yangkaiwen.tk/2021/03/15/Vue-Router/">
 
 
 <script id="page-configurations">
@@ -77,7 +79,7 @@
   };
 </script>
 
-  <title>编程基础 | kevinのBlog</title>
+  <title>Vue Router | kevinのBlog</title>
   
 
 
@@ -221,7 +223,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://cn.yangkaiwen.tk/2019/04/02/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/">
+    <link itemprop="mainEntityOfPage" href="https://cn.yangkaiwen.tk/2021/03/15/Vue-Router/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/head.jpg">
@@ -234,7 +236,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          编程基础
+          Vue Router
         </h1>
 
         <div class="post-meta">
@@ -243,8 +245,9 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2019-04-02 20:48:28" itemprop="dateCreated datePublished" datetime="2019-04-02T20:48:28+08:00">2019-04-02</time>
+              <time title="创建时间：2021-03-15 09:54:00 / 修改时间：11:11:07" itemprop="dateCreated datePublished" datetime="2021-03-15T09:54:00+08:00">2021-03-15</time>
             </span>
 
   
@@ -254,7 +257,11 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" itemprop="url" rel="index"><span itemprop="name">编程基础</span></a>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/" itemprop="url" rel="index"><span itemprop="name">Vue</span></a>
                 </span>
             </span>
 
@@ -267,8 +274,8 @@
       </span>
       <span class="post-meta-item-text">Disqus：</span>
     
-    <a title="disqus" href="/2019/04/02/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/04/02/编程基础/" itemprop="commentCount"></span>
+    <a title="disqus" href="/2021/03/15/Vue-Router/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2021/03/15/Vue-Router/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -278,7 +285,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
+              <span>1.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -287,7 +294,7 @@
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
               <span>1 分钟</span>
             </span>
-            <div class="post-description">编程基础练习题</div>
+            <div class="post-description">在后台管理项目中Vue Router的使用</div>
 
         </div>
       </header>
@@ -298,34 +305,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="编程基础练习题"><a href="#编程基础练习题" class="headerlink" title="编程基础练习题"></a>编程基础练习题</h2><a id="more"></a>
-<h2 id="题目描述："><a href="#题目描述：" class="headerlink" title="题目描述："></a>题目描述：</h2><p>任何一个正整数都可以用2的幂次方表示。例如：</p>
-<pre><code>137=27+23+20
-</code></pre>
-<p>同时约定方次用括号来表示，即ab可表示为a(b)。由此可知，137可表示为：</p>
-<pre><code>2(7)+2(3)+2(0)
-</code></pre>
-<p>进一步：7=22+2+20（21用2表示）</p>
-<pre><code>    3=2+20
-</code></pre>
-<p>所以最后137可表示为：</p>
-<pre><code>2(2(2)+2+2(0))+2(2+2(0))+2(0)
-</code></pre>
-<p>又如：</p>
-<pre><code>1315=210+28+25+2+1
-</code></pre>
-<p>所以1315最后可表示为：</p>
-<pre><code>2(2(2+2(0))+2)+2(2(2+2(0)))+2(2(2)+2(0))+2+2(0)
-</code></pre>
-<p>输入</p>
-<p>一个正整数n（n≤20000）。</p>
-<p>输出</p>
-<p>一行，符合约定的n的0，2表示（在表示中不能有空格）。</p>
-<p>样例输入</p>
-<p>137<br>样例输出</p>
-<p>2(2(2)+2+2(0))+2(2+2(0))+2(0)<br>————————————————————————————</p>
-<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">translate</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(n==<span class="number">1</span>)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2(0)&quot;</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)&#123;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2&quot;</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">int</span> p=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(p&lt;=n)&#123; <span class="comment">//只能大于函数参数n</span></span><br><span class="line">			p&lt;&lt;=<span class="number">1</span>; <span class="comment">//p左移，左移一次代表乘2</span></span><br><span class="line">			cnt++; </span><br><span class="line">		&#125;</span><br><span class="line">		cnt--; </span><br><span class="line">		<span class="keyword">if</span>(n==p/<span class="number">2</span>)&#123; <span class="comment">//如果只有一个1 那么好办，只输出2（）即可；关键在cnt</span></span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2(&quot;</span>;</span><br><span class="line">			translate(cnt);<span class="comment">//移动几次为几次方；括号中的为指数，而不是倍数</span></span><br><span class="line">			<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;)&quot;</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(p/<span class="number">2</span>==<span class="number">2</span>)&#123; <span class="comment">////</span></span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2+&quot;</span>;</span><br><span class="line">				translate(n-p/<span class="number">2</span>); <span class="comment">//3-2</span></span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;2(&quot;</span>;</span><br><span class="line">				translate(cnt);</span><br><span class="line">				<span class="built_in">cout</span>&lt;&lt;<span class="string">&quot;)+&quot;</span>;</span><br><span class="line">				translate(n-p/<span class="number">2</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">oj_2_2</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">cin</span>&gt;&gt;n;</span><br><span class="line">	translate(n);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	oj_2_2();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="收获"><a href="#收获" class="headerlink" title="收获"></a>收获</h2><p>n是3时，一种特殊情况，p为4；m要是大于3，则变化的都有2（）+。。。，只有n = 3时，表达式开头为2，可以将n = 3 作为特殊情况，而输出唯一的一个字符串吗？可以，因为n == 3是一个特殊情////况，这是一个大坑，这道题的核心思想在于对m的情况分类；难点在于m==3和m的次方确定，和n-p/2为n去掉最高位的数；那么什么是递归呢？对当前情况进行处理，有终止条件，则无后续，否则，translate(n-p/2);给他下一个数；让他处理。<br>左移的位数为2的次方数；可以得到下一个处理的数；<br>1010101100，求一个数的递归的每次去掉最高位的1，n-p/2<br>while(p&gt;n){<br>    p&lt;&lt;=1;<br>    cnt++；<br>}</p>
+        <h1 id="在后台管理项目中Vue-Router的使用"><a href="#在后台管理项目中Vue-Router的使用" class="headerlink" title="在后台管理项目中Vue Router的使用"></a>在后台管理项目中Vue Router的使用</h1><a id="more"></a>
+
+<h5 id="嵌套路由"><a href="#嵌套路由" class="headerlink" title="嵌套路由"></a>嵌套路由</h5><ul>
+<li><p>在主页组件home中嵌套了子组件;</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-main</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">router-view</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-main</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>路由router.js中加入组件；</p>
+</li>
+</ul>
+<p><img src="C:\Users\kevin\AppData\Roaming\Typora\typora-user-images\image-20210315100714478.png" alt="image-20210315100714478"></p>
+<h5 id="生命周期函数created"><a href="#生命周期函数created" class="headerlink" title="生命周期函数created"></a>生命周期函数created</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">created () &#123;</span><br><span class="line">  <span class="built_in">this</span>.getMenulist()<span class="comment">//得到左侧菜单数据</span></span><br><span class="line">  <span class="built_in">this</span>.activePath = <span class="built_in">window</span>.sessionStorage.getItem(<span class="string">&#x27;activePath&#x27;</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>实例已经创建完成之后被调用。在这一步，实例已完成以下的配置：数据观测(data observer)，属性和方法的运算， watch/event 事件回调。然而，挂载阶段还没开始，$el 属性目前不可见。</p>
+<p>mounted</p>
+<blockquote>
+<p>为第四个生命周期函数，表示，内存中的模板，已经真实的挂载到了页面中，用户已经可以看到渲染好的页面了，经常使用在兄弟组件监听另一个兄弟组件发送个Bus的方法。</p>
+</blockquote>
+<h5 id="编程式导航"><a href="#编程式导航" class="headerlink" title="编程式导航"></a>编程式导航</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.$router.push(&#123;name:&#39;home&#39;,params:&#123;id:&#39;123&#39;,title: &#39;title2&#39;&#125;&#125;) </span><br></pre></td></tr></table></figure>
+<p>在添加商品按钮方法里：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">goAddpage: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.$router.push(<span class="string">&#x27;/goods/add&#x27;</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h5 id="路由重定向"><a href="#路由重定向" class="headerlink" title="路由重定向"></a>路由重定向</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">path: <span class="string">&#x27;/home&#x27;</span>,</span><br><span class="line"></span><br><span class="line">  component: Home,</span><br><span class="line"></span><br><span class="line">  redirect: <span class="string">&#x27;/welcome&#x27;</span></span><br></pre></td></tr></table></figure>
+<h5 id="HTML5-History-模式"><a href="#HTML5-History-模式" class="headerlink" title="HTML5 History 模式"></a>HTML5 History 模式</h5><p><code>vue-router</code> 默认 hash 模式 —— 使用 URL 的 hash 来模拟一个完整的 URL，于是当 URL 改变时，页面不会重新加载。</p>
+<h5 id="路由导航守卫"><a href="#路由导航守卫" class="headerlink" title="路由导航守卫"></a>路由导航守卫</h5><p>全局前置守卫</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (to.path === <span class="string">&#x27;/login&#x27;</span>) &#123; <span class="keyword">return</span> next() &#125; <span class="comment">// 没有判断将不会跳转</span></span><br><span class="line">  <span class="keyword">if</span> (to.path === <span class="string">&#x27;/home&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.sessionStorage.getItem(<span class="string">&#x27;token&#x27;</span>)) &#123; <span class="keyword">return</span> next() &#125; <span class="keyword">else</span> &#123; <span class="keyword">return</span> next(<span class="string">&#x27;/login&#x27;</span>) &#125;</span><br><span class="line">  &#125;&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="把组件按组分块"><a href="#把组件按组分块" class="headerlink" title="把组件按组分块"></a>把组件按组分块</h5><p>例如，我把商品列表，商品参数，商品类别，添加商品全部放置分组good中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Categories = <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: &#x27;good&#x27; */</span> <span class="string">&#x27;../components/good/Categories.vue&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> Params = <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: &#x27;good&#x27; */</span> <span class="string">&#x27;../components/good/Params.vue&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> Goods = <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: &#x27;good&#x27; */</span> <span class="string">&#x27;../components/good/List.vue&#x27;</span>)</span><br><span class="line"><span class="keyword">const</span> AddGoods = <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="comment">/* webpackChunkName: &#x27;good&#x27; */</span> <span class="string">&#x27;../components/good/AddGoods.vue&#x27;</span>)</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -338,19 +341,19 @@
   <div class="popular-posts-header">相关文章</div>
   <ul class="popular-posts">
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\03\12\NFA的确定化（子集法）\" rel="bookmark">NFA的确定化</a></div>
+      <div class="popular-posts-title"><a href="\2020\12\15\Vue深入学习\" rel="bookmark">Vue深入学习</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\01\02\N皇后问题\" rel="bookmark">N皇后问题</a></div>
+      <div class="popular-posts-title"><a href="\2021\03\14\Vue第一个项目总结\" rel="bookmark">Vue第一个项目总结</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\02\05\字符串的冒泡排序\" rel="bookmark">字符串的冒泡排序</a></div>
+      <div class="popular-posts-title"><a href="\2020\11\05\Vue基础学习\" rel="bookmark">Vue基础学习</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2020\02\02\说反话-加强版\" rel="bookmark">说反话-加强版</a></div>
+      <div class="popular-posts-title"><a href="\2021\03\01\Webapi\" rel="bookmark">Webapi</a></div>
     </li>
     <li class="popular-posts-item">
-      <div class="popular-posts-title"><a href="\2019\02\02\C-student-info-manage\" rel="bookmark">基于C语言的学生成绩管理系统</a></div>
+      <div class="popular-posts-title"><a href="\2021\03\10\flex布局-1\" rel="bookmark">flex布局</a></div>
     </li>
   </ul>
 
@@ -376,8 +379,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-               <a href="/tags/C/" rel="tag"><i class="fa fa-tags"></i> C</a>
-               <a href="/tags/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/" rel="tag"><i class="fa fa-tags"></i> 编程基础</a>
+               <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"><i class="fa fa-tags"></i> 前端</a>
+               <a href="/tags/Vue/" rel="tag"><i class="fa fa-tags"></i> Vue</a>
           </div>
 
         
@@ -386,13 +389,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/02/02/C-student-info-manage/" rel="prev" title="基于C语言的学生成绩管理系统">
-      <i class="fa fa-chevron-left"></i> 基于C语言的学生成绩管理系统
+    <a href="/2021/03/14/Vue%E7%AC%AC%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93/" rel="prev" title="Vue第一个项目总结">
+      <i class="fa fa-chevron-left"></i> Vue第一个项目总结
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/01/02/N%E7%9A%87%E5%90%8E%E9%97%AE%E9%A2%98/" rel="next" title="N皇后问题">
-      N皇后问题 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -460,7 +460,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%BB%83%E4%B9%A0%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">编程基础练习题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%98%E7%9B%AE%E6%8F%8F%E8%BF%B0%EF%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">题目描述：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B6%E8%8E%B7"><span class="nav-number">4.</span> <span class="nav-text">收获</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E9%A1%B9%E7%9B%AE%E4%B8%ADVue-Router%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">在后台管理项目中Vue Router的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E8%B7%AF%E7%94%B1"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">嵌套路由</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%87%BD%E6%95%B0created"><span class="nav-number">1.0.0.0.2.</span> <span class="nav-text">生命周期函数created</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%BC%96%E7%A8%8B%E5%BC%8F%E5%AF%BC%E8%88%AA"><span class="nav-number">1.0.0.0.3.</span> <span class="nav-text">编程式导航</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E9%87%8D%E5%AE%9A%E5%90%91"><span class="nav-number">1.0.0.0.4.</span> <span class="nav-text">路由重定向</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HTML5-History-%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.0.0.0.5.</span> <span class="nav-text">HTML5 History 模式</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB"><span class="nav-number">1.0.0.0.6.</span> <span class="nav-text">路由导航守卫</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8A%8A%E7%BB%84%E4%BB%B6%E6%8C%89%E7%BB%84%E5%88%86%E5%9D%97"><span class="nav-number">1.0.0.0.7.</span> <span class="nav-text">把组件按组分块</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -649,9 +649,9 @@
 </script>
 <script>
   var disqus_config = function() {
-    this.page.url = "https://cn.yangkaiwen.tk/2019/04/02/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/";
-    this.page.identifier = "2019/04/02/编程基础/";
-    this.page.title = "编程基础";
+    this.page.url = "https://cn.yangkaiwen.tk/2021/03/15/Vue-Router/";
+    this.page.identifier = "2021/03/15/Vue-Router/";
+    this.page.title = "Vue Router";
     };
   NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
     if (window.DISQUS) {
